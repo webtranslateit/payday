@@ -2,6 +2,7 @@
 
 ## 1.1.7 (2021-12-22)
 
+* Remove `.ruby-version` file locking ruby at 2.1.5.
 * Add CI.
 * Ruby 2.6, 2.7 and 3.0 compatibility.
 * Specify dependencies to `activesupport` and `rexml` in gemspec.
