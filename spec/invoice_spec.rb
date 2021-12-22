@@ -41,22 +41,22 @@ module Payday
     end
 
     it "should calculate the correct tax rounded to two decimal places" do
-      i = Invoice.new(tax_rate: 0.1)
+      i = Invoice.new(tax_rate: 10.0)
       i.line_items << LineItem.new(price: 20, quantity: 5, description: "Pants")
 
       expect(i.tax).to eq(BigDecimal("10"))
     end
 
     it "shouldn't apply taxes to invoices with subtotal <= 0" do
-      i = Invoice.new(tax_rate: 0.1)
+      i = Invoice.new(tax_rate: 10.0)
       i.line_items << LineItem.new(price: -1, quantity: 100,
         description: "Negative Priced Pants")
 
-      expect(i.tax).to eq(BigDecimal("0"))
+      expect(i.tax).to eq(BigDecimal("-10"))
     end
 
     it "should calculate the total for an invoice correctly" do
-      i = Invoice.new(tax_rate: 0.1)
+      i = Invoice.new(tax_rate: 10.0)
 
       # $100 in Pants
       i.line_items << LineItem.new(price: 20, quantity: 5, description: "Pants")

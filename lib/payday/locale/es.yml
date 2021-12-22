@@ -1,22 +1,22 @@
 es:
-  payday: 
-    status: 
-      overdue: RETRASADO
+  payday:
+    status:
       paid: PAGADO
+      overdue: ATRASADO
       refunded: REINTEGRADO
-    invoice: 
-      bill_to: Facturar a
-      invoice_no: "Recibo #:"
+    invoice:
+      bill_to: "Facturar a"
+      ship_to: "Enviar a"
+      invoice_no: "Número de Factura Proforma:"
+      receipt_no: "Número de Factura:"
       due_date: "Vencimiento:"
-      ship_to: Enviar a
       paid_date: "Pagado en:"
       subtotal: "Subtotal:"
       shipping: "Envío:"
       tax: "Impuesto:"
       total: "Total:"
-      notes: "Notas"
-    line_item: 
+    line_item:
       description: Descripción
-      unit_price: Precio por Unidad
+      unit_price: "Precio por Unidad"
       quantity: Cantidad
-      amount: Cantidad
+      amount: Precio

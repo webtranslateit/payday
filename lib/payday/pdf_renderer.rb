@@ -122,20 +122,13 @@ module Payday
 
       # invoice number
       if defined?(invoice.invoice_number) && invoice.invoice_number
-        table_data << [bold_cell(pdf, I18n.t("payday.invoice.invoice_no", default: "Invoice #:")),
-                       bold_cell(pdf, invoice.invoice_number.to_s, align: :right)]
-      end
-
-      # invoice date
-      if defined?(invoice.invoice_date) && invoice.invoice_date
-        if invoice.invoice_date.is_a?(Date) || invoice.invoice_date.is_a?(Time)
-          invoice_date = invoice.invoice_date.strftime(Payday::Config.default.date_format)
+        if invoice.paid?
+          table_data << [bold_cell(pdf, I18n.t("payday.invoice.receipt_no", default: "Receipt #:")),
+                         bold_cell(pdf, invoice.invoice_number.to_s, align: :right)]
         else
-          invoice_date = invoice.invoice_date.to_s
+          table_data << [bold_cell(pdf, I18n.t("payday.invoice.invoice_no", default: "Invoice #:")),
+                         bold_cell(pdf, invoice.invoice_number.to_s, align: :right)]
         end
-
-        table_data << [bold_cell(pdf, I18n.t("payday.invoice.invoice_date", default: "Invoice Date:")),
-                       bold_cell(pdf, invoice_date, align: :right)]
       end
 
       # Due on
@@ -152,7 +145,7 @@ module Payday
 
       # Paid on
       if defined?(invoice.paid_at) && invoice.paid_at
-        if invoice.paid_at.is_a?(Date) || invoice.paid_at.is_a?(Time)
+        if invoice.paid_at.is_a?(Date) || invoice.due_at.is_a?(Time)
           paid_date = invoice.paid_at.strftime(Payday::Config.default.date_format)
         else
           paid_date = invoice.paid_at.to_s
@@ -160,18 +153,6 @@ module Payday
 
         table_data << [bold_cell(pdf, I18n.t("payday.invoice.paid_date", default: "Paid Date:")),
                        bold_cell(pdf, paid_date, align: :right)]
-      end
-
-      # Refunded on
-      if defined?(invoice.refunded_at) && invoice.refunded_at
-        if invoice.refunded_at.is_a?(Date) || invoice.refunded_at.is_a?(Time)
-          refunded_date = invoice.refunded_at.strftime(Payday::Config.default.date_format)
-        else
-          refunded_date = invoice.refunded_at.to_s
-        end
-
-        table_data << [bold_cell(pdf, I18n.t("payday.invoice.refunded_date", default: "Refunded Date:")),
-                       bold_cell(pdf, refunded_date, align: :right)]
       end
 
       # loop through invoice_details and include them
@@ -222,18 +203,17 @@ module Payday
         cell(pdf, number_to_currency(invoice.subtotal, invoice), align: :right)
       ]
 
-      if invoice.tax_rate > 0
-        if invoice.tax_description.nil?
-          tax_description = I18n.t("payday.invoice.tax", default: "Tax:")
-        else
-          tax_description = invoice.tax_description
-        end
-
-        table_data << [
-          bold_cell(pdf, tax_description),
-          cell(pdf, number_to_currency(invoice.tax, invoice), align: :right)
-        ]
+      if invoice.tax_description.nil?
+        tax_description = I18n.t("payday.invoice.tax", default: "Tax:")
+      else
+        tax_description = invoice.tax_description
       end
+
+      table_data << [
+        bold_cell(pdf, tax_description),
+        cell(pdf, number_to_currency(invoice.tax, invoice), align: :right)
+      ]
+
       if invoice.shipping_rate > 0
         if invoice.shipping_description.nil?
           shipping_description =

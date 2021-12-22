@@ -5,9 +5,10 @@ en:
       overdue: OVERDUE
       refunded: REFUNDED
     invoice:
-      bill_to: Bill To
-      ship_to: Ship To
-      invoice_no: "Invoice #:"
+      bill_to: "Bill To"
+      ship_to: "Ship To"
+      invoice_no: "Invoice number:"
+      receipt_no: "Receipt number:"
       due_date: "Due Date:"
       paid_date: "Paid Date:"
       subtotal: "Subtotal:"
@@ -16,6 +17,6 @@ en:
       total: "Total:"
     line_item:
       description: Description
-      unit_price: Unit Price
+      unit_price: "Unit Price"
       quantity: Quantity
       amount: Amount
