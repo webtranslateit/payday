@@ -5,6 +5,7 @@ require "bigdecimal"
 require "prawn"
 require "prawn-svg"
 require "money"
+require 'active_support/all'
 
 require_relative "payday/version"
 require_relative "payday/config"

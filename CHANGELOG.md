@@ -1,5 +1,16 @@
 # CHANGELOG
 
+## 1.1.7 (2021-12-22)
+
+* Add CI.
+* Ruby 2.6, 2.7 and 3.0 compatibility.
+* Specify dependencies to `activesupport` and `rexml` in gemspec.
+* Fix deprecation warnings with newer versions of the Money gem.
+
+## 1.1.6 (2021-11-29)
+
+* Ruby 2.6 Compatibility.
+
 ## 1.1.4 (2015-05-29)
 
 * Bumped money gem to 6.5 (was 6.1.1)
