@@ -17,6 +17,7 @@ Gem::Specification.new do |s|
   EOF
 
   s.add_dependency 'activesupport'
+  s.add_dependency 'rexml'
   s.add_dependency("prawn", "~> 1.0.0")
   s.add_dependency("money", "~> 6.5")
   s.add_dependency("prawn-svg", "~> 0.15.0.0")
