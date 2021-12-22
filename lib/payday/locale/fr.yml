@@ -2,20 +2,21 @@ fr:
   payday:
     status:
       paid: PAYÉ
-      overdue: EN RETARD
+      overdue: "EN RETARD"
+      refunded: "REMBOURSÉ"
     invoice:
-      bill_to: Facturé à
-      ship_to: Livré à
-      invoice_no: "Facture #:"
-      due_date: "Paiment dû le:"
-      paid_date: "Payé le:"
-      subtotal: "Sous-total:"
-      shipping: "Livraison:"
-      tax: "Taxe:"
-      total: "Total:"
-      notes: "Notes"
+      bill_to: "Adresse de facturation"
+      ship_to: "Adresse de livraison"
+      invoice_no: "Numéro de facture proforma :"
+      receipt_no: "Numéro de facture :"
+      due_date: "Date limite de paiement :"
+      paid_date: "Date de paiement :"
+      subtotal: "Sous-total :"
+      shipping: "Livraison :"
+      tax: "Taxes :"
+      total: "Total :"
     line_item:
       description: Description
-      unit_price: Prix unitaire
+      unit_price: "Prix Unitaire"
       quantity: Quantité
-      amount: Montant
+      amount: Prix

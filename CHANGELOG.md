@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## 1.2.0 (2021-12-22)
+
+This brings changes made for WebTranslateIt.com’s billing system:
+
+* Tax rate is a full percent number (for instance `21.0` for a 21% tax rate, `10.0` for a 10% tax rate). This is a breaking change compared to the previous `0.21` for 21% tax rate and `0.1` for 10% tax rate, but it is more convenient to use.
+* Invoices were updated to call the document `Invoice` if the document was not paid or `Receipt` if the document was paid.
+
 ## 1.1.7 (2021-12-22)
 
 * Remove `.ruby-version` file locking ruby at 2.1.5.
