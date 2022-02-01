@@ -6,9 +6,9 @@ Gem::Specification.new do |s|
   s.name        = "payday"
   s.version     = Payday::VERSION
   s.platform    = Gem::Platform::RUBY
-  s.authors     = ["Alan Johnson"]
-  s.email       = ["alan@commondream.net"]
-  s.homepage    = "https://github.com/commondream/payday"
+  s.authors     = ["Alan Johnson", "Edouard Briere"]
+  s.email       = ["edouard@webtranslateit.com"]
+  s.homepage    = "https://github.com/webtranslateit/payday"
   s.summary     = "A simple library for rendering invoices."
   s.description = <<-EOF
     Payday is a library for rendering invoices. At present it supports rendering
