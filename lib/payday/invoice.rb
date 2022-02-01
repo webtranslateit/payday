@@ -35,5 +35,10 @@ module Payday
       value = 0 if value.to_s.blank?
       @shipping_rate = BigDecimal(value.to_s)
     end
+
+    # Adds a line item
+    def add_line_item(options = {})
+      self.line_items << Payday::LineItem.new(options)
+    end
   end
 end
