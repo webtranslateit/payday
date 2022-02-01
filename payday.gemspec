@@ -23,6 +23,8 @@ Gem::Specification.new do |s|
   s.add_dependency("prawn-svg", "~> 0.15.0.0")
   s.add_dependency("i18n", "~> 0.7")
 
+  s.add_development_dependency('guard')
+  s.add_development_dependency('guard-rspec')
   s.add_development_dependency("rspec", "~> 3.1.0")
 
   s.files = `git ls-files`.split("\n")
