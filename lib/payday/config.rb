@@ -11,7 +11,7 @@ module Payday
 
     # Returns the default configuration instance
     def self.default
-      @@default ||= new
+      @default ||= new
     end
 
     # Internal: Resets a config object back to its default settings.
