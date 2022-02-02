@@ -36,23 +36,23 @@ module Payday
     def self.stamp(invoice, pdf)
       stamp = nil
       if invoice.refunded?
-        stamp = I18n.t "payday.status.refunded", default: "REFUNDED"
+        stamp = I18n.t 'payday.status.refunded', default: 'REFUNDED'
       elsif invoice.paid?
-        stamp = I18n.t "payday.status.paid", default: "PAID"
+        stamp = I18n.t 'payday.status.paid', default: 'PAID'
       elsif invoice.overdue?
-        stamp = I18n.t "payday.status.overdue", default: "OVERDUE"
+        stamp = I18n.t 'payday.status.overdue', default: 'OVERDUE'
       end
 
       if stamp
         pdf.bounding_box([150, pdf.cursor - 50], width: pdf.bounds.width - 300) do
-          pdf.font("Helvetica-Bold") do
-            pdf.fill_color "cc0000"
+          pdf.font('Helvetica-Bold') do
+            pdf.fill_color 'cc0000'
             pdf.text stamp, align: :center, size: 25, rotate: 15
           end
         end
       end
 
-      pdf.fill_color "000000"
+      pdf.fill_color '000000'
     end
 
     def self.company_banner(invoice, pdf)
@@ -65,10 +65,10 @@ module Payday
       if image.is_a?(Hash)
         data = image
         image = data[:filename]
-        width, height = data[:size].split("x").map(&:to_f)
+        width, height = data[:size].split('x').map(&:to_f)
       end
 
-      if File.extname(image) == ".svg"
+      if File.extname(image) == '.svg'
         logo_info = pdf.svg(File.read(image), at: pdf.bounds.top_left, width: width, height: height)
         logo_height = logo_info[:height]
       else
@@ -96,14 +96,14 @@ module Payday
 
       # render bill to
       pdf.float do
-        table = pdf.table([[bold_cell(pdf, I18n.t("payday.invoice.bill_to", default: "Bill To"))],
+        table = pdf.table([[bold_cell(pdf, I18n.t('payday.invoice.bill_to', default: 'Bill To'))],
                            [invoice.bill_to]], column_widths: [200], cell_style: bill_to_cell_style)
         bill_to_ship_to_bottom = pdf.cursor
       end
 
       # render ship to
       if defined?(invoice.ship_to) && !invoice.ship_to.nil?
-        table = pdf.make_table([[bold_cell(pdf, I18n.t("payday.invoice.ship_to", default: "Ship To"))],
+        table = pdf.make_table([[bold_cell(pdf, I18n.t('payday.invoice.ship_to', default: 'Ship To'))],
                                 [invoice.ship_to]], column_widths: [200], cell_style: bill_to_cell_style)
 
         pdf.bounding_box([pdf.bounds.width - table.width, pdf.cursor], width: table.width, height: table.height + 2) do
@@ -123,10 +123,10 @@ module Payday
       # invoice number
       if defined?(invoice.invoice_number) && invoice.invoice_number
         if invoice.paid?
-          table_data << [bold_cell(pdf, I18n.t("payday.invoice.receipt_no", default: "Receipt #:")),
+          table_data << [bold_cell(pdf, I18n.t('payday.invoice.receipt_no', default: 'Receipt #:')),
                          bold_cell(pdf, invoice.invoice_number.to_s, align: :right)]
         else
-          table_data << [bold_cell(pdf, I18n.t("payday.invoice.invoice_no", default: "Invoice #:")),
+          table_data << [bold_cell(pdf, I18n.t('payday.invoice.invoice_no', default: 'Invoice #:')),
                          bold_cell(pdf, invoice.invoice_number.to_s, align: :right)]
         end
       end
@@ -139,7 +139,7 @@ module Payday
           due_date = invoice.due_at.to_s
         end
 
-        table_data << [bold_cell(pdf, I18n.t("payday.invoice.due_date", default: "Due Date:")),
+        table_data << [bold_cell(pdf, I18n.t('payday.invoice.due_date', default: 'Due Date:')),
                        bold_cell(pdf, due_date, align: :right)]
       end
 
@@ -151,7 +151,7 @@ module Payday
           paid_date = invoice.paid_at.to_s
         end
 
-        table_data << [bold_cell(pdf, I18n.t("payday.invoice.paid_date", default: "Paid Date:")),
+        table_data << [bold_cell(pdf, I18n.t('payday.invoice.paid_date', default: 'Paid Date:')),
                        bold_cell(pdf, paid_date, align: :right)]
       end
 
@@ -168,20 +168,20 @@ module Payday
 
     def self.line_items_table(invoice, pdf)
       table_data = []
-      table_data << [bold_cell(pdf, I18n.t("payday.line_item.description", default: "Description"), borders: []),
-                     bold_cell(pdf, I18n.t("payday.line_item.unit_price", default: "Unit Price"), align: :center, borders: []),
-                     bold_cell(pdf, I18n.t("payday.line_item.quantity", default: "Quantity"), align: :center, borders: []),
-                     bold_cell(pdf, I18n.t("payday.line_item.amount", default: "Amount"), align: :center, borders: [])]
+      table_data << [bold_cell(pdf, I18n.t('payday.line_item.description', default: 'Description'), borders: []),
+                     bold_cell(pdf, I18n.t('payday.line_item.unit_price', default: 'Unit Price'), align: :center, borders: []),
+                     bold_cell(pdf, I18n.t('payday.line_item.quantity', default: 'Quantity'), align: :center, borders: []),
+                     bold_cell(pdf, I18n.t('payday.line_item.amount', default: 'Amount'), align: :center, borders: [])]
       invoice.line_items.each do |line|
         table_data << [line.description,
                        (line.display_price || number_to_currency(line.price, invoice)),
-                       (line.display_quantity || BigDecimal(line.quantity.to_s).to_s("F")),
+                       (line.display_quantity || BigDecimal(line.quantity.to_s).to_s('F')),
                        number_to_currency(line.amount, invoice)]
       end
 
       pdf.move_cursor_to(pdf.cursor - 20)
       pdf.table(table_data, width: pdf.bounds.width, header: true,
-                cell_style: { border_width: 0.5, border_color: "cccccc",
+                cell_style: { border_width: 0.5, border_color: 'cccccc',
                               padding: [5, 10] },
                 row_colors: %w(dfdfdf ffffff)) do
 
@@ -199,12 +199,12 @@ module Payday
     def self.totals_lines(invoice, pdf)
       table_data = []
       table_data << [
-        bold_cell(pdf, I18n.t("payday.invoice.subtotal", default: "Subtotal:")),
+        bold_cell(pdf, I18n.t('payday.invoice.subtotal', default: 'Subtotal:')),
         cell(pdf, number_to_currency(invoice.subtotal, invoice), align: :right)
       ]
 
       if invoice.tax_description.nil?
-        tax_description = I18n.t("payday.invoice.tax", default: "Tax:")
+        tax_description = I18n.t('payday.invoice.tax', default: 'Tax:')
       else
         tax_description = invoice.tax_description
       end
@@ -217,7 +217,7 @@ module Payday
       if invoice.shipping_rate > 0
         if invoice.shipping_description.nil?
           shipping_description =
-            I18n.t("payday.invoice.shipping", default: "Shipping:")
+            I18n.t('payday.invoice.shipping', default: 'Shipping:')
         else
           shipping_description = invoice.shipping_description
         end
@@ -229,7 +229,7 @@ module Payday
         ]
       end
       table_data << [
-        bold_cell(pdf, I18n.t("payday.invoice.total", default: "Total:"),
+        bold_cell(pdf, I18n.t('payday.invoice.total', default: 'Total:'),
                   size: 12),
         cell(pdf, number_to_currency(invoice.total, invoice),
              size: 12, align: :right)
@@ -245,11 +245,11 @@ module Payday
     def self.notes(invoice, pdf)
       if defined?(invoice.notes) && invoice.notes
         pdf.move_cursor_to(pdf.cursor - 30)
-        pdf.font("Helvetica-Bold") do
-          pdf.text(I18n.t("payday.invoice.notes", default: "Notes"))
+        pdf.font('Helvetica-Bold') do
+          pdf.text(I18n.t('payday.invoice.notes', default: 'Notes'))
         end
         pdf.line_width = 0.5
-        pdf.stroke_color = "cccccc"
+        pdf.stroke_color = 'cccccc'
         pdf.stroke_line([0, pdf.cursor - 3, pdf.bounds.width, pdf.cursor - 3])
         pdf.move_cursor_to(pdf.cursor - 10)
         pdf.text(invoice.notes.to_s)
@@ -258,7 +258,7 @@ module Payday
 
     def self.page_numbers(pdf)
       if pdf.page_count > 1
-        pdf.number_pages("<page> / <total>", at: [pdf.bounds.right - 18, -15])
+        pdf.number_pages('<page> / <total>', at: [pdf.bounds.right - 18, -15])
       end
     end
 
