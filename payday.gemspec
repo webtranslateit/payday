@@ -5,6 +5,7 @@ require "payday/version"
 Gem::Specification.new do |s|
   s.name        = "payday"
   s.version     = Payday::VERSION
+  s.required_ruby_version = '>= 2.5'
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Alan Johnson", "Edouard Briere"]
   s.email       = ["edouard@webtranslateit.com"]
