@@ -7,3 +7,5 @@ AllCops:
 inherit_mode:
   merge:
     - Exclude
+
+require: rubocop-rspec
