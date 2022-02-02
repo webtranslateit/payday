@@ -51,11 +51,6 @@ Style/ClassAndModuleChildren:
     - 'lib/payday/invoiceable.rb'
     - 'lib/payday/line_itemable.rb'
 
-# Offense count: 1
-Style/ClassVars:
-  Exclude:
-    - 'lib/payday/config.rb'
-
 # Offense count: 5
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SingleLineConditionsOnly, IncludeTernaryExpressions.
