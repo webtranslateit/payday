@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.2.4 (2022-02-02)
+
+* Lint code with Rubocop.
+
 ## 1.2.3 (2022-02-02)
 
 * Fix deprecation warning.
