@@ -18,7 +18,8 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'activesupport'
   s.add_dependency 'rexml'
-  s.add_dependency("prawn", "~> 1.0.0")
+  s.add_dependency("prawn", ">= 1.0", "< 2.5")
+  s.add_dependency("prawn-table", ">= 0.2.2")
   s.add_dependency("money", "~> 6.5")
   s.add_dependency("prawn-svg", "~> 0.15.0.0")
   s.add_dependency("i18n", ">= 0.7", "< 2.0")
