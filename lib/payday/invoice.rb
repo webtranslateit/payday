@@ -46,7 +46,7 @@ module Payday
 
     # Adds a line item
     def add_line_item(options = {})
-      self.line_items << Payday::LineItem.new(options)
+      line_items << Payday::LineItem.new(options)
     end
   end
 end
