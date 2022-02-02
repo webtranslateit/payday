@@ -184,7 +184,6 @@ module Payday
                 cell_style: { border_width: 0.5, border_color: 'cccccc',
                               padding: [5, 10] },
                 row_colors: %w(dfdfdf ffffff)) do
-
         # left align the number columns
         columns(1..3).rows(1..row_length - 1).style(align: :right)
 
@@ -237,7 +236,6 @@ module Payday
       table = pdf.make_table(table_data, cell_style: { borders: [] })
       pdf.bounding_box([pdf.bounds.width - table.width, pdf.cursor],
                        width: table.width, height: table.height + 2) do
-
         table.draw
       end
     end
