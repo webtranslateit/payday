@@ -2,7 +2,6 @@ require 'spec_helper'
 
 module Payday
   describe Invoice do
-
     it 'should be able to be initalized with a hash of options' do
       i = Invoice.new(invoice_number: 20, bill_to: 'Here', ship_to: 'There',
                       notes: 'These are some notes.',
