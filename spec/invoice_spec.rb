@@ -106,15 +106,15 @@ module Payday # rubocop:todo Metrics/ModuleLength
     end
 
     it 'should be able to iterate over details' do
-      i = Invoice.new(invoice_details: [%w(Test Yes), %w(Awesome Absolutely)])
+      i = Invoice.new(invoice_details: [%w[Test Yes], %w[Awesome Absolutely]])
       details = []
       i.each_detail do |key, value|
         details << [key, value]
       end
 
       expect(details.length).to eq(2)
-      expect(details).to include(%w(Test Yes))
-      expect(details).to include(%w(Awesome Absolutely))
+      expect(details).to include(%w[Test Yes])
+      expect(details).to include(%w[Awesome Absolutely])
     end
 
     it 'should be able to iterate through invoice_details as a hash' do
@@ -126,8 +126,8 @@ module Payday # rubocop:todo Metrics/ModuleLength
       end
 
       expect(details.length).to eq(2)
-      expect(details).to include(%w(Test Yes))
-      expect(details).to include(%w(Awesome Absolutely))
+      expect(details).to include(%w[Test Yes])
+      expect(details).to include(%w[Awesome Absolutely])
     end
 
     describe 'rendering' do # rubocop:todo Metrics/BlockLength
