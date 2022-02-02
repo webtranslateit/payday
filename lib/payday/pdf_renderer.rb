@@ -181,9 +181,9 @@ module Payday
 
       pdf.move_cursor_to(pdf.cursor - 20)
       pdf.table(table_data, width: pdf.bounds.width, header: true,
-                cell_style: { border_width: 0.5, border_color: 'cccccc',
-                              padding: [5, 10] },
-                row_colors: %w(dfdfdf ffffff)) do
+                            cell_style: { border_width: 0.5, border_color: 'cccccc',
+                                          padding: [5, 10] },
+                            row_colors: %w(dfdfdf ffffff)) do
         # left align the number columns
         columns(1..3).rows(1..row_length - 1).style(align: :right)
 
