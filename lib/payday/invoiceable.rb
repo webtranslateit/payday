@@ -10,7 +10,9 @@
 # when generating an invoice. We include a simple tax method that calculates tax, but it's probably wiser
 # to override this in your class (our calculated tax won't be stored to a database by default, for example).
 #
+# rubocop:todo Layout/LineLength
 # If the +due_at+, +paid_at+, and +refunded_at+ methods are available, {Payday::Invoiceable} will use them to show due dates,
+# rubocop:enable Layout/LineLength
 # paid dates, and refunded dates, as well as stamps showing if the invoice is paid or due.
 module Payday
   module Invoiceable # rubocop:todo Style/Documentation

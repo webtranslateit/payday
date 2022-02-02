@@ -1,7 +1,9 @@
 module Payday
   # Represents a line item in an invoice.
   #
+  # rubocop:todo Layout/LineLength
   # +quantity+ and +price+ are written to be pretty picky, primarily because if we're not picky about what values are set to
+  # rubocop:enable Layout/LineLength
   # them your invoice math could get pretty messed up. It's recommended that both values be set to +BigDecimal+ values.
   # Otherwise, we'll do our best to convert the set values to a +BigDecimal+.
   class LineItem
