@@ -21,5 +21,10 @@ module Payday
       li = described_class.new(price: 10, quantity: 12)
       expect(li.amount).to eq(BigDecimal('120'))
     end
+
+    it 'returns the correct amount when using a predefined amount' do
+      li = described_class.new(predefined_amount: 244)
+      expect(li.amount).to eq(BigDecimal('244'))
+    end
   end
 end

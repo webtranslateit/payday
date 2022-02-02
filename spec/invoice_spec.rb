@@ -181,6 +181,31 @@ module Payday # rubocop:todo Metrics/ModuleLength
         end
       end
 
+      context 'with a mix of LineItems with price, quantity and predefined_amounts' do
+        let(:invoice_params) do
+          {
+            invoice_details: {
+              'Ordered By:' => 'Alan Johnson',
+              'Paid By:' => 'Dude McDude'
+            }
+          }
+        end
+
+        it 'renders an invoice correctly' do # rubocop:todo RSpec/ExampleLength
+          Payday::Config.default.company_details = <<-DETAILS
+            10 This Way
+            Manhattan, NY 10001
+            800-111-2222
+            awesome@awesomecorp.com
+          DETAILS
+
+          invoice.add_line_item(price: 10, quantity: 3, description: 'Extra Users')
+          invoice.add_line_item(predefined_amount: 79, description: 'Flat Fee')
+
+          expect(invoice.render_pdf).to match_binary_asset 'testing_predefined_amount.pdf'
+        end
+      end
+
       context 'paid, with an svg logo' do # rubocop:todo RSpec/ContextWording
         before do
           logo = { filename: 'spec/assets/tiger.svg', size: '100x100' }

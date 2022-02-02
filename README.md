@@ -10,7 +10,7 @@ Payday is available as a Rubygem, so installing it is as easy as running:
 
 Or, using bundler:
 
-    gem "payday"
+    gem 'payday'
 
 
 Using Payday
@@ -19,11 +19,11 @@ It's pretty easy to use Payday with the built in objects. We include the Invoice
 
 Example:
 
-    invoice = Payday::Invoice.new(:invoice_number => 12)
-    invoice.line_items << Payday::LineItem.new(:price => 20, :quantity => 5, :description => "Pants")
-    invoice.line_items << Payday::LineItem.new(:price => 10, :quantity => 3, :description => "Shirts")
-    invoice.line_items << Payday::LineItem.new(:price => 5, :quantity => 200, :description => "Hats")
-    invoice.render_pdf_to_file("/path/to_file.pdf")
+    invoice = Payday::Invoice.new(invoice_number: 12)
+    invoice.add_line_item(price: 20, quantity: 5, description: 'Pants')
+    invoice.add_line_item(price: 10, quantity: 3, description: 'Shirts')
+    invoice.add_line_item(predefined_amount: 10, description: 'Shipping') # a line with no price or quantity but with a predefined price (or flat fee)
+    invoice.render_pdf_to_file('/path/to_file.pdf')
 
 Documentation
 ===

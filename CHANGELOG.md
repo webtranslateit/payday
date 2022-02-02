@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 1.2.5 (2022-02-02)
+
+* New: Ability to add LineItems with “pre-defined” amounts.
+  `LineItem.new(description: 'Flat fee', predefined_amount: 244)`.
+  This allows to create lines without quantities and unit prices, which is useful to add flat fees.
+
 ## 1.2.4 (2022-02-02)
 
 * Lint code with Rubocop.
