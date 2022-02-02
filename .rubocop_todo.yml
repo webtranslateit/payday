@@ -64,14 +64,6 @@ Style/ClassVars:
   Exclude:
     - 'lib/payday/config.rb'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: Keywords, RequireColon.
-# Keywords: TODO, FIXME, OPTIMIZE, HACK, REVIEW, NOTE
-Style/CommentAnnotation:
-  Exclude:
-    - 'lib/payday/invoiceable.rb'
-
 # Offense count: 5
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SingleLineConditionsOnly, IncludeTernaryExpressions.
