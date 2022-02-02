@@ -32,7 +32,7 @@ module Payday::Invoiceable
     end
   end
 
-  # TODO Add a per weight unit shipping cost
+  # TODO: Add a per weight unit shipping cost
   # Calculates the shipping
   def shipping
     if defined?(shipping_rate)
