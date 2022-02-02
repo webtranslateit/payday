@@ -13,19 +13,20 @@ Gem::Specification.new do |s|
   s.description = 'Payday is a library for rendering invoices to pdf.'
 
   s.add_dependency 'activesupport'
-  s.add_dependency('i18n', '>= 0.7', '< 2.0')
-  s.add_dependency('money', '~> 6.5')
-  s.add_dependency('prawn', '>= 1.0', '< 2.5')
-  s.add_dependency('prawn-svg', '>= 0.15.0', '< 0.32.1')
-  s.add_dependency('prawn-table', '>= 0.2.2')
+  s.add_dependency 'i18n', '>= 0.7'
+  s.add_dependency 'money', '~> 6.5'
+  s.add_dependency 'prawn', '>= 2.0'
+  s.add_dependency 'prawn-svg', '>= 0.15.0'
+  s.add_dependency 'prawn-table', '>= 0.2.2'
   s.add_dependency 'rexml'
 
-  s.add_development_dependency('guard')
-  s.add_development_dependency('guard-rspec')
+  s.add_development_dependency 'guard'
+  s.add_development_dependency 'guard-rspec'
   s.add_development_dependency 'guard-rubocop'
-  s.add_development_dependency('rspec', '~> 3.11.0')
-  s.add_development_dependency('rubocop')
-  s.add_development_dependency('rubocop-rspec')
+  s.add_development_dependency 'matrix' # for compat reasons, required in builds
+  s.add_development_dependency 'rspec', '~> 3.11.0'
+  s.add_development_dependency 'rubocop'
+  s.add_development_dependency 'rubocop-rspec'
 
   s.files = `git ls-files`.split("\n")
   s.executables =
