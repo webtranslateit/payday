@@ -6,7 +6,7 @@ module Payday
     attr_accessor :invoice_number, :bill_to, :ship_to, :notes, :line_items, :shipping_rate, :shipping_description,
                   :tax_rate, :tax_description, :due_at, :paid_at, :refunded_at, :currency, :invoice_details, :invoice_date
 
-    def initialize(options =  {})
+    def initialize(options = {})
       self.invoice_number = options[:invoice_number] || nil
       self.bill_to = options[:bill_to] || nil
       self.ship_to = options[:ship_to] || nil
