@@ -166,7 +166,7 @@ module Payday
                        bold_cell(pdf, value, align: :right)]
       end
 
-      return unless table_data.length > 0
+      return unless table_data.length.positive?
 
       pdf.table(table_data, cell_style: { borders: [], padding: [1, 10, 1, 1] })
     end
@@ -222,7 +222,7 @@ module Payday
         cell(pdf, number_to_currency(invoice.tax, invoice), align: :right)
       ]
 
-      if invoice.shipping_rate > 0
+      if invoice.shipping_rate.positive?
         shipping_description = if invoice.shipping_description.nil?
                                  I18n.t('payday.invoice.shipping', default: 'Shipping:')
                                else

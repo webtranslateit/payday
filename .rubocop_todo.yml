@@ -21,15 +21,6 @@ Style/Documentation:
 Style/FrozenStringLiteralComment:
   Enabled: false
 
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, IgnoredMethods.
-# SupportedStyles: predicate, comparison
-Style/NumericPredicate:
-  Exclude:
-    - 'spec/**/*'
-    - 'lib/payday/pdf_renderer.rb'
-
 # Offense count: 8
 # Cop supports --auto-correct.
 # Configuration parameters: PreferredDelimiters.
