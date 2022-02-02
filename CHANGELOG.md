@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.2.1 (2022-02-01)
+
+* Add convenience method to add line_items to invoices (`Invoice#add_line_item(options)`). Takes the same options as `LineItem.new(options)`.
+
 ## 1.2.0 (2021-12-22)
 
 This brings changes made for WebTranslateIt.com’s billing system:
