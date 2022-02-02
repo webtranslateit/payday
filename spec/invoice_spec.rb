@@ -158,12 +158,12 @@ module Payday
         end
 
         it 'should render an invoice correctly' do
-          Payday::Config.default.company_details = <<-EOF
+          Payday::Config.default.company_details = <<-DETAILS
             10 This Way
             Manhattan, NY 10001
             800-111-2222
             awesome@awesomecorp.com
-          EOF
+          DETAILS
 
           invoice.line_items += [
             LineItem.new(price: 20, quantity: 5, description: 'Pants'),

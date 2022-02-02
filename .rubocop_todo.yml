@@ -43,14 +43,6 @@ Metrics/PerceivedComplexity:
   Max: 16
 
 # Offense count: 2
-# Configuration parameters: ForbiddenDelimiters.
-# ForbiddenDelimiters: (?-mix:(^|\s)(EO[A-Z]{1}|END)(\s|$))
-Naming/HeredocDelimiterNaming:
-  Exclude:
-    - 'payday.gemspec'
-    - 'spec/invoice_spec.rb'
-
-# Offense count: 2
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.
 # SupportedStyles: nested, compact

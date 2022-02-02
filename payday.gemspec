@@ -10,11 +10,11 @@ Gem::Specification.new do |s|
   s.email       = ['edouard@webtranslateit.com']
   s.homepage    = 'https://github.com/webtranslateit/payday'
   s.summary     = 'A simple library for rendering invoices.'
-  s.description = <<-EOF
+  s.description = <<-DESCRIPTION
     Payday is a library for rendering invoices. At present it supports rendering
     invoices to pdfs, but we're planning on adding support for other formats in
     the near future.
-  EOF
+  DESCRIPTION
 
   s.add_dependency 'activesupport'
   s.add_dependency('i18n', '>= 0.7', '< 2.0')
