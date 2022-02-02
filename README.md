@@ -24,7 +24,7 @@ Example:
 
 ``` ruby
 invoice = Payday::Invoice.new(invoice_number: 12)
-# 2 lines with a price and a quantity. Amount will be deduced by price * quantity
+# 2 lines with a price and a quantity. Amount will be calculated by price * quantity
 invoice.add_line_item(price: 20, quantity: 5, description: 'Pants')
 invoice.add_line_item(price: 10, quantity: 3, description: 'Shirts')
 # a line with no price or quantity but with a predefined price (or flat fee)
@@ -38,7 +38,7 @@ Documentation for the latest version of Payday is available at [rubydoc.info](ht
 
 Customizing Your Invoice
 ===
-Payday::Config includes quite a few options for customizing your invoices, such as options for customizing the logo and
+`Payday::Config` includes quite a few options for customizing your invoices, such as options for customizing the logo and
 company details on the invoice.
 
 Example:
