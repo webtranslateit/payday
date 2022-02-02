@@ -2,14 +2,16 @@ require 'spec_helper'
 
 module Payday # rubocop:todo Metrics/ModuleLength
   describe Invoice do # rubocop:todo Metrics/BlockLength
-    it 'should be able to be initalized with a hash of options' do
-      i = Invoice.new(invoice_number: 20, bill_to: 'Here', ship_to: 'There',
-                      notes: 'These are some notes.',
-                      line_items:
+    # rubocop:todo RSpec/MultipleExpectations
+    it 'is able to be initialized with a hash of options' do # rubocop:todo RSpec/ExampleLength, RSpec/MultipleExpectations
+      # rubocop:enable RSpec/MultipleExpectations
+      i = described_class.new(invoice_number: 20, bill_to: 'Here', ship_to: 'There',
+                              notes: 'These are some notes.',
+                              line_items:
                         [LineItem.new(price: 10, quantity: 3, description: 'Shirts')],
-                      shipping_rate: 15.00, shipping_description: 'USPS Priority Mail:',
-                      tax_rate: 0.125, tax_description: 'Local Sales Tax, 12.5%',
-                      invoice_date: Date.civil(1993, 4, 12))
+                              shipping_rate: 15.00, shipping_description: 'USPS Priority Mail:',
+                              tax_rate: 0.125, tax_description: 'Local Sales Tax, 12.5%',
+                              invoice_date: Date.civil(1993, 4, 12))
 
       expect(i.invoice_number).to eq(20)
       expect(i.bill_to).to eq('Here')
@@ -23,8 +25,8 @@ module Payday # rubocop:todo Metrics/ModuleLength
       expect(i.invoice_date).to eq(Date.civil(1993, 4, 12))
     end
 
-    it 'should total all of the line items into a subtotal correctly' do
-      i = Invoice.new
+    it 'totals all of the line items into a subtotal correctly' do # rubocop:todo RSpec/ExampleLength
+      i = described_class.new
 
       # $100 in Pants
       i.line_items << LineItem.new(price: 20, quantity: 5, description: 'Pants')
@@ -39,23 +41,23 @@ module Payday # rubocop:todo Metrics/ModuleLength
       expect(i.subtotal).to eq(BigDecimal('1130'))
     end
 
-    it 'should calculate the correct tax rounded to two decimal places' do
-      i = Invoice.new(tax_rate: 10.0)
+    it 'calculates the correct tax rounded to two decimal places' do
+      i = described_class.new(tax_rate: 10.0)
       i.line_items << LineItem.new(price: 20, quantity: 5, description: 'Pants')
 
       expect(i.tax).to eq(BigDecimal('10'))
     end
 
-    it "shouldn't apply taxes to invoices with subtotal <= 0" do
-      i = Invoice.new(tax_rate: 10.0)
+    it 'does not apply taxes to invoices with subtotal <= 0' do
+      i = described_class.new(tax_rate: 10.0)
       i.line_items << LineItem.new(price: -1, quantity: 100,
                                    description: 'Negative Priced Pants')
 
       expect(i.tax).to eq(BigDecimal('-10'))
     end
 
-    it 'should calculate the total for an invoice correctly' do
-      i = Invoice.new(tax_rate: 10.0)
+    it 'calculates the total for an invoice correctly' do # rubocop:todo RSpec/ExampleLength
+      i = described_class.new(tax_rate: 10.0)
 
       # $100 in Pants
       i.line_items << LineItem.new(price: 20, quantity: 5, description: 'Pants')
@@ -71,42 +73,44 @@ module Payday # rubocop:todo Metrics/ModuleLength
     end
 
     it "is overdue when it's past date and unpaid" do
-      i = Invoice.new(due_at: Date.today - 1)
+      i = described_class.new(due_at: Date.today - 1)
       expect(i.overdue?).to eq(true)
     end
 
     it "isn't overdue when past due date and paid" do
-      i = Invoice.new(due_at: Date.today - 1, paid_at: Date.today)
+      i = described_class.new(due_at: Date.today - 1, paid_at: Date.today)
       expect(i.overdue?).not_to eq(true)
     end
 
     it 'is overdue when due date is a time before the current date' do
-      i = Invoice.new(due_at: Time.parse('Jan 1 14:33:20 GMT 2011'))
+      i = described_class.new(due_at: Time.parse('Jan 1 14:33:20 GMT 2011'))
       expect(i.overdue?).to eq(true)
     end
 
-    it "shouldn't be refunded when not marked refunded" do
-      i = Invoice.new
+    it 'is not refunded when not marked refunded' do
+      i = described_class.new
       expect(i.refunded?).not_to eq(true)
     end
 
-    it 'should be refunded when marked as refunded' do
-      i = Invoice.new(refunded_at: Date.today)
+    it 'is refunded when marked as refunded' do
+      i = described_class.new(refunded_at: Date.today)
       expect(i.refunded?).to eq(true)
     end
 
-    it "shouldn't be paid when not marked paid" do
-      i = Invoice.new
+    it 'is not paid when not marked paid' do
+      i = described_class.new
       expect(i.paid?).not_to eq(true)
     end
 
-    it 'should be paid when marked as paid' do
-      i = Invoice.new(paid_at: Date.today)
+    it 'is paid when marked as paid' do
+      i = described_class.new(paid_at: Date.today)
       expect(i.paid?).to eq(true)
     end
 
-    it 'should be able to iterate over details' do
-      i = Invoice.new(invoice_details: [%w[Test Yes], %w[Awesome Absolutely]])
+    # rubocop:todo RSpec/MultipleExpectations
+    it 'is able to iterate over details' do # rubocop:todo RSpec/ExampleLength, RSpec/MultipleExpectations
+      # rubocop:enable RSpec/MultipleExpectations
+      i = described_class.new(invoice_details: [%w[Test Yes], %w[Awesome Absolutely]])
       details = []
       i.each_detail do |key, value|
         details << [key, value]
@@ -117,8 +121,10 @@ module Payday # rubocop:todo Metrics/ModuleLength
       expect(details).to include(%w[Awesome Absolutely])
     end
 
-    it 'should be able to iterate through invoice_details as a hash' do
-      i = Invoice.new(invoice_details:
+    # rubocop:todo RSpec/MultipleExpectations
+    it 'is able to iterate through invoice_details as a hash' do # rubocop:todo RSpec/ExampleLength, RSpec/MultipleExpectations
+      # rubocop:enable RSpec/MultipleExpectations
+      i = described_class.new(invoice_details:
         { 'Test' => 'Yes', 'Awesome' => 'Absolutely' })
       details = []
       i.each_detail do |key, value|
@@ -139,7 +145,7 @@ module Payday # rubocop:todo Metrics/ModuleLength
       let(:invoice) { new_invoice(invoice_params) }
       let(:invoice_params) { {} }
 
-      it 'should render to a file' do
+      it 'renders to a file' do
         File.unlink('tmp/testing.pdf') if File.exist?('tmp/testing.pdf')
 
         invoice.render_pdf_to_file('tmp/testing.pdf')
@@ -157,7 +163,7 @@ module Payday # rubocop:todo Metrics/ModuleLength
           }
         end
 
-        it 'should render an invoice correctly' do
+        it 'renders an invoice correctly' do # rubocop:todo RSpec/ExampleLength
           Payday::Config.default.company_details = <<-DETAILS
             10 This Way
             Manhattan, NY 10001
@@ -175,7 +181,7 @@ module Payday # rubocop:todo Metrics/ModuleLength
         end
       end
 
-      context 'paid, with an svg logo' do
+      context 'paid, with an svg logo' do # rubocop:todo RSpec/ContextWording
         before do
           logo = { filename: 'spec/assets/tiger.svg', size: '100x100' }
           Payday::Config.default.invoice_logo = logo
@@ -183,7 +189,7 @@ module Payday # rubocop:todo Metrics/ModuleLength
 
         let(:invoice_params) { { paid_at: Date.civil(2012, 2, 22) } }
 
-        it 'should render an invoice correctly' do
+        it 'renders an invoice correctly' do # rubocop:todo RSpec/ExampleLength
           invoice.line_items += [
             LineItem.new(price: 20, quantity: 5, description: 'Pants'),
             LineItem.new(price: 10, quantity: 3, description: 'Shirts'),
