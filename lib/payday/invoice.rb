@@ -8,7 +8,10 @@ module Payday
 
     attr_reader :tax_rate, :shipping_rate
 
-    def initialize(options = {})
+    # rubocop:todo Metrics/PerceivedComplexity
+    # rubocop:todo Metrics/MethodLength
+    # rubocop:todo Metrics/AbcSize
+    def initialize(options = {}) # rubocop:todo Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/MethodLength, Metrics/PerceivedComplexity
       self.invoice_number = options[:invoice_number] || nil
       self.bill_to = options[:bill_to] || nil
       self.ship_to = options[:ship_to] || nil
@@ -25,6 +28,9 @@ module Payday
       self.invoice_details = options[:invoice_details] || []
       self.invoice_date = options[:invoice_date] || nil
     end
+    # rubocop:enable Metrics/AbcSize
+    # rubocop:enable Metrics/MethodLength
+    # rubocop:enable Metrics/PerceivedComplexity
 
     # The tax rate that we're applying, as a BigDecimal
     def tax_rate=(value)

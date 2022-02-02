@@ -6,50 +6,6 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 7
-# Configuration parameters: IgnoredMethods, CountRepeatedAttributes.
-Metrics/AbcSize:
-  Max: 56
-
-# Offense count: 2
-# Configuration parameters: CountComments, CountAsOne, ExcludedMethods, IgnoredMethods.
-# IgnoredMethods: refine
-Metrics/BlockLength:
-  Max: 159
-
-# Offense count: 1
-# Configuration parameters: CountComments, CountAsOne.
-Metrics/ClassLength:
-  Max: 229
-
-# Offense count: 2
-# Configuration parameters: IgnoredMethods.
-Metrics/CyclomaticComplexity:
-  Max: 16
-
-# Offense count: 9
-# Configuration parameters: CountComments, CountAsOne, ExcludedMethods, IgnoredMethods.
-Metrics/MethodLength:
-  Max: 38
-
-# Offense count: 1
-# Configuration parameters: CountComments, CountAsOne.
-Metrics/ModuleLength:
-  Max: 161
-
-# Offense count: 2
-# Configuration parameters: IgnoredMethods.
-Metrics/PerceivedComplexity:
-  Max: 16
-
-# Offense count: 5
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SingleLineConditionsOnly, IncludeTernaryExpressions.
-# SupportedStyles: assign_to_condition, assign_inside_condition
-Style/ConditionalAssignment:
-  Exclude:
-    - 'lib/payday/pdf_renderer.rb'
-
 # Offense count: 1
 # Configuration parameters: AllowedConstants.
 Style/Documentation:
