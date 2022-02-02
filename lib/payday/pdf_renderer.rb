@@ -281,6 +281,7 @@ module Payday
     # Converts this number to a formatted currency string
     def self.number_to_currency(number, invoice)
       Money.locale_backend = :currency
+      Money.rounding_mode = BigDecimal::ROUND_HALF_UP
       currency = Money::Currency.wrap(invoice_or_default(invoice, :currency))
       number *= currency.subunit_to_unit
       number = number.round unless Money.default_infinite_precision
