@@ -1,7 +1,7 @@
 module Payday
   # The PDF renderer. We use this internally in Payday to render pdfs, but really you should just need to call
   # {{Payday::Invoiceable#render_pdf}} to render pdfs yourself.
-  class PdfRenderer
+  class PdfRenderer # rubocop:todo Metrics/ClassLength
     # Renders the given invoice as a pdf on disk
     def self.render_to_file(invoice, path)
       pdf(invoice).render_file(path)
@@ -12,7 +12,7 @@ module Payday
       pdf(invoice).render
     end
 
-    def self.pdf(invoice)
+    def self.pdf(invoice) # rubocop:todo Metrics/MethodLength
       pdf = Prawn::Document.new(page_size: invoice_or_default(invoice, :page_size))
 
       # set up some default styling
@@ -31,7 +31,7 @@ module Payday
       pdf
     end
 
-    def self.stamp(invoice, pdf)
+    def self.stamp(invoice, pdf) # rubocop:todo Metrics/MethodLength
       stamp = nil
       if invoice.refunded?
         stamp = I18n.t 'payday.status.refunded', default: 'REFUNDED'
@@ -53,7 +53,8 @@ module Payday
       pdf.fill_color '000000'
     end
 
-    def self.company_banner(invoice, pdf)
+    # rubocop:todo Metrics/MethodLength
+    def self.company_banner(invoice, pdf) # rubocop:todo Metrics/AbcSize, Metrics/MethodLength
       # render the logo
       image = invoice_or_default(invoice, :invoice_logo)
       height = nil
@@ -87,8 +88,10 @@ module Payday
 
       pdf.move_cursor_to(pdf.bounds.top - logo_height - 20)
     end
+    # rubocop:enable Metrics/MethodLength
 
-    def self.bill_to_ship_to(invoice, pdf)
+    # rubocop:todo Metrics/MethodLength
+    def self.bill_to_ship_to(invoice, pdf) # rubocop:todo Metrics/AbcSize, Metrics/MethodLength
       bill_to_cell_style = { borders: [], padding: [2, 0] }
       bill_to_ship_to_bottom = 0
 
@@ -113,29 +116,33 @@ module Payday
       bill_to_ship_to_bottom = pdf.cursor if pdf.cursor < bill_to_ship_to_bottom
       pdf.move_cursor_to(bill_to_ship_to_bottom - 20)
     end
+    # rubocop:enable Metrics/MethodLength
 
-    def self.invoice_details(invoice, pdf)
+    # rubocop:todo Metrics/PerceivedComplexity
+    # rubocop:todo Metrics/MethodLength
+    # rubocop:todo Metrics/AbcSize
+    def self.invoice_details(invoice, pdf) # rubocop:todo Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/MethodLength, Metrics/PerceivedComplexity
       # invoice details
       table_data = []
 
       # invoice number
       if defined?(invoice.invoice_number) && invoice.invoice_number
-        if invoice.paid?
-          table_data << [bold_cell(pdf, I18n.t('payday.invoice.receipt_no', default: 'Receipt #:')),
+        table_data << if invoice.paid?
+                        [bold_cell(pdf, I18n.t('payday.invoice.receipt_no', default: 'Receipt #:')),
                          bold_cell(pdf, invoice.invoice_number.to_s, align: :right)]
-        else
-          table_data << [bold_cell(pdf, I18n.t('payday.invoice.invoice_no', default: 'Invoice #:')),
+                      else
+                        [bold_cell(pdf, I18n.t('payday.invoice.invoice_no', default: 'Invoice #:')),
                          bold_cell(pdf, invoice.invoice_number.to_s, align: :right)]
-        end
+                      end
       end
 
       # Due on
       if defined?(invoice.due_at) && invoice.due_at
-        if invoice.due_at.is_a?(Date) || invoice.due_at.is_a?(Time)
-          due_date = invoice.due_at.strftime(Payday::Config.default.date_format)
-        else
-          due_date = invoice.due_at.to_s
-        end
+        due_date = if invoice.due_at.is_a?(Date) || invoice.due_at.is_a?(Time)
+                     invoice.due_at.strftime(Payday::Config.default.date_format)
+                   else
+                     invoice.due_at.to_s
+                   end
 
         table_data << [bold_cell(pdf, I18n.t('payday.invoice.due_date', default: 'Due Date:')),
                        bold_cell(pdf, due_date, align: :right)]
@@ -143,11 +150,11 @@ module Payday
 
       # Paid on
       if defined?(invoice.paid_at) && invoice.paid_at
-        if invoice.paid_at.is_a?(Date) || invoice.due_at.is_a?(Time)
-          paid_date = invoice.paid_at.strftime(Payday::Config.default.date_format)
-        else
-          paid_date = invoice.paid_at.to_s
-        end
+        paid_date = if invoice.paid_at.is_a?(Date) || invoice.due_at.is_a?(Time)
+                      invoice.paid_at.strftime(Payday::Config.default.date_format)
+                    else
+                      invoice.paid_at.to_s
+                    end
 
         table_data << [bold_cell(pdf, I18n.t('payday.invoice.paid_date', default: 'Paid Date:')),
                        bold_cell(pdf, paid_date, align: :right)]
@@ -163,8 +170,12 @@ module Payday
         pdf.table(table_data, cell_style: { borders: [], padding: [1, 10, 1, 1] })
       end
     end
+    # rubocop:enable Metrics/AbcSize
+    # rubocop:enable Metrics/MethodLength
+    # rubocop:enable Metrics/PerceivedComplexity
 
-    def self.line_items_table(invoice, pdf)
+    # rubocop:todo Metrics/MethodLength
+    def self.line_items_table(invoice, pdf) # rubocop:todo Metrics/AbcSize, Metrics/MethodLength
       table_data = []
       table_data << [bold_cell(pdf, I18n.t('payday.line_item.description', default: 'Description'), borders: []),
                      bold_cell(pdf, I18n.t('payday.line_item.unit_price', default: 'Unit Price'), align: :center, borders: []),
@@ -190,19 +201,21 @@ module Payday
         natural[0] = width - natural[1] - natural[2] - natural[3]
       end
     end
+    # rubocop:enable Metrics/MethodLength
 
-    def self.totals_lines(invoice, pdf)
+    # rubocop:todo Metrics/MethodLength
+    def self.totals_lines(invoice, pdf) # rubocop:todo Metrics/AbcSize, Metrics/MethodLength
       table_data = []
       table_data << [
         bold_cell(pdf, I18n.t('payday.invoice.subtotal', default: 'Subtotal:')),
         cell(pdf, number_to_currency(invoice.subtotal, invoice), align: :right)
       ]
 
-      if invoice.tax_description.nil?
-        tax_description = I18n.t('payday.invoice.tax', default: 'Tax:')
-      else
-        tax_description = invoice.tax_description
-      end
+      tax_description = if invoice.tax_description.nil?
+                          I18n.t('payday.invoice.tax', default: 'Tax:')
+                        else
+                          invoice.tax_description
+                        end
 
       table_data << [
         bold_cell(pdf, tax_description),
@@ -210,12 +223,11 @@ module Payday
       ]
 
       if invoice.shipping_rate > 0
-        if invoice.shipping_description.nil?
-          shipping_description =
-            I18n.t('payday.invoice.shipping', default: 'Shipping:')
-        else
-          shipping_description = invoice.shipping_description
-        end
+        shipping_description = if invoice.shipping_description.nil?
+                                 I18n.t('payday.invoice.shipping', default: 'Shipping:')
+                               else
+                                 invoice.shipping_description
+                               end
 
         table_data << [
           bold_cell(pdf, shipping_description),
@@ -235,8 +247,10 @@ module Payday
         table.draw
       end
     end
+    # rubocop:enable Metrics/MethodLength
 
-    def self.notes(invoice, pdf)
+    # rubocop:todo Metrics/MethodLength
+    def self.notes(invoice, pdf) # rubocop:todo Metrics/AbcSize, Metrics/MethodLength
       if defined?(invoice.notes) && invoice.notes
         pdf.move_cursor_to(pdf.cursor - 30)
         pdf.font('Helvetica-Bold') do
@@ -249,6 +263,7 @@ module Payday
         pdf.text(invoice.notes.to_s)
       end
     end
+    # rubocop:enable Metrics/MethodLength
 
     def self.page_numbers(pdf)
       if pdf.page_count > 1

@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-module Payday
-  describe Invoice do
+module Payday # rubocop:todo Metrics/ModuleLength
+  describe Invoice do # rubocop:todo Metrics/BlockLength
     it 'should be able to be initalized with a hash of options' do
       i = Invoice.new(invoice_number: 20, bill_to: 'Here', ship_to: 'There',
                       notes: 'These are some notes.',
@@ -130,7 +130,7 @@ module Payday
       expect(details).to include(%w(Awesome Absolutely))
     end
 
-    describe 'rendering' do
+    describe 'rendering' do # rubocop:todo Metrics/BlockLength
       before do
         Dir.mkdir('tmp') unless File.exist?('tmp')
         Config.default.reset

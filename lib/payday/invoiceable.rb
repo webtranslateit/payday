@@ -13,7 +13,7 @@
 # If the +due_at+, +paid_at+, and +refunded_at+ methods are available, {Payday::Invoiceable} will use them to show due dates,
 # paid dates, and refunded dates, as well as stamps showing if the invoice is paid or due.
 module Payday
-  module Invoiceable
+  module Invoiceable # rubocop:todo Style/Documentation
     # Who the invoice is being sent to.
     def bill_to
       "Goofy McGoofison\nYour Invoice Doesn't\nHave It's Own BillTo Method"
@@ -49,7 +49,9 @@ module Payday
     end
 
     def overdue?
+      # rubocop:todo Layout/LineLength
       defined?(due_at) && ((due_at.is_a?(Date) && due_at < Date.today) || (due_at.is_a?(Time) && due_at < Time.now)) && !paid_at
+      # rubocop:enable Layout/LineLength
     end
 
     def refunded?
