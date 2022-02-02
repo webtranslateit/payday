@@ -18,14 +18,6 @@ Lint/IneffectiveAccessModifier:
     - 'lib/generators/payday/setup/setup_generator.rb'
     - 'lib/payday/pdf_renderer.rb'
 
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: ContextCreatingMethods, MethodCreatingMethods.
-Lint/UselessAccessModifier:
-  Exclude:
-    - 'lib/generators/payday/setup/setup_generator.rb'
-    - 'lib/payday/pdf_renderer.rb'
-
 # Offense count: 7
 # Configuration parameters: IgnoredMethods, CountRepeatedAttributes.
 Metrics/AbcSize:
