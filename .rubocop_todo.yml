@@ -6,18 +6,6 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 4
-Lint/DuplicateMethods:
-  Exclude:
-    - 'lib/payday/invoice.rb'
-    - 'lib/payday/line_item.rb'
-
-# Offense count: 15
-Lint/IneffectiveAccessModifier:
-  Exclude:
-    - 'lib/generators/payday/setup/setup_generator.rb'
-    - 'lib/payday/pdf_renderer.rb'
-
 # Offense count: 7
 # Configuration parameters: IgnoredMethods, CountRepeatedAttributes.
 Metrics/AbcSize:
