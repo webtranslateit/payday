@@ -82,7 +82,8 @@ module Payday
       invoice_or_default(invoice, :company_details).lines.each { |line| table_data << [line] }
 
       table = pdf.make_table(table_data, cell_style: { borders: [], padding: 0 })
-      pdf.bounding_box([pdf.bounds.width - table.width, pdf.bounds.top], width: table.width, height: table.height + 5) do
+      pdf.bounding_box([pdf.bounds.width - table.width, pdf.bounds.top], width: table.width,
+                                                                         height: table.height + 5) do
         table.draw
       end
 
@@ -178,8 +179,10 @@ module Payday
     def self.line_items_table(invoice, pdf) # rubocop:todo Metrics/AbcSize, Metrics/MethodLength
       table_data = []
       table_data << [bold_cell(pdf, I18n.t('payday.line_item.description', default: 'Description'), borders: []),
-                     bold_cell(pdf, I18n.t('payday.line_item.unit_price', default: 'Unit Price'), align: :center, borders: []),
-                     bold_cell(pdf, I18n.t('payday.line_item.quantity', default: 'Quantity'), align: :center, borders: []),
+                     bold_cell(pdf, I18n.t('payday.line_item.unit_price', default: 'Unit Price'), align: :center,
+                                                                                                  borders: []),
+                     bold_cell(pdf, I18n.t('payday.line_item.quantity', default: 'Quantity'), align: :center,
+                                                                                              borders: []),
                      bold_cell(pdf, I18n.t('payday.line_item.amount', default: 'Amount'), align: :center, borders: [])]
       invoice.line_items.each do |line|
         table_data << [line.description,
