@@ -6,12 +6,15 @@ Installing
 ===
 Payday is available as a Rubygem, so installing it is as easy as running:
 
-    gem install payday
+```
+gem install payday
+```
 
 Or, using bundler:
 
-    gem 'payday'
-
+```
+gem 'payday'
+```
 
 Using Payday
 ===
@@ -19,11 +22,15 @@ It's pretty easy to use Payday with the built in objects. We include the Invoice
 
 Example:
 
-    invoice = Payday::Invoice.new(invoice_number: 12)
-    invoice.add_line_item(price: 20, quantity: 5, description: 'Pants')
-    invoice.add_line_item(price: 10, quantity: 3, description: 'Shirts')
-    invoice.add_line_item(predefined_amount: 10, description: 'Shipping') # a line with no price or quantity but with a predefined price (or flat fee)
-    invoice.render_pdf_to_file('/path/to_file.pdf')
+``` ruby
+invoice = Payday::Invoice.new(invoice_number: 12)
+# 2 lines with a price and a quantity. Amount will be deduced by price * quantity
+invoice.add_line_item(price: 20, quantity: 5, description: 'Pants')
+invoice.add_line_item(price: 10, quantity: 3, description: 'Shirts')
+# a line with no price or quantity but with a predefined price (or flat fee)
+invoice.add_line_item(predefined_amount: 10, description: 'Shipping')
+invoice.render_pdf_to_file('/path/to_file.pdf')
+```
 
 Documentation
 ===
@@ -36,9 +43,11 @@ company details on the invoice.
 
 Example:
 
-    Payday::Config.default.invoice_logo = "/path/to/company/logo.png"
-    Payday::Config.default.company_name = "Awesome Corp"
-    Payday::Config.default.company_details = "10 This Way\nManhattan, NY 10001\n800-111-2222\nawesome@awesomecorp.com"
+``` ruby
+Payday::Config.default.invoice_logo = "/path/to/company/logo.png"
+Payday::Config.default.company_name = "Awesome Corp"
+Payday::Config.default.company_details = "10 This Way\nManhattan, NY 10001\n800-111-2222\nawesome@awesomecorp.com"
+```
 
 Using Payday with ActiveRecord Objects (or any other objects, for that matter)
 ===
@@ -54,18 +63,22 @@ Rendering Payday PDFs To The Web
 Payday's Invoiceable module includes methods for rendering pdfs to disk and for rendering them to a string. In a Rails controller, you can use the
 render to string method to render a pdf directly to the browser like this:
 
-In config/initializers/mime_types.rb:
+In `config/initializers/mime_types.rb`:
 
-    Mime::Type.register 'application/pdf', :pdf
+``` ruby
+Mime::Type.register 'application/pdf', :pdf
+```
 
 In your controller:
 
-    respond_to do |format|
-      format.html
-      format.pdf do
-        send_data invoice.render_pdf, :filename => "Invoice #12.pdf", :type => "application/pdf", :disposition => "inline"
-      end
-    end
+``` ruby
+respond_to do |format|
+  format.html
+  format.pdf do
+    send_data invoice.render_pdf, filename: 'Invoice #12.pdf', type: 'application/pdf', disposition: 'inline'
+  end
+end
+```
 
 Be sure to restart your server after you edit the mime_types initializer. The updated setting won't take effect until you do.
 
@@ -73,26 +86,28 @@ I18n
 ===
 Payday uses the i18n gem to provide support for custom labels and internationalized applications. You can change the default labels by adding a YAML file in the `config/locales` directory of your Rails app. Here are the default labels you can customize:
 
-    en:
-      payday:
-        status:
-          paid: PAID
-          overdue: OVERDUE
-          refunded: REFUNDED
-        invoice:
-          bill_to: Bill To
-          ship_to: Ship To
-          invoice_no: "Invoice #:"
-          due_date: "Due Date:"
-          paid_date: "Paid Date:"
-          subtotal: "Subtotal:"
-          tax: "Tax:"
-          total: "Total:"
-        line_item:
-          description: Description
-          unit_price: Unit Price
-          quantity: Quantity
-          amount: Amount
+``` yaml
+en:
+  payday:
+    status:
+      paid: PAID
+      overdue: OVERDUE
+      refunded: REFUNDED
+    invoice:
+      bill_to: Bill To
+      ship_to: Ship To
+      invoice_no: "Invoice #:"
+      due_date: "Due Date:"
+      paid_date: "Paid Date:"
+      subtotal: "Subtotal:"
+      tax: "Tax:"
+      total: "Total:"
+    line_item:
+      description: Description
+      unit_price: Unit Price
+      quantity: Quantity
+      amount: Amount
+```
 
 If you translate the invoice to your own language, please send me a copy of your locale.yml file so that we can include it with
 the main Payday distribution and other Payday users can enjoy the fruits of your labor.
@@ -127,7 +142,6 @@ Here's what we're planning on working on with Payday in the near future:
 * Add support for shipping either pre or post tax
 * Add ability to show skus or product ids on each line item
 * Add ability to add fine print to invoices.
-
 * Ability to render invoice to html for web viewing
 
 Acknowledgements
