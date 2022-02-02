@@ -166,9 +166,9 @@ module Payday
                        bold_cell(pdf, value, align: :right)]
       end
 
-      if table_data.length > 0
-        pdf.table(table_data, cell_style: { borders: [], padding: [1, 10, 1, 1] })
-      end
+      return unless table_data.length > 0
+
+      pdf.table(table_data, cell_style: { borders: [], padding: [1, 10, 1, 1] })
     end
     # rubocop:enable Metrics/AbcSize
     # rubocop:enable Metrics/MethodLength
@@ -249,26 +249,24 @@ module Payday
     end
     # rubocop:enable Metrics/MethodLength
 
-    # rubocop:todo Metrics/MethodLength
-    def self.notes(invoice, pdf) # rubocop:todo Metrics/AbcSize, Metrics/MethodLength
-      if defined?(invoice.notes) && invoice.notes
-        pdf.move_cursor_to(pdf.cursor - 30)
-        pdf.font('Helvetica-Bold') do
-          pdf.text(I18n.t('payday.invoice.notes', default: 'Notes'))
-        end
-        pdf.line_width = 0.5
-        pdf.stroke_color = 'cccccc'
-        pdf.stroke_line([0, pdf.cursor - 3, pdf.bounds.width, pdf.cursor - 3])
-        pdf.move_cursor_to(pdf.cursor - 10)
-        pdf.text(invoice.notes.to_s)
+    def self.notes(invoice, pdf) # rubocop:todo Metrics/AbcSize
+      return unless defined?(invoice.notes) && invoice.notes
+
+      pdf.move_cursor_to(pdf.cursor - 30)
+      pdf.font('Helvetica-Bold') do
+        pdf.text(I18n.t('payday.invoice.notes', default: 'Notes'))
       end
+      pdf.line_width = 0.5
+      pdf.stroke_color = 'cccccc'
+      pdf.stroke_line([0, pdf.cursor - 3, pdf.bounds.width, pdf.cursor - 3])
+      pdf.move_cursor_to(pdf.cursor - 10)
+      pdf.text(invoice.notes.to_s)
     end
-    # rubocop:enable Metrics/MethodLength
 
     def self.page_numbers(pdf)
-      if pdf.page_count > 1
-        pdf.number_pages('<page> / <total>', at: [pdf.bounds.right - 18, -15])
-      end
+      return unless pdf.page_count > 1
+
+      pdf.number_pages('<page> / <total>', at: [pdf.bounds.right - 18, -15])
     end
 
     def self.invoice_or_default(invoice, property)

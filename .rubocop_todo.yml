@@ -14,27 +14,12 @@ Style/Documentation:
     - 'test/**/*'
     - 'lib/generators/payday/setup/setup_generator.rb'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: format, sprintf, percent
-Style/FormatString:
-  Exclude:
-    - 'lib/generators/payday/setup/setup_generator.rb'
-
 # Offense count: 19
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.
 # SupportedStyles: always, always_true, never
 Style/FrozenStringLiteralComment:
   Enabled: false
-
-# Offense count: 4
-# Configuration parameters: MinBodyLength.
-Style/GuardClause:
-  Exclude:
-    - 'lib/generators/payday/setup/setup_generator.rb'
-    - 'lib/payday/pdf_renderer.rb'
 
 # Offense count: 3
 # Cop supports --auto-correct.
