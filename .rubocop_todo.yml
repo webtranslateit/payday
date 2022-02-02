@@ -21,12 +21,6 @@ Layout/EmptyLineAfterMagicComment:
   Exclude:
     - 'payday.gemspec'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-Layout/EmptyLines:
-  Exclude:
-    - 'Guardfile'
-
 # Offense count: 3
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.
@@ -284,13 +278,6 @@ Style/PercentLiteralDelimiters:
 Style/RedundantSelf:
   Exclude:
     - 'lib/payday/invoice.rb'
-
-# Offense count: 210
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, ConsistentQuotesInMultiline.
-# SupportedStyles: single_quotes, double_quotes
-Style/StringLiterals:
-  Enabled: false
 
 # Offense count: 1
 # Cop supports --auto-correct.
