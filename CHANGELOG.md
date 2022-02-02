@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.2.3 (2022-02-02)
+
+* Fix deprecation warning.
+
 ## 1.2.2 (2022-02-02)
 
 * Dependency updates (prawn, prawn-svg, add prawn-table). This update might break tests as PDF are rendered slightly differently.
