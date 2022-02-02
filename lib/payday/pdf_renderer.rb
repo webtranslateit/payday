@@ -12,8 +12,6 @@ module Payday
       pdf(invoice).render
     end
 
-    private
-
     def self.pdf(invoice)
       pdf = Prawn::Document.new(page_size: invoice_or_default(invoice, :page_size))
 
