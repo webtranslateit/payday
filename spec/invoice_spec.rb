@@ -5,12 +5,12 @@ module Payday
 
     it 'should be able to be initalized with a hash of options' do
       i = Invoice.new(invoice_number: 20, bill_to: 'Here', ship_to: 'There',
-          notes: 'These are some notes.',
-          line_items:
-            [LineItem.new(price: 10, quantity: 3, description: 'Shirts')],
-          shipping_rate: 15.00, shipping_description: 'USPS Priority Mail:',
-          tax_rate: 0.125, tax_description: 'Local Sales Tax, 12.5%',
-          invoice_date: Date.civil(1993, 4, 12))
+                      notes: 'These are some notes.',
+                      line_items:
+                        [LineItem.new(price: 10, quantity: 3, description: 'Shirts')],
+                      shipping_rate: 15.00, shipping_description: 'USPS Priority Mail:',
+                      tax_rate: 0.125, tax_description: 'Local Sales Tax, 12.5%',
+                      invoice_date: Date.civil(1993, 4, 12))
 
       expect(i.invoice_number).to eq(20)
       expect(i.bill_to).to eq('Here')
@@ -50,7 +50,7 @@ module Payday
     it "shouldn't apply taxes to invoices with subtotal <= 0" do
       i = Invoice.new(tax_rate: 10.0)
       i.line_items << LineItem.new(price: -1, quantity: 100,
-        description: 'Negative Priced Pants')
+                                   description: 'Negative Priced Pants')
 
       expect(i.tax).to eq(BigDecimal('-10'))
     end
