@@ -4,6 +4,8 @@ module Payday
   module LineItemable # rubocop:todo Style/Documentation
     # Returns the total amount for this {LineItemable}, or +price * quantity+
     def amount
+      return predefined_amount if predefined_amount
+
       price * quantity
     end
   end

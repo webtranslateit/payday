@@ -10,14 +10,18 @@ module Payday
     include LineItemable
 
     attr_accessor :description, :display_quantity, :display_price
-    attr_reader :quantity, :price
+    attr_reader :quantity, :price, :predefined_amount
 
     # Initializes a new LineItem
     def initialize(options = {})
-      self.quantity = options[:quantity] || '1'
-      self.display_quantity = options[:display_quantity]
-      self.display_price = options[:display_price]
-      self.price = options[:price] || '0.00'
+      if options[:predefined_amount]
+        self.predefined_amount = options[:predefined_amount]
+      else
+        self.quantity = options[:quantity] || '1'
+        self.display_quantity = options[:display_quantity]
+        self.display_price = options[:display_price]
+        self.price = options[:price] || '0.00'
+      end
       self.description = options[:description] || ''
     end
 
@@ -31,6 +35,12 @@ module Payday
     def price=(value)
       value = 0 if value.to_s.blank?
       @price = BigDecimal(value.to_s)
+    end
+
+    # Sets the predefined_amount for this {LineItem}
+    def predefined_amount=(value)
+      value = 0 if value.to_s.blank?
+      @predefined_amount = BigDecimal(value.to_s)
     end
   end
 end
