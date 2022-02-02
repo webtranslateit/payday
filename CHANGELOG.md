@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 1.2.2 (2022-02-02)
+
+* Dependency updates (prawn, prawn-svg, add prawn-table). This update might break tests as PDF are rendered slightly differently.
+* Fix deprecation warning.
+
 ## 1.2.1 (2022-02-01)
 
 * Add convenience method to add line_items to invoices (`Invoice#add_line_item(options)`). Takes the same options as `LineItem.new(options)`.
