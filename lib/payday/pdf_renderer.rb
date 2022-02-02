@@ -96,8 +96,8 @@ module Payday
 
       # render bill to
       pdf.float do
-        table = pdf.table([[bold_cell(pdf, I18n.t('payday.invoice.bill_to', default: 'Bill To'))],
-                           [invoice.bill_to]], column_widths: [200], cell_style: bill_to_cell_style)
+        pdf.table([[bold_cell(pdf, I18n.t('payday.invoice.bill_to', default: 'Bill To'))],
+                   [invoice.bill_to]], column_widths: [200], cell_style: bill_to_cell_style)
         bill_to_ship_to_bottom = pdf.cursor
       end
 
@@ -190,8 +190,6 @@ module Payday
         # set the column widths correctly
         natural = natural_column_widths
         natural[0] = width - natural[1] - natural[2] - natural[3]
-
-        column_widths = natural
       end
     end
 
