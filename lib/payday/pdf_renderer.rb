@@ -18,15 +18,12 @@ module Payday
       font_dir = File.join(File.dirname(__dir__), '..', 'fonts')
       pdf.font_families.update(
         'NotoSans' => { normal: File.join(font_dir, 'NotoSans-Regular.ttf'),
-                        bold: File.join(font_dir, 'NotoSans-Bold.ttf') },
-        'NotoSansThai' => { normal: File.join(font_dir, 'NotoSansThai-Regular.ttf'),
-                            bold: File.join(font_dir, 'NotoSansThai-Bold.ttf') }
+                        bold: File.join(font_dir, 'NotoSans-Bold.ttf') }
       )
 
       # set up some default styling
       pdf.font_size(10)
       pdf.font 'NotoSans'
-      pdf.fallback_fonts(['NotoSansThai'])
 
       stamp(invoice, pdf)
       company_banner(invoice, pdf)
@@ -53,9 +50,9 @@ module Payday
 
       if stamp
         pdf.bounding_box([150, pdf.cursor - 50], width: pdf.bounds.width - 300) do
-          pdf.font('Helvetica-Bold') do
+          pdf.font('NotoSans') do
             pdf.fill_color 'cc0000'
-            pdf.text stamp, align: :center, size: 25, rotate: 15
+            pdf.text stamp, align: :center, size: 25, rotate: 15, style: :bold
           end
         end
       end
@@ -207,9 +204,10 @@ module Payday
 
       pdf.move_cursor_to(pdf.cursor - 20)
       pdf.table(table_data, width: pdf.bounds.width, header: true,
-                            cell_style: { border_width: 0.5, border_color: 'cccccc',
-                                          padding: [5, 10] },
-                            row_colors: %w[dfdfdf ffffff]) do
+                            cell_style: { border_width: 0.5, border_left_color: 'FFFFFF', border_right_color: 'FFFFFF',
+                                          border_top_color: 'F6F9FC', border_bottom_color: 'BCC6D0', padding: [5, 10],
+                                          inline_format: true },
+                            row_colors: %w[F6F9FC ffffff]) do
         # left align the number columns
         columns(1..3).rows(1..row_length - 1).style(align: :right)
 
@@ -270,8 +268,8 @@ module Payday
       return unless defined?(invoice.notes) && invoice.notes
 
       pdf.move_cursor_to(pdf.cursor - 30)
-      pdf.font('Helvetica-Bold') do
-        pdf.text(I18n.t('payday.invoice.notes', default: 'Notes'))
+      pdf.font('NotoSans') do
+        pdf.text(I18n.t('payday.invoice.notes', default: 'Notes', style: :bold))
       end
       pdf.line_width = 0.5
       pdf.stroke_color = 'cccccc'
@@ -283,7 +281,7 @@ module Payday
     def self.page_numbers(pdf)
       return unless pdf.page_count > 1
 
-      pdf.number_pages('<page> / <total>', at: [pdf.bounds.right - 18, -15])
+      pdf.number_pages('<page> / <total>', at: [pdf.bounds.right - 25, -10])
     end
 
     def self.invoice_or_default(invoice, property)
