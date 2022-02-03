@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.2.7 (2022-02-04)
+
+* Allow styling line item descriptions and notes.
+
 ## 1.2.6 (2022-02-03)
 
 * Add new fonts and increase font size.
