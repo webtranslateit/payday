@@ -275,7 +275,7 @@ module Payday
       pdf.stroke_color = 'cccccc'
       pdf.stroke_line([0, pdf.cursor - 3, pdf.bounds.width, pdf.cursor - 3])
       pdf.move_cursor_to(pdf.cursor - 10)
-      pdf.text(invoice.notes.to_s)
+      pdf.text(invoice.notes.to_s, inline_format: true)
     end
 
     def self.page_numbers(pdf)

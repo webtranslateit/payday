@@ -229,7 +229,7 @@ module Payday # rubocop:todo Metrics/ModuleLength
       def new_invoice(params = {})
         default_params = {
           tax_rate: 0.1,
-          notes: 'These are some crazy awesome notes!',
+          notes: 'These are some crazy awesome notes <color rgb=\'888888\'>with color</color>!',
           invoice_number: 12,
           invoice_date: Date.civil(2011, 1, 1),
           due_at: Date.civil(2011, 1, 22),
