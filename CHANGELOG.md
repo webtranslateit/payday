@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.2.6 (2022-02-03)
+
+* Add new fonts and increase font size.
+
 ## 1.2.5 (2022-02-02)
 
 * New: Ability to add LineItems with “pre-defined” amounts.
