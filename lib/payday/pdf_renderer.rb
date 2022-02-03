@@ -12,11 +12,21 @@ module Payday
       pdf(invoice).render
     end
 
-    def self.pdf(invoice) # rubocop:todo Metrics/MethodLength
+    def self.pdf(invoice) # rubocop:todo Metrics/MethodLength, Metrics/AbcSize
       pdf = Prawn::Document.new(page_size: invoice_or_default(invoice, :page_size))
 
+      font_dir = File.join(File.dirname(__dir__), '..', 'fonts')
+      pdf.font_families.update(
+        'NotoSans' => { normal: File.join(font_dir, 'NotoSans-Regular.ttf'),
+                        bold: File.join(font_dir, 'NotoSans-Bold.ttf') },
+        'NotoSansThai' => { normal: File.join(font_dir, 'NotoSansThai-Regular.ttf'),
+                            bold: File.join(font_dir, 'NotoSansThai-Bold.ttf') }
+      )
+
       # set up some default styling
-      pdf.font_size(8)
+      pdf.font_size(10)
+      pdf.font 'NotoSans'
+      pdf.fallback_fonts(['NotoSansThai'])
 
       stamp(invoice, pdf)
       company_banner(invoice, pdf)
