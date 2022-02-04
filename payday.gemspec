@@ -2,7 +2,7 @@ $LOAD_PATH.push File.expand_path('lib', __dir__)
 require 'payday/version'
 
 Gem::Specification.new do |s|
-  s.name        = 'payday'
+  s.name        = 'webtranslateit-payday'
   s.version     = Payday::VERSION
   s.required_ruby_version = '>= 2.5'
   s.platform    = Gem::Platform::RUBY
