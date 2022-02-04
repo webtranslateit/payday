@@ -2,6 +2,10 @@ Payday!
 ===
 Payday is a library for rendering invoices to pdfs.
 
+We use it intensively at [WebTranslateIt.com](https://webtranslateit.com) to generate customer’s invoices and receipts. When we upgraded our app to ruby 2.7 this gem failed in many ways and the original source code by Alan Johnson was nowhere to be found on GitHub. So we took the source code out of our cached gem and created this repo. We’ve since added a new features and fixes, which can be found [in the changelog](https://github.com/webtranslateit/payday/blob/main/CHANGELOG.md).
+
+Here’s an [example PDF Invoice](https://github.com/webtranslateit/payday/raw/main/spec/assets/testing_predefined_amount.pdf) generated with our fork of payday.
+
 Installing
 ===
 Payday is available as a Rubygem, so installing it is as easy as running:
@@ -114,7 +118,7 @@ the main Payday distribution and other Payday users can enjoy the fruits of your
 
 Examples
 ===
-Here's an [example PDF Invoice](https://github.com/downloads/commondream/payday/example.pdf)
+Here's an [example PDF Invoice](https://github.com/webtranslateit/payday/raw/main/spec/assets/testing_predefined_amount.pdf)
 
 Contributing
 ===
