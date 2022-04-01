@@ -1,8 +1,12 @@
 # CHANGELOG
 
+## 1.3.0 (2022-06-14)
+
+* Target ruby 3.0.
+
 ## 1.2.8 (2022-04-01)
 
-* Releax dependency to ruby 2.2.
+* Relax dependency to ruby 2.2.
 
 ## 1.2.7 (2022-02-04)
 
