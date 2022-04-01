@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.2.8 (2022-04-01)
+
+* Releax dependency to ruby 2.2.
+
 ## 1.2.7 (2022-02-04)
 
 * Allow styling line item descriptions and notes.
