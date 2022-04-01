@@ -12,7 +12,11 @@ Gem::Specification.new do |s|
   s.summary     = 'A simple library for rendering invoices.'
   s.description = 'Payday is a library for rendering invoices to pdf.'
 
-  s.add_dependency 'activesupport'
+  if RUBY_VERSION < '2.7'
+    s.add_dependency 'activesupport', '< 7'
+  else
+    s.add_dependency 'activesupport'
+  end
   s.add_dependency('i18n', '>= 0.7', '< 2.0')
   s.add_dependency('money', '~> 6.5')
   s.add_dependency('prawn', '>= 1.0', '< 2.5')
