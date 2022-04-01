@@ -20,3 +20,6 @@ Style/Documentation:
 # SupportedStyles: always, always_true, never
 Style/FrozenStringLiteralComment:
   Enabled: false
+
+Gemspec/RequiredRubyVersion:
+  Enabled: false # disabled for now for ruby 2.2 compatibility
