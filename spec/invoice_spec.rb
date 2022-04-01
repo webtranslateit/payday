@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module Payday # rubocop:todo Metrics/ModuleLength
-  describe Invoice do # rubocop:todo Metrics/BlockLength
+  describe Invoice do
     # rubocop:todo RSpec/MultipleExpectations
     it 'is able to be initialized with a hash of options' do # rubocop:todo RSpec/ExampleLength, RSpec/MultipleExpectations
       # rubocop:enable RSpec/MultipleExpectations
@@ -74,37 +74,37 @@ module Payday # rubocop:todo Metrics/ModuleLength
 
     it "is overdue when it's past date and unpaid" do
       i = described_class.new(due_at: Date.today - 1)
-      expect(i.overdue?).to eq(true)
+      expect(i.overdue?).to be(true)
     end
 
     it "isn't overdue when past due date and paid" do
       i = described_class.new(due_at: Date.today - 1, paid_at: Date.today)
-      expect(i.overdue?).not_to eq(true)
+      expect(i.overdue?).not_to be(true)
     end
 
     it 'is overdue when due date is a time before the current date' do
       i = described_class.new(due_at: Time.parse('Jan 1 14:33:20 GMT 2011'))
-      expect(i.overdue?).to eq(true)
+      expect(i.overdue?).to be(true)
     end
 
     it 'is not refunded when not marked refunded' do
       i = described_class.new
-      expect(i.refunded?).not_to eq(true)
+      expect(i.refunded?).not_to be(true)
     end
 
     it 'is refunded when marked as refunded' do
       i = described_class.new(refunded_at: Date.today)
-      expect(i.refunded?).to eq(true)
+      expect(i.refunded?).to be(true)
     end
 
     it 'is not paid when not marked paid' do
       i = described_class.new
-      expect(i.paid?).not_to eq(true)
+      expect(i.paid?).not_to be(true)
     end
 
     it 'is paid when marked as paid' do
       i = described_class.new(paid_at: Date.today)
-      expect(i.paid?).to eq(true)
+      expect(i.paid?).to be(true)
     end
 
     # rubocop:todo RSpec/MultipleExpectations
@@ -136,7 +136,7 @@ module Payday # rubocop:todo Metrics/ModuleLength
       expect(details).to include(%w[Awesome Absolutely])
     end
 
-    describe 'rendering' do # rubocop:todo Metrics/BlockLength
+    describe 'rendering' do
       before do
         Dir.mkdir('tmp') unless File.exist?('tmp')
         Config.default.reset

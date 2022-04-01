@@ -9,17 +9,16 @@ name: Ruby
 
 on:
   push:
-    branches: [ main ]
+    branches:
   pull_request:
-    branches: [ main ]
+    branches:
 
 jobs:
   test:
-
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        ruby-version: ['2.6', '2.7', '3.0']
+        ruby-version: ['3.0']
 
     steps:
     - uses: actions/checkout@v2
@@ -46,7 +45,7 @@ jobs:
       - name: Install ruby and gems
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 2.6.9 # Use .ruby-version file instead of duplicating here and in Gemfile?
+          ruby-version: 3.0.4 # Use .ruby-version file instead of duplicating here and in Gemfile?
           bundler-cache: true
 
       - name: Run ruby linter

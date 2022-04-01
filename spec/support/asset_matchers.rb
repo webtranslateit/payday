@@ -11,7 +11,7 @@ RSpec::Matchers.define(:match_binary_asset) do |file_name|
         output_path = File.join('tmp/rendered_output', file_name)
 
         FileUtils.mkdir_p(File.dirname(output_path))
-        File.open(output_path, 'wb') { |f| f.write actual_output }
+        File.binwrite(output_path, actual_output)
       end
     end
   end
