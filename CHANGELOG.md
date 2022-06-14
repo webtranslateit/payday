@@ -3,6 +3,8 @@
 ## 1.3.0 (2022-06-14)
 
 * Target ruby 3.0.
+* Verified compatibility with ruby 3.1.
+* Update dependencies.
 
 ## 1.2.8 (2022-04-01)
 
