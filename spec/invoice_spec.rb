@@ -138,7 +138,7 @@ module Payday # rubocop:todo Metrics/ModuleLength
 
     describe 'rendering' do
       before do
-        Dir.mkdir('tmp') unless File.exist?('tmp')
+        FileUtils.mkdir_p('tmp')
         Config.default.reset
       end
 
@@ -146,7 +146,7 @@ module Payday # rubocop:todo Metrics/ModuleLength
       let(:invoice_params) { {} }
 
       it 'renders to a file' do
-        File.unlink('tmp/testing.pdf') if File.exist?('tmp/testing.pdf')
+        FileUtils.rm_rf('tmp/testing.pdf')
 
         invoice.render_pdf_to_file('tmp/testing.pdf')
 

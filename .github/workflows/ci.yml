@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        ruby-version: ['3.0', '3.1']
+        ruby-version: ['3.1']
 
     steps:
     - uses: actions/checkout@v2
@@ -44,7 +44,7 @@ jobs:
       - name: Install ruby and gems
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 3.0.4 # Use .ruby-version file instead of duplicating here and in Gemfile?
+          ruby-version: 3.1.2 # Use .ruby-version file instead of duplicating here and in Gemfile?
           bundler-cache: true
 
       - name: Run ruby linter
