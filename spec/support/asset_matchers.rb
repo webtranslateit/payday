@@ -20,7 +20,7 @@ RSpec::Matchers.define(:match_binary_asset) do |file_name|
     expected_output_path = File.join('spec/assets', file_name)
     actual_output_path = File.join('tmp/rendered_output', file_name)
 
-    "expected output to match '#{expected_output_path}' "\
+    "expected output to match '#{expected_output_path}' " \
       "(see #{actual_output_path})"
   end
 end

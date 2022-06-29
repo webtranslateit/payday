@@ -4,7 +4,7 @@ require 'payday/version'
 Gem::Specification.new do |s|
   s.name        = 'webtranslateit-payday'
   s.version     = Payday::VERSION
-  s.required_ruby_version = '>= 3.0'
+  s.required_ruby_version = '>= 3.1'
   s.platform    = Gem::Platform::RUBY
   s.authors     = ['Alan Johnson', 'Edouard Briere']
   s.email       = ['edouard@webtranslateit.com']

@@ -75,10 +75,10 @@ module Payday
       end
 
       if File.extname(image) == '.svg'
-        logo_info = pdf.svg(File.read(image), at: pdf.bounds.top_left, width: width, height: height)
+        logo_info = pdf.svg(File.read(image), at: pdf.bounds.top_left, width:, height:)
         logo_height = logo_info[:height]
       else
-        logo_info = pdf.image(image, at: pdf.bounds.top_left, width: width, height: height)
+        logo_info = pdf.image(image, at: pdf.bounds.top_left, width:, height:)
         logo_height = logo_info.scaled_height
       end
 
