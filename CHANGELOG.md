@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.4.0 (2022-06-29)
+
+* Target ruby 3.1.
+
 ## 1.3.0 (2022-06-14)
 
 * Target ruby 3.0.
