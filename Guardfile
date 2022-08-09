@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 guard :rspec, cmd: 'bundle exec rspec --color --format progress' do
   watch(%r{^spec/.+_spec\.rb$})
   watch('spec/spec_helper.rb')                        { 'spec' }

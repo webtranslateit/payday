@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Payday
   # Basically just an invoice. Stick a ton of line items in it, add some details, and then render it out!
   class Invoice

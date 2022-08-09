@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Not much to see here
 require 'date'
 require 'time'

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Payday
   # Represents a line item in an invoice.
   #

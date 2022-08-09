@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 # This is Payday!
 module Payday
   # Current Version
-  VERSION = '1.4.0'.freeze
+  VERSION = '1.5.0.pre.1'
 end

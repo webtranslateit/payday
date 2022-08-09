@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Include {Payday::Invoiceable} in your Invoice class to make it Payday compatible. Payday
 # expects that a +line_items+ method containing an Enumerable of {Payday::LineItem} compatible
 # elements exists. Those LineItem objects primarily need to include quantity, price, and description methods.
