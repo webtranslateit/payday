@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'fileutils'
 
 # Usage: expect(renderer.render).to match_binary_asset('pdf/test.pdf')

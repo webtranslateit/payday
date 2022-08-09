@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Payday
   # Configuration for Payday. This is a singleton, so to set the company_name you would call
   # Payday::Config.default.company_name = "Awesome Corp".
