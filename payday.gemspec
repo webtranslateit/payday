@@ -22,14 +22,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'prawn-table', '>= 0.2.2'
   s.add_dependency 'rexml'
 
-  s.add_development_dependency 'guard'
-  s.add_development_dependency 'guard-rspec'
-  s.add_development_dependency 'guard-rubocop'
-  s.add_development_dependency 'matrix' # for compat reasons, required in builds
-  s.add_development_dependency 'rspec', '~> 3.11.0'
-  s.add_development_dependency 'rubocop'
-  s.add_development_dependency 'rubocop-rspec'
-
   s.files = `git ls-files`.split("\n")
   s.executables =
     `git ls-files -- bin/*`.split("\n").map { |f| File.basename(f) }

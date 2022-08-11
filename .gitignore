@@ -2,7 +2,6 @@ tmp/
 doc/
 .yardoc/
 *.gem
-Gemfile.lock
 .bundle
 pkg/*
 bin/
