@@ -6,6 +6,7 @@
 * Don’t leave gemspec dependencies open ended.
 * Move development dependencies to Gemfile and add Gemfile.lock to version control so dependabot can update them.
 * Inherit rubocop styles from our defaults and fix offences.
+* Load gem’s files using Zeitwerk.
 
 ## 1.5.0 (2002-08-09)
 
