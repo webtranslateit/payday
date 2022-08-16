@@ -1,11 +1,8 @@
 # frozen_string_literal: true
 
-$LOAD_PATH.push File.expand_path('lib', __dir__)
-require 'payday/version'
-
 Gem::Specification.new do |s|
   s.name        = 'webtranslateit-payday'
-  s.version     = Payday::VERSION
+  s.version     = '1.5.0'
   s.required_ruby_version = '>= 3.1'
   s.platform    = Gem::Platform::RUBY
   s.authors     = ['Alan Johnson', 'Edouard Briere']
@@ -20,10 +17,9 @@ Gem::Specification.new do |s|
   s.add_dependency 'prawn', '~> 2.4', '< 3'
   s.add_dependency 'prawn-svg', '~> 0.32', '< 1'
   s.add_dependency 'prawn-table', '~> 0.2', '< 1'
+  s.add_dependency 'zeitwerk', '~> 2.6', '< 3'
 
   s.files = `git ls-files`.split("\n")
-  s.executables =
-    `git ls-files -- bin/*`.split("\n").map { |f| File.basename(f) }
   s.require_paths = ['lib']
   s.metadata['rubygems_mfa_required'] = 'true'
 end
