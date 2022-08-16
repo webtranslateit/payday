@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.6.2 (2002-08-16)
+
+* Use rubocop-performance and fix one performance issue.
+
 ## 1.6.1 (2002-08-16)
 
 * Fix booting of Payday. It requires the module Payday to be declared.
