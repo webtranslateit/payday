@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## Edge
+
+* Set up release-drafter.
+* Don’t leave gemspec dependencies open ended.
+* Move development dependencies to Gemfile and add Gemfile.lock to version control so dependabot can update them.
+
+## 1.5.0 (2002-08-09)
+
+* Rubocop offences fixes.
+
 ## 1.4.0 (2022-06-29)
 
 * Target ruby 3.1.
