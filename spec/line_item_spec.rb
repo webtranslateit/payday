@@ -3,6 +3,7 @@
 require 'spec_helper'
 
 module Payday
+
   describe LineItem do
     it 'is able to be initialized with a price' do
       li = described_class.new(price: BigDecimal('20'))
@@ -29,4 +30,5 @@ module Payday
       expect(li.amount).to eq(BigDecimal('244'))
     end
   end
+
 end

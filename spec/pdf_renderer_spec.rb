@@ -3,6 +3,7 @@
 require 'spec_helper'
 
 module Payday
+
   describe PdfRenderer do
     describe '.number_to_currency' do
       it 'formats numbers to currency currectly' do
@@ -10,4 +11,5 @@ module Payday
       end
     end
   end
+
 end

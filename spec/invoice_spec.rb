@@ -3,6 +3,7 @@
 require 'spec_helper'
 
 module Payday # rubocop:todo Metrics/ModuleLength
+
   describe Invoice do
     # rubocop:todo RSpec/MultipleExpectations
     it 'is able to be initialized with a hash of options' do # rubocop:todo RSpec/ExampleLength, RSpec/MultipleExpectations
@@ -127,7 +128,7 @@ module Payday # rubocop:todo Metrics/ModuleLength
     it 'is able to iterate through invoice_details as a hash' do # rubocop:todo RSpec/ExampleLength, RSpec/MultipleExpectations
       # rubocop:enable RSpec/MultipleExpectations
       i = described_class.new(invoice_details:
-        { 'Test' => 'Yes', 'Awesome' => 'Absolutely' })
+        {'Test' => 'Yes', 'Awesome' => 'Absolutely'})
       details = []
       i.each_detail do |key, value|
         details << [key, value]
@@ -211,11 +212,11 @@ module Payday # rubocop:todo Metrics/ModuleLength
 
       context 'paid, with an svg logo' do # rubocop:todo RSpec/ContextWording
         before do
-          logo = { filename: 'spec/assets/tiger.svg', size: '100x100' }
+          logo = {filename: 'spec/assets/tiger.svg', size: '100x100'}
           Payday::Config.default.invoice_logo = logo
         end
 
-        let(:invoice_params) { { paid_at: Date.civil(2012, 2, 22) } }
+        let(:invoice_params) { {paid_at: Date.civil(2012, 2, 22)} }
 
         it 'renders an invoice correctly' do # rubocop:todo RSpec/ExampleLength
           invoice.line_items += [
@@ -243,4 +244,5 @@ module Payday # rubocop:todo Metrics/ModuleLength
       end
     end
   end
+
 end
