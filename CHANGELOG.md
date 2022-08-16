@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## Edge
+## 1.6.0 (2002-08-16)
 
 * Set up release-drafter.
 * Don’t leave gemspec dependencies open ended.
