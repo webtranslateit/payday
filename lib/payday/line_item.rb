@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module Payday
+
   # Represents a line item in an invoice.
   #
   # rubocop:todo Layout/LineLength
@@ -9,6 +10,7 @@ module Payday
   # them your invoice math could get pretty messed up. It's recommended that both values be set to +BigDecimal+ values.
   # Otherwise, we'll do our best to convert the set values to a +BigDecimal+.
   class LineItem
+
     include LineItemable
 
     attr_accessor :description, :display_quantity, :display_price
@@ -44,5 +46,7 @@ module Payday
       value = 0 if value.to_s.blank?
       @predefined_amount = BigDecimal(value.to_s)
     end
+
   end
+
 end

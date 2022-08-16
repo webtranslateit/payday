@@ -17,7 +17,9 @@
 # rubocop:enable Layout/LineLength
 # paid dates, and refunded dates, as well as stamps showing if the invoice is paid or due.
 module Payday
-  module Invoiceable # rubocop:todo Style/Documentation
+
+  module Invoiceable
+
     # Who the invoice is being sent to.
     def bill_to
       "Goofy McGoofison\nYour Invoice Doesn't\nHave It's Own BillTo Method"
@@ -85,5 +87,7 @@ module Payday
         block.call(detail[0], detail[1])
       end
     end
+
   end
+
 end

@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
 module Payday
+
   # Basically just an invoice. Stick a ton of line items in it, add some details, and then render it out!
   class Invoice
+
     include Payday::Invoiceable
 
     attr_accessor :invoice_number, :bill_to, :ship_to, :notes, :line_items, :shipping_description,
@@ -50,5 +52,7 @@ module Payday
     def add_line_item(options = {})
       line_items << Payday::LineItem.new(options)
     end
+
   end
+
 end
