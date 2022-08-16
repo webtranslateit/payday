@@ -10,6 +10,7 @@ Gem::Specification.new do |s|
   s.homepage    = 'https://github.com/webtranslateit/payday'
   s.summary     = 'A simple library for rendering invoices.'
   s.description = 'Payday is a library for rendering invoices to pdf.'
+  s.license = 'MIT'
 
   s.add_dependency 'activesupport', '~> 7', '< 8'
   s.add_dependency 'i18n', '~> 1.12', '< 2'
