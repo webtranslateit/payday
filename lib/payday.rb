@@ -1,20 +1,19 @@
 # frozen_string_literal: true
 
-# Not much to see here
-require 'date'
-require 'time'
+require 'zeitwerk'
+loader = Zeitwerk::Loader.for_gem
+loader.ignore("#{__dir__}/generators")
+loader.setup
+
+require 'active_support/core_ext/object/blank' # For Object#blank? method
 require 'bigdecimal'
+require 'date'
+require 'money'
 require 'prawn'
 require 'prawn/table'
 require 'prawn-svg'
-require 'money'
-require 'active_support/all'
+require 'time'
 
-require_relative 'payday/version'
-require_relative 'payday/config'
-require_relative 'payday/i18n'
-require_relative 'payday/line_itemable'
-require_relative 'payday/line_item'
-require_relative 'payday/pdf_renderer'
-require_relative 'payday/invoiceable'
-require_relative 'payday/invoice'
+# Load translations from the locale folder
+I18n.enforce_available_locales = false
+I18n.load_path.concat(Dir[File.join('lib', 'payday', 'locale', '*.yml')])
