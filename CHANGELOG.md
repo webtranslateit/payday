@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## Edge
+
+* Fix booting of Payday. It requires the module Payday to be declared.
+
 ## 1.6.0 (2002-08-16)
 
 * Set up release-drafter.
