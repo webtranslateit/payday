@@ -5,6 +5,7 @@
 * Set up release-drafter.
 * Don’t leave gemspec dependencies open ended.
 * Move development dependencies to Gemfile and add Gemfile.lock to version control so dependabot can update them.
+* Inherit rubocop styles from our defaults and fix offences.
 
 ## 1.5.0 (2002-08-09)
 
