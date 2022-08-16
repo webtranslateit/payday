@@ -14,13 +14,12 @@ Gem::Specification.new do |s|
   s.summary     = 'A simple library for rendering invoices.'
   s.description = 'Payday is a library for rendering invoices to pdf.'
 
-  s.add_dependency 'activesupport'
-  s.add_dependency 'i18n', '>= 0.7'
-  s.add_dependency 'money', '~> 6.16'
-  s.add_dependency 'prawn', '>= 2.0'
-  s.add_dependency 'prawn-svg', '>= 0.32.0'
-  s.add_dependency 'prawn-table', '>= 0.2.2'
-  s.add_dependency 'rexml'
+  s.add_dependency 'activesupport', '~> 7', '< 8'
+  s.add_dependency 'i18n', '~> 1.12', '< 2'
+  s.add_dependency 'money', '~> 6.16', '< 7'
+  s.add_dependency 'prawn', '~> 2.4', '< 3'
+  s.add_dependency 'prawn-svg', '~> 0.32', '< 1'
+  s.add_dependency 'prawn-table', '~> 0.2', '< 1'
 
   s.files = `git ls-files`.split("\n")
   s.executables =
