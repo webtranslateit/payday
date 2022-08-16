@@ -8,6 +8,7 @@ PATH
       prawn (~> 2.4, < 3)
       prawn-svg (~> 0.32, < 1)
       prawn-table (~> 0.2, < 1)
+      zeitwerk (~> 2.6, < 3)
 
 GEM
   remote: https://rubygems.org/
@@ -117,6 +118,7 @@ GEM
     tzinfo (2.0.5)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.2.0)
+    zeitwerk (2.6.0)
 
 PLATFORMS
   arm64-darwin-21
