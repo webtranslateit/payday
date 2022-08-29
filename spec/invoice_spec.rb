@@ -184,6 +184,21 @@ module Payday # rubocop:todo Metrics/ModuleLength
         end
       end
 
+      context 'with the locale set to Spanish' do
+        it 'renders and invoice in Spanish' do # rubocop:todo RSpec/ExampleLength
+          I18n.with_locale :es do
+            Payday::Config.default.company_details = 'Dirección'
+
+            invoice.line_items += [
+              LineItem.new(price: 20, quantity: 5, description: 'Pantalones'),
+              LineItem.new(price: 5, quantity: 200, description: 'Sombreros')
+            ]
+
+            expect(invoice.render_pdf).to match_binary_asset 'testing_es.pdf'
+          end
+        end
+      end
+
       context 'with a mix of LineItems with price, quantity and predefined_amounts' do
         let(:invoice_params) do
           {
