@@ -15,6 +15,7 @@ fr:
       shipping: "Livraison :"
       tax: "Taxes :"
       total: "Total :"
+      notes: "Notes :"
     line_item:
       description: Description
       unit_price: "Prix Unitaire"
