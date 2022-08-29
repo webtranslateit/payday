@@ -15,8 +15,7 @@ require 'prawn-svg'
 require 'time'
 
 # Load translations from the locale folder
-I18n.enforce_available_locales = false
-I18n.load_path.concat(Dir[File.join('lib', 'payday', 'locale', '*.yml')])
+I18n.load_path.concat(Dir[File.join('config', 'locales', '*.yml')])
 
 module Payday
 end

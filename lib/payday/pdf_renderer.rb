@@ -273,7 +273,7 @@ module Payday
 
       pdf.move_cursor_to(pdf.cursor - 30)
       pdf.font('NotoSans') do
-        pdf.text(I18n.t('payday.invoice.notes', default: 'Notes', style: :bold))
+        pdf.text(I18n.t('payday.invoice.notes', default: 'Notes'), style: :bold)
       end
       pdf.line_width = 0.5
       pdf.stroke_color = 'cccccc'

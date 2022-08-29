@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.6.3 (2002-08-29)
+
+* Fix styling of Notes heading.
+
 ## 1.6.2 (2002-08-16)
 
 * Use rubocop-performance and fix one performance issue.

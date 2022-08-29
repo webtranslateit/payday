@@ -15,6 +15,7 @@ es:
       shipping: "Envío:"
       tax: "Impuesto:"
       total: "Total:"
+      notes: "Notas:"
     line_item:
       description: Descripción
       unit_price: "Precio por Unidad"
