@@ -219,7 +219,7 @@ module Payday # rubocop:todo Metrics/ModuleLength
 
           invoice.add_line_item(price: 10, quantity: 3, description: 'Extra Users')
           invoice.add_line_item(predefined_amount: 79,
-                                description: "Flat Fee\n<color rgb=\'888888\'>From date to date</color>")
+                                description: "Flat Fee\n<color rgb='888888'>From date to date</color>")
 
           expect(invoice.render_pdf).to match_binary_asset 'testing_predefined_amount.pdf'
         end
