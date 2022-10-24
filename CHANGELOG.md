@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.6.4 (2002-10-24)
+
+* Code refactoring.
+
 ## 1.6.3 (2002-08-29)
 
 * Fix styling of Notes heading.
