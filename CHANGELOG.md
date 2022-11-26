@@ -1,22 +1,22 @@
 # CHANGELOG
 
-## 1.6.4 (2002-10-24)
+## 1.6.4 (2022-10-24)
 
 * Code refactoring.
 
-## 1.6.3 (2002-08-29)
+## 1.6.3 (2022-08-29)
 
 * Fix styling of Notes heading.
 
-## 1.6.2 (2002-08-16)
+## 1.6.2 (2022-08-16)
 
 * Use rubocop-performance and fix one performance issue.
 
-## 1.6.1 (2002-08-16)
+## 1.6.1 (2022-08-16)
 
 * Fix booting of Payday. It requires the module Payday to be declared.
 
-## 1.6.0 (2002-08-16)
+## 1.6.0 (2022-08-16)
 
 * Set up release-drafter.
 * Don’t leave gemspec dependencies open ended.
@@ -24,7 +24,7 @@
 * Inherit rubocop styles from our defaults and fix offences.
 * Load gem’s files using Zeitwerk.
 
-## 1.5.0 (2002-08-09)
+## 1.5.0 (2022-08-09)
 
 * Rubocop offences fixes.
 
