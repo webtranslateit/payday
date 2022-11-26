@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## Edge
+
+* Add ruby 3.2 to test matrix.
+
 ## 1.6.4 (2022-10-24)
 
 * Code refactoring.
