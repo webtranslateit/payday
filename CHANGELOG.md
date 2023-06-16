@@ -1,8 +1,9 @@
 # CHANGELOG
 
-## Edge
+## 1.6.5 (2023-06-16)
 
 * Add ruby 3.2 to test matrix.
+* Dependencies update.
 
 ## 1.6.4 (2022-10-24)
 
