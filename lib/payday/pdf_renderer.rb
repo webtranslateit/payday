@@ -200,8 +200,8 @@ module Payday
           [line.description, '', '', number_to_currency(line.predefined_amount, invoice)]
         else
           [line.description,
-           (line.display_price || number_to_currency(line.price, invoice)),
-           (line.display_quantity || BigDecimal(line.quantity.to_s).to_s('F')),
+           line.display_price || number_to_currency(line.price, invoice),
+           line.display_quantity || BigDecimal(line.quantity.to_s).to_s('F'),
            number_to_currency(line.amount, invoice)]
         end
       end
