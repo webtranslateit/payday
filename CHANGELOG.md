@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.6.6 (2023-12-04)
+
+* Code Improvement (rubocop).
+
 ## 1.6.5 (2023-06-16)
 
 * Add ruby 3.2 to test matrix.
