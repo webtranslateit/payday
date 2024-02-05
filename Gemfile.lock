@@ -33,7 +33,7 @@ GEM
     connection_pool (2.4.1)
     css_parser (1.16.0)
       addressable
-    diff-lcs (1.5.0)
+    diff-lcs (1.5.1)
     drb (2.2.0)
       ruby2_keywords
     ffi (1.15.5)
@@ -100,19 +100,19 @@ GEM
       ffi (~> 1.0)
     regexp_parser (2.9.0)
     rexml (3.2.6)
-    rspec (3.12.0)
-      rspec-core (~> 3.12.0)
-      rspec-expectations (~> 3.12.0)
-      rspec-mocks (~> 3.12.0)
-    rspec-core (3.12.0)
-      rspec-support (~> 3.12.0)
-    rspec-expectations (3.12.0)
+    rspec (3.13.0)
+      rspec-core (~> 3.13.0)
+      rspec-expectations (~> 3.13.0)
+      rspec-mocks (~> 3.13.0)
+    rspec-core (3.13.0)
+      rspec-support (~> 3.13.0)
+    rspec-expectations (3.13.0)
       diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.12.0)
-    rspec-mocks (3.12.0)
+      rspec-support (~> 3.13.0)
+    rspec-mocks (3.13.0)
       diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.12.0)
-    rspec-support (3.12.0)
+      rspec-support (~> 3.13.0)
+    rspec-support (3.13.0)
     rubocop (1.60.2)
       json (~> 2.3)
       language_server-protocol (>= 3.17.0)
@@ -159,7 +159,7 @@ DEPENDENCIES
   guard-rspec
   guard-rubocop
   matrix
-  rspec (~> 3.12.0)
+  rspec (~> 3.13.0)
   rubocop
   rubocop-performance
   rubocop-rspec
