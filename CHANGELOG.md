@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.6.7 (2024-09-23)
+
+* Code Improvement (rubocop).
+
 ## 1.6.6 (2023-12-04)
 
 * Code Improvement (rubocop).
