@@ -41,14 +41,14 @@ module Payday # rubocop:todo Metrics/ModuleLength
       # $1000 in Hats
       i.line_items << LineItem.new(price: 5, quantity: 200, description: 'Hats')
 
-      expect(i.subtotal).to eq(BigDecimal('1130'))
+      expect(i.subtotal).to eq(BigDecimal(1130))
     end
 
     it 'calculates the correct tax rounded to two decimal places' do
       i = described_class.new(tax_rate: 10.0)
       i.line_items << LineItem.new(price: 20, quantity: 5, description: 'Pants')
 
-      expect(i.tax).to eq(BigDecimal('10'))
+      expect(i.tax).to eq(BigDecimal(10))
     end
 
     it 'does not apply taxes to invoices with subtotal <= 0' do
@@ -72,7 +72,7 @@ module Payday # rubocop:todo Metrics/ModuleLength
       # $1000 in Hats
       i.line_items << LineItem.new(price: 5, quantity: 200, description: 'Hats')
 
-      expect(i.total).to eq(BigDecimal('1243'))
+      expect(i.total).to eq(BigDecimal(1243))
     end
 
     it "is overdue when it's past date and unpaid" do
