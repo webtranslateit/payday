@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 1.6.8 (2024-11-11)
+
+* Add ruby 3.4 to test matrix.
+* Allow rails 8.
+
 ## 1.6.7 (2024-09-23)
 
 * Code Improvement (rubocop).

@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.description = 'Payday is a library for rendering invoices to pdf.'
   s.license = 'MIT'
 
-  s.add_dependency 'activesupport', '~> 7', '< 8'
+  s.add_dependency 'activesupport', '~> 7', '< 9'
   s.add_dependency 'i18n', '~> 1.12', '< 2'
   s.add_dependency 'money', '~> 6.16', '< 7'
   s.add_dependency 'prawn', '~> 2.4', '< 3'
