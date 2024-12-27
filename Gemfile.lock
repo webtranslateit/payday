@@ -38,9 +38,7 @@ GEM
       addressable
     diff-lcs (1.5.1)
     drb (2.2.1)
-    ffi (1.17.0-arm64-darwin)
-    ffi (1.17.0-x86_64-darwin)
-    ffi (1.17.0-x86_64-linux-gnu)
+    ffi (1.17.0)
     formatador (1.1.0)
     guard (2.19.0)
       formatador (>= 0.2.4)
@@ -167,4 +165,4 @@ DEPENDENCIES
   webtranslateit-payday!
 
 BUNDLED WITH
-   2.5.23
+   2.6.2
