@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.6.9 (2025-01-28)
+
+* Bump dependencies.
+
 ## 1.6.8 (2024-11-11)
 
 * Add ruby 3.4 to test matrix.
