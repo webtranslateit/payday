@@ -213,7 +213,7 @@ module Payday
                                          inline_format: true},
                             row_colors: %w[F6F9FC ffffff]) do
         # left align the number columns
-        columns(1..3).rows(1..row_length - 1).style(align: :right)
+        columns(1..3).rows(1..(row_length - 1)).style(align: :right)
 
         # set the column widths correctly
         natural = natural_column_widths
