@@ -36,6 +36,7 @@ module Payday
       line_items_table(invoice, pdf)
       totals_lines(invoice, pdf)
       notes(invoice, pdf)
+      render_qr_code(invoice, pdf) unless defined?(invoice.notes) && invoice.notes
 
       page_numbers(pdf)
 
@@ -268,7 +269,7 @@ module Payday
     end
     # rubocop:enable Metrics/MethodLength
 
-    def self.notes(invoice, pdf) # rubocop:todo Metrics/AbcSize
+    def self.notes(invoice, pdf) # rubocop:todo Metrics/AbcSize, Metrics/MethodLength
       return unless defined?(invoice.notes) && invoice.notes
 
       pdf.move_cursor_to(pdf.cursor - 30)
@@ -280,6 +281,20 @@ module Payday
       pdf.stroke_line([0, pdf.cursor - 3, pdf.bounds.width, pdf.cursor - 3])
       pdf.move_cursor_to(pdf.cursor - 10)
       pdf.text(invoice.notes.to_s, inline_format: true)
+
+      render_qr_code(invoice, pdf)
+    end
+
+    def self.render_qr_code(invoice, pdf)
+      return unless defined?(invoice.qr_code) && invoice.qr_code.to_s.strip.present?
+
+      require 'rqrcode'
+
+      pdf.move_cursor_to(pdf.cursor - 10)
+      qr = RQRCode::QRCode.new(invoice.qr_code.to_s)
+      png = qr.as_png(size: 200)
+
+      pdf.image(StringIO.new(png.to_s), width: 100, position: :left)
     end
 
     def self.page_numbers(pdf)

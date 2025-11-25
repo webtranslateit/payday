@@ -8,7 +8,8 @@ module Payday
     include Payday::Invoiceable
 
     attr_accessor :invoice_number, :bill_to, :ship_to, :notes, :line_items, :shipping_description,
-                  :tax_description, :due_at, :paid_at, :refunded_at, :currency, :invoice_details, :invoice_date
+                  :tax_description, :due_at, :paid_at, :refunded_at, :currency, :invoice_details, :invoice_date,
+                  :qr_code
 
     attr_reader :tax_rate, :shipping_rate
 
@@ -31,6 +32,7 @@ module Payday
       self.currency = options[:currency] || nil
       self.invoice_details = options[:invoice_details] || []
       self.invoice_date = options[:invoice_date] || nil
+      self.qr_code = options[:qr_code] || nil
     end
     # rubocop:enable Metrics/AbcSize
     # rubocop:enable Metrics/MethodLength
