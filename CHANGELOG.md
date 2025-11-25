@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.7.0 (2025-11-25)
+
+* Add QR code support.
+
 ## 1.6.9 (2025-01-28)
 
 * Bump dependencies.

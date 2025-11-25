@@ -244,6 +244,111 @@ module Payday # rubocop:todo Metrics/ModuleLength
         end
       end
 
+      context 'with QR code' do
+        it 'renders a complete invoice with QR code correctly' do # rubocop:todo RSpec/ExampleLength
+          Payday::Config.default.company_name = 'Example Company'
+          Payday::Config.default.company_details = "123 Business St\nCity, ST 12345\ninfo@example.com"
+
+          notes = "<b>Payment Terms:</b> Net 30 days\n\n" \
+                  "<b>Verification:</b> Scan the QR code below to verify this invoice online.\n\n" \
+                  'Questions? Contact us at <u>billing@example.com</u>'
+
+          invoice = described_class.new(
+            invoice_number: 'INV-2024-001',
+            invoice_date: Date.civil(2024, 11, 25),
+            due_at: Date.civil(2024, 12, 25),
+            bill_to: "Customer Name\n456 Customer Ave\nTown, ST 67890",
+            tax_rate: 10.0,
+            qr_code: 'https://example.com/verify/INV-2024-001',
+            notes: notes
+          )
+
+          invoice.add_line_item(description: 'Consulting Services', quantity: 10, price: 150)
+          invoice.add_line_item(description: 'Software License', predefined_amount: 500)
+
+          expect(invoice.render_pdf).to match_binary_asset 'example_invoice_with_qr.pdf'
+        end
+
+        it 'renders invoice with QR code containing URL' do # rubocop:todo RSpec/MultipleExpectations
+          invoice = new_invoice(qr_code: 'https://example.com/verify/invoice/12345')
+          invoice.line_items << LineItem.new(price: 20, quantity: 1, description: 'Test Item')
+
+          pdf_string = invoice.render_pdf
+          expect(pdf_string).to be_a(String)
+          expect(pdf_string.bytesize).to be > 0
+        end
+
+        # rubocop:todo RSpec/ExampleLength, RSpec/MultipleExpectations
+        it 'renders invoice with QR code containing arbitrary data' do
+          # rubocop:enable RSpec/ExampleLength, RSpec/MultipleExpectations
+          qr_data = 'INVOICE:12345|DATE:2024-01-01|TOTAL:1234.56'
+          invoice = new_invoice(qr_code: qr_data)
+          invoice.line_items << LineItem.new(price: 1234.56, quantity: 1, description: 'Service')
+
+          pdf_string = invoice.render_pdf
+          expect(pdf_string).to be_a(String)
+          expect(pdf_string.bytesize).to be > 0
+        end
+
+        it 'renders invoice without QR code when qr_code is nil' do # rubocop:todo RSpec/MultipleExpectations
+          invoice = new_invoice(qr_code: nil)
+          invoice.line_items << LineItem.new(price: 20, quantity: 1, description: 'Test Item')
+
+          pdf_string = invoice.render_pdf
+          expect(pdf_string).to be_a(String)
+          expect(pdf_string.bytesize).to be > 0
+        end
+
+        it 'renders invoice without QR code when qr_code is blank' do # rubocop:todo RSpec/MultipleExpectations
+          invoice = new_invoice(qr_code: '  ')
+          invoice.line_items << LineItem.new(price: 20, quantity: 1, description: 'Test Item')
+
+          pdf_string = invoice.render_pdf
+          expect(pdf_string).to be_a(String)
+          expect(pdf_string.bytesize).to be > 0
+        end
+
+        # rubocop:todo RSpec/ExampleLength, RSpec/MultipleExpectations
+        it 'renders invoice with QR code and notes' do
+          # rubocop:enable RSpec/ExampleLength, RSpec/MultipleExpectations
+          invoice = new_invoice(
+            notes: 'Scan the QR code below to verify this invoice.',
+            qr_code: 'https://example.com/verify/12345'
+          )
+          invoice.line_items << LineItem.new(price: 100, quantity: 1, description: 'Consulting')
+
+          pdf_string = invoice.render_pdf
+          expect(pdf_string).to be_a(String)
+          expect(pdf_string.bytesize).to be > 0
+        end
+
+        # rubocop:todo RSpec/ExampleLength, RSpec/MultipleExpectations
+        it 'renders invoice with QR code but without notes' do
+          # rubocop:enable RSpec/ExampleLength, RSpec/MultipleExpectations
+          invoice = new_invoice(
+            notes: nil,
+            qr_code: 'https://example.com/verify/12345'
+          )
+          invoice.line_items << LineItem.new(price: 100, quantity: 1, description: 'Consulting')
+
+          pdf_string = invoice.render_pdf
+          expect(pdf_string).to be_a(String)
+          expect(pdf_string.bytesize).to be > 0
+        end
+
+        # rubocop:todo RSpec/ExampleLength, RSpec/MultipleExpectations
+        it 'is able to be initialized with qr_code in options hash' do
+          # rubocop:enable RSpec/ExampleLength, RSpec/MultipleExpectations
+          i = described_class.new(
+            invoice_number: 20,
+            qr_code: 'https://example.com/verify/20'
+          )
+
+          expect(i.invoice_number).to eq(20)
+          expect(i.qr_code).to eq('https://example.com/verify/20')
+        end
+      end
+
       def new_invoice(params = {})
         default_params = {
           tax_rate: 0.1,

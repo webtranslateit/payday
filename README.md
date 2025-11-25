@@ -53,6 +53,22 @@ Payday::Config.default.company_name = "Awesome Corp"
 Payday::Config.default.company_details = "10 This Way\nManhattan, NY 10001\n800-111-2222\nawesome@awesomecorp.com"
 ```
 
+QR Code Support
+===
+Invoices can include QR codes for verification purposes, useful for tax compliance requirements in various countries.
+
+Example:
+
+``` ruby
+invoice = Payday::Invoice.new(
+  invoice_number: 12345,
+  qr_code: 'https://verify.example.com/invoice/12345',
+  notes: 'Scan the QR code below to verify this invoice online.'
+)
+```
+
+QR codes are automatically rendered below the notes section.
+
 Using Payday with ActiveRecord Objects (or any other objects, for that matter)
 ===
 
