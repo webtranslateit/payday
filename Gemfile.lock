@@ -8,7 +8,7 @@ PATH
       prawn (~> 2.4, < 3)
       prawn-svg (~> 0.32, < 1)
       prawn-table (~> 0.2, < 1)
-      rqrcode (~> 2.0, < 3)
+      rqrcode (>= 2, < 4)
       zeitwerk (~> 2.6, < 3)
 
 GEM
@@ -111,10 +111,10 @@ GEM
       ffi (~> 1.0)
     regexp_parser (2.11.3)
     rexml (3.4.4)
-    rqrcode (2.2.0)
+    rqrcode (3.1.1)
       chunky_png (~> 1.0)
-      rqrcode_core (~> 1.0)
-    rqrcode_core (1.2.0)
+      rqrcode_core (~> 2.0)
+    rqrcode_core (2.0.1)
     rspec (3.13.2)
       rspec-core (~> 3.13.0)
       rspec-expectations (~> 3.13.0)
