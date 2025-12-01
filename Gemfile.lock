@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    webtranslateit-payday (1.7.0)
+    webtranslateit-payday (1.7.1)
       activesupport (>= 7, < 9)
       i18n (~> 1.12, < 2)
       money (~> 6.16, < 7)

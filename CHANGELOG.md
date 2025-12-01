@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.7.1 (2025-12-01)
+
+* Relax dependency on rqrcode.
+
 ## 1.7.0 (2025-11-25)
 
 * Add QR code support.
