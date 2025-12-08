@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'activesupport', '>= 7', '< 9'
   s.add_dependency 'i18n', '~> 1.12', '< 2'
-  s.add_dependency 'money', '~> 6.16', '< 7'
+  s.add_dependency 'money', '>= 6.16', '< 8.0'
   s.add_dependency 'prawn', '~> 2.4', '< 3'
   s.add_dependency 'prawn-svg', '~> 0.32', '< 1'
   s.add_dependency 'prawn-table', '~> 0.2', '< 1'
