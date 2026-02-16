@@ -49,9 +49,19 @@ module Payday
       end
     end
 
+    # Calculates the retention (e.g. IRPF) as a percentage of the subtotal.
+    # This is a post-tax deduction subtracted from the total.
+    def retention
+      if defined?(retention_rate)
+        subtotal * retention_rate / 100
+      else
+        0
+      end
+    end
+
     # Calculates the total for this invoice.
     def total
-      subtotal + tax + shipping
+      subtotal + tax + shipping - retention
     end
 
     def overdue?

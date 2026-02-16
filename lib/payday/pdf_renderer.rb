@@ -223,8 +223,9 @@ module Payday
     end
     # rubocop:enable Metrics/MethodLength
 
+    # rubocop:todo Metrics/PerceivedComplexity
     # rubocop:todo Metrics/MethodLength
-    def self.totals_lines(invoice, pdf) # rubocop:todo Metrics/AbcSize, Metrics/MethodLength
+    def self.totals_lines(invoice, pdf) # rubocop:todo Metrics/AbcSize, Metrics/MethodLength, Metrics/PerceivedComplexity
       table_data = []
       table_data << [
         bold_cell(pdf, I18n.t('payday.invoice.subtotal', default: 'Subtotal:')),
@@ -255,6 +256,21 @@ module Payday
                align: :right)
         ]
       end
+
+      if invoice.retention_rate.positive?
+        retention_description = if invoice.retention_description.nil?
+          I18n.t('payday.invoice.retention', default: 'Retention:')
+        else
+          invoice.retention_description
+        end
+
+        table_data << [
+          bold_cell(pdf, retention_description),
+          cell(pdf, number_to_currency(-invoice.retention, invoice),
+               align: :right)
+        ]
+      end
+
       table_data << [
         bold_cell(pdf, I18n.t('payday.invoice.total', default: 'Total:'),
                   size: 12),
@@ -268,6 +284,7 @@ module Payday
       end
     end
     # rubocop:enable Metrics/MethodLength
+    # rubocop:enable Metrics/PerceivedComplexity
 
     def self.notes(invoice, pdf) # rubocop:todo Metrics/AbcSize, Metrics/MethodLength
       return unless defined?(invoice.notes) && invoice.notes

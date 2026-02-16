@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.7.3 (2026-02-16)
+
+* Add retention support (e.g. Spanish IRPF). Set `retention_rate` on an invoice to apply a post-tax deduction calculated as a percentage of the subtotal. The retention amount is displayed as a negative line in the PDF and subtracted from the total. Customize the label with `retention_description` or via the `payday.invoice.retention` i18n key.
+
 ## 1.7.1 (2025-12-01)
 
 * Relax dependency on rqrcode.
