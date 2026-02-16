@@ -4,6 +4,9 @@ class CreatePaydayTables < ActiveRecord::Migration
       # invoices will work without anything but bill_to, but there are quite a few options for the fields you can save, like ship_to
       # due_at, refunded_at, and paid_at
       t.string :bill_to
+      t.decimal :tax_rate
+      t.decimal :shipping_rate
+      t.decimal :retention_rate
 
       t.timestamps
     end

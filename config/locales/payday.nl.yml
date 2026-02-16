@@ -13,6 +13,7 @@ nl:
       subtotal: "Subtotaal:"
       shipping: "Levering:"
       tax: "Btw:"
+      retention: "Inhouding:"
       total: "Totaal:"
       notes: "Opmerkingen"
     line_item:

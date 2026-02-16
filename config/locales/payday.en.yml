@@ -14,6 +14,7 @@ en:
       subtotal: "Subtotal:"
       shipping: "Shipping:"
       tax: "Tax:"
+      retention: "Retention:"
       total: "Total:"
       notes: "Notes:"
     line_item:

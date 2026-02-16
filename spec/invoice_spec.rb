@@ -75,6 +75,41 @@ module Payday # rubocop:todo Metrics/ModuleLength
       expect(i.total).to eq(BigDecimal(1243))
     end
 
+    it 'returns zero retention when no retention_rate is set' do
+      i = described_class.new
+      i.line_items << LineItem.new(price: 100, quantity: 1, description: 'Service')
+
+      expect(i.retention).to eq(BigDecimal(0))
+    end
+
+    it 'calculates retention correctly as a percentage of the subtotal' do
+      i = described_class.new(retention_rate: 15.0)
+      i.line_items << LineItem.new(price: 200, quantity: 5, description: 'Service')
+
+      expect(i.retention).to eq(BigDecimal(150))
+    end
+
+    # rubocop:todo RSpec/MultipleExpectations
+    it 'calculates total with retention deducted (IRPF example: 500 + 21% VAT - 19% IRPF = 510)' do # rubocop:todo RSpec/ExampleLength, RSpec/MultipleExpectations
+      # rubocop:enable RSpec/MultipleExpectations
+      i = described_class.new(tax_rate: 21.0, retention_rate: 19.0)
+      i.line_items << LineItem.new(price: 500, quantity: 1, description: 'Consulting')
+
+      expect(i.subtotal).to eq(BigDecimal(500))
+      expect(i.tax).to eq(BigDecimal(105))
+      expect(i.retention).to eq(BigDecimal(95))
+      expect(i.total).to eq(BigDecimal(510))
+    end
+
+    it 'calculates total with tax, shipping, and retention combined' do
+      i = described_class.new(tax_rate: 10.0, shipping_rate: 20, retention_rate: 5.0)
+      i.line_items << LineItem.new(price: 100, quantity: 10, description: 'Widgets')
+
+      # subtotal: 1000, tax: 100, shipping: 20, retention: 50
+      # total: 1000 + 100 + 20 - 50 = 1070
+      expect(i.total).to eq(BigDecimal(1070))
+    end
+
     it "is overdue when it's past date and unpaid" do
       i = described_class.new(due_at: Date.today - 1)
       expect(i.overdue?).to be(true)

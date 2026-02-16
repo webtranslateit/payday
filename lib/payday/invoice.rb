@@ -8,10 +8,10 @@ module Payday
     include Payday::Invoiceable
 
     attr_accessor :invoice_number, :bill_to, :ship_to, :notes, :line_items, :shipping_description,
-                  :tax_description, :due_at, :paid_at, :refunded_at, :currency, :invoice_details, :invoice_date,
-                  :qr_code
+                  :tax_description, :retention_description, :due_at, :paid_at, :refunded_at, :currency,
+                  :invoice_details, :invoice_date, :qr_code
 
-    attr_reader :tax_rate, :shipping_rate
+    attr_reader :tax_rate, :shipping_rate, :retention_rate
 
     # rubocop:todo Metrics/PerceivedComplexity
     # rubocop:todo Metrics/MethodLength
@@ -26,6 +26,8 @@ module Payday
       self.shipping_description = options[:shipping_description] || nil
       self.tax_rate = options[:tax_rate] || nil
       self.tax_description = options[:tax_description] || nil
+      self.retention_rate = options[:retention_rate] || nil
+      self.retention_description = options[:retention_description] || nil
       self.due_at = options[:due_at] || nil
       self.paid_at = options[:paid_at] || nil
       self.refunded_at = options[:refunded_at] || nil
@@ -48,6 +50,12 @@ module Payday
     def shipping_rate=(value)
       value = 0 if value.to_s.blank?
       @shipping_rate = BigDecimal(value.to_s)
+    end
+
+    # Retention rate (e.g. IRPF). Applied as a percentage of the subtotal and deducted from the total.
+    def retention_rate=(value)
+      value = 0 if value.to_s.blank?
+      @retention_rate = BigDecimal(value.to_s)
     end
 
     # Adds a line item

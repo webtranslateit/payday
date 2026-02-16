@@ -12,6 +12,7 @@ zh-CN:
       subtotal: "小计:"
       shipping: "邮费:"
       tax: "税费:"
+      retention: "扣缴:"
       total: "总计:"
       notes: "备注"
     line_item:
