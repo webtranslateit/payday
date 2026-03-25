@@ -3,7 +3,7 @@
 Gem::Specification.new do |s|
   s.name        = 'webtranslateit-payday'
   s.version     = '1.7.3'
-  s.required_ruby_version = '>= 3.1'
+  s.required_ruby_version = '>= 3.2'
   s.platform    = Gem::Platform::RUBY
   s.authors     = ['Alan Johnson', 'Edouard Briere']
   s.email       = ['edouard@webtranslateit.com']
