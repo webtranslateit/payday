@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    webtranslateit-payday (1.7.3)
+    webtranslateit-payday (1.7.4)
       activesupport (>= 7, < 9)
       i18n (~> 1.12, < 2)
       money (>= 6.16, < 8.0)
@@ -41,6 +41,17 @@ GEM
     diff-lcs (1.6.2)
     drb (2.2.3)
     ffi (1.17.4)
+    ffi (1.17.4-aarch64-linux-gnu)
+    ffi (1.17.4-aarch64-linux-musl)
+    ffi (1.17.4-aarch64-mingw-ucrt)
+    ffi (1.17.4-arm-linux-gnu)
+    ffi (1.17.4-arm-linux-musl)
+    ffi (1.17.4-arm64-darwin)
+    ffi (1.17.4-x86-linux-gnu)
+    ffi (1.17.4-x86-linux-musl)
+    ffi (1.17.4-x86_64-darwin)
+    ffi (1.17.4-x86_64-linux-gnu)
+    ffi (1.17.4-x86_64-linux-musl)
     formatador (1.2.3)
       reline
     guard (2.20.2)
@@ -196,4 +207,4 @@ DEPENDENCIES
   webtranslateit-payday!
 
 BUNDLED WITH
-   2.6.2
+   4.0.18

@@ -80,7 +80,11 @@ module Payday
       end
 
       if File.extname(image) == '.svg'
-        logo_info = pdf.svg(File.read(image), at: pdf.bounds.top_left, width: width, height: height)
+        # Logos are read from local files, so there is nothing to fetch over the network.
+        # Passing this explicitly also silences prawn-svg's deprecation warning and keeps
+        # behaviour stable when prawn-svg 1.0 flips the default to false.
+        logo_info = pdf.svg(File.read(image), at: pdf.bounds.top_left, width: width, height: height,
+                                              enable_web_requests: false)
         logo_height = logo_info[:height]
       else
         logo_info = pdf.image(image, at: pdf.bounds.top_left, width: width, height: height)
