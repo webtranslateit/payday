@@ -210,7 +210,7 @@ module Payday # rubocop:todo Metrics/ModuleLength
         end
 
         it 'renders an invoice correctly' do # rubocop:todo RSpec/ExampleLength
-          Payday::Config.default.company_details = <<-DETAILS
+          Payday::Config.default.company_details = <<~DETAILS
             10 This Way
             Manhattan, NY 10001
             800-111-2222
@@ -253,7 +253,7 @@ module Payday # rubocop:todo Metrics/ModuleLength
         end
 
         it 'renders an invoice correctly' do # rubocop:todo RSpec/ExampleLength
-          Payday::Config.default.company_details = <<-DETAILS
+          Payday::Config.default.company_details = <<~DETAILS
             10 This Way
             Manhattan, NY 10001
             800-111-2222

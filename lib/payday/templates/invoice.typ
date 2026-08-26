@@ -6,13 +6,22 @@
 
 #let d = json(bytes(sys.inputs.invoice))
 
+// Gaps between the major blocks, calibrated so the rendered invoice keeps the vertical
+// rhythm the prawn renderer produced. Every within-block gap falls out of the table insets.
+#let gap-after-header = 15pt
+#let gap-after-addresses = 15.2pt
+#let gap-after-details = 8pt
+#let gap-before-totals = -12pt
+#let gap-before-notes = 22.3pt
+#let gap-after-notes-rule = -10.5pt
+
 // Prawn page-size names mapped onto Typst paper names.
 #let papers = ("LETTER": "us-letter", "A4": "a4", "LEGAL": "us-legal")
 
 #set document(title: "Invoice", date: none)
 #set page(
   paper: papers.at(d.page_size, default: "a4"),
-  margin: 2cm,
+  margin: 36pt,  // prawn's default half-inch page margin
   numbering: none,
   // Page numbers appear only when the invoice runs to more than one page. This has to be a
   // footer rather than a trailing `set page`, which would only affect the final page.
@@ -43,6 +52,14 @@
   }
 }
 
+// --- status stamp ------------------------------------------------------------------
+// Drawn before anything else so it stays at a fixed offset from the top of the page, the way
+// prawn stamped it, rather than drifting with the height of the logo.
+#if d.stamp != none {
+  place(top + center, dx: 5.1pt, dy: 33pt, rotate(15deg,
+    text(fill: rgb("cc0000"), size: 25pt, weight: "bold")[#d.stamp]))
+}
+
 // --- logo and company identity ---------------------------------------------------
 #grid(
   columns: (1fr, auto),
@@ -55,38 +72,33 @@
       fit: "contain",
     )
   },
-  align(left)[
+  align(left, pad(top: 5.7pt)[
     #text(weight: "bold", size: 12pt)[#d.company_name] \
     #d.company_details
-  ],
+  ]),
 )
 
-// --- status stamp -----------------------------------------------------------------
-#if d.stamp != none {
-  place(center, dy: -110pt, rotate(15deg,
-    text(fill: rgb("cc0000"), size: 25pt, weight: "bold")[#d.stamp]))
-}
 
-#v(20pt)
+#v(gap-after-header)
 
 // --- bill to / ship to -------------------------------------------------------------
 #grid(
-  columns: (1fr, auto),
-  align: (left + top, right + top),
-  [#text(weight: "bold")[#d.labels.bill_to] \ #d.bill_to],
+  columns: (1fr, 200pt),
+  align: (left + top, left + top),
+  [#text(weight: "bold")[#d.labels.bill_to]#v(10.4pt, weak: true)#d.bill_to],
   if d.ship_to != none {
-    align(left)[#text(weight: "bold")[#d.labels.ship_to] \ #d.ship_to]
+    [#text(weight: "bold")[#d.labels.ship_to]#v(10.4pt, weak: true)#d.ship_to]
   },
 )
 
-#v(20pt)
+#v(gap-after-addresses)
 
 // --- invoice details ---------------------------------------------------------------
 #if d.details.len() > 0 {
   table(
     columns: 2,
     stroke: none,
-    inset: (x: 0pt, y: 2.5pt),
+    inset: (left: 1pt, right: 0pt, y: 4.25pt),
     column-gutter: 10pt,
     align: (left, right),
     ..d.details.map(row => (
@@ -96,13 +108,13 @@
   )
 }
 
-#v(20pt)
+#v(gap-after-details)
 
 // --- line items ---------------------------------------------------------------------
 #table(
   columns: (1fr, auto, auto, auto),
   align: (left, right, right, right),
-  inset: (x: 10pt, y: 5pt),
+  inset: (x: 10pt, y: 8.2pt),
   stroke: (x, y) => (
     left: none,
     right: none,
@@ -121,13 +133,13 @@
   )).flatten()
 )
 
-#v(10pt)
+#v(gap-before-totals)
 
 // --- totals ---------------------------------------------------------------------------
 #align(right, table(
   columns: 2,
   stroke: none,
-  inset: (x: 4pt, y: 4pt),
+  inset: (x: 5pt, y: 8.25pt),
   align: (left, right),
   ..d.totals.map(row => {
     let size = if row.at(2) { 12pt } else { 10pt }
@@ -137,11 +149,11 @@
 
 // --- notes ------------------------------------------------------------------------------
 #if d.notes != none {
-  v(30pt)
+  v(gap-before-notes)
   text(weight: "bold")[#d.labels.notes]
   v(3pt)
   line(length: 100%, stroke: 0.5pt + rgb("cccccc"))
-  v(10pt)
+  v(gap-after-notes-rule)
   render-runs(d.notes)
 }
 

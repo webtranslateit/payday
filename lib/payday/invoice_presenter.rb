@@ -16,7 +16,7 @@ module Payday
       {
         page_size: setting(:page_size),
         company_name: setting(:company_name).strip,
-        company_details: setting(:company_details),
+        company_details: company_details,
         stamp: stamp,
         bill_to: @invoice.bill_to,
         ship_to: ship_to,
@@ -122,6 +122,13 @@ module Payday
 
     def money(number)
       PdfRenderer.number_to_currency(number, @invoice)
+    end
+
+    # Prawn rendered each line of company_details as its own table cell, which collapsed any
+    # leading indentation. Config is commonly set from an indented heredoc, so strip it here
+    # rather than let it show up in the PDF.
+    def company_details
+      setting(:company_details).to_s.lines.map(&:strip).join("\n").strip
     end
 
     def ship_to
