@@ -21,8 +21,24 @@ module Payday
         bill_to: @invoice.bill_to,
         ship_to: ship_to,
         labels: labels,
-        details: details
+        details: details,
+        line_items: line_items,
+        totals: totals,
+        notes: Markup.to_runs(@invoice.notes),
+        qr_code: qr_code
       }
+    end
+
+    def line_items
+      @invoice.line_items.map { |line| line_item(line) }
+    end
+
+    def totals
+      rows = [[t('invoice.subtotal', 'Subtotal:'), money(@invoice.subtotal), false],
+              [tax_label, money(@invoice.tax), false]]
+      rows << [shipping_label, money(@invoice.shipping), false] if @invoice.shipping_rate.positive?
+      rows << [retention_label, money(-@invoice.retention), false] if @invoice.retention_rate.positive?
+      rows << [t('invoice.total', 'Total:'), money(@invoice.total), true]
     end
 
     def stamp
@@ -54,6 +70,42 @@ module Payday
     end
 
     private
+
+    def qr_code
+      return nil unless @invoice.respond_to?(:qr_code) && @invoice.qr_code.to_s.strip.present?
+
+      @invoice.qr_code.to_s
+    end
+
+    def line_item(line)
+      return predefined_line_item(line) if line.predefined_amount
+
+      {description: Markup.to_runs(line.description),
+       price: line.display_price || money(line.price),
+       quantity: line.display_quantity || BigDecimal(line.quantity.to_s).to_s('F'),
+       amount: money(line.amount)}
+    end
+
+    def predefined_line_item(line)
+      {description: Markup.to_runs(line.description), price: '', quantity: '',
+       amount: money(line.predefined_amount)}
+    end
+
+    def tax_label
+      @invoice.tax_description || t('invoice.tax', 'Tax:')
+    end
+
+    def shipping_label
+      @invoice.shipping_description || t('invoice.shipping', 'Shipping:')
+    end
+
+    def retention_label
+      @invoice.retention_description || t('invoice.retention', 'Retention:')
+    end
+
+    def money(number)
+      PdfRenderer.number_to_currency(number, @invoice)
+    end
 
     def ship_to
       @invoice.ship_to if @invoice.respond_to?(:ship_to)
