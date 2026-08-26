@@ -37,7 +37,12 @@
   columns: (1fr, auto),
   align: (left + top, right + top),
   if d.logo != none {
-    image(d.logo.name, width: d.logo.width * 1pt, height: d.logo.height * 1pt, fit: "contain")
+    image(
+      d.logo.name,
+      width: if d.logo.width != none { d.logo.width * 1pt } else { auto },
+      height: if d.logo.height != none { d.logo.height * 1pt } else { auto },
+      fit: "contain",
+    )
   },
   [
     #text(weight: "bold", size: 12pt)[#d.company_name] \

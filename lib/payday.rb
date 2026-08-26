@@ -8,10 +8,9 @@ loader.setup
 require 'active_support/core_ext/object/blank' # For Object#blank? method
 require 'bigdecimal'
 require 'date'
+require 'json'
 require 'money'
-require 'prawn'
-require 'prawn/table'
-require 'prawn-svg'
+require 'typst'
 require 'time'
 
 # Load translations from the locale folder
