@@ -1,5 +1,18 @@
 # CHANGELOG
 
+## 2.0.0 (2026-08-26)
+
+**Breaking:** Payday now renders with [Typst](https://typst.app) instead of Prawn. The `prawn`, `prawn-table` and `prawn-svg` dependencies are gone, replaced by the single Apache-2.0 licensed `typst` gem, which ships precompiled native builds for macOS and Linux on both x86_64 and arm64.
+
+The motivation was `prawn-table`, which has had no release since 2015 while the renderer depended on it for every table.
+
+* The public API is unchanged. `Invoiceable#render_pdf`, `#render_pdf_to_file`, `PdfRenderer.render`, `PdfRenderer.render_to_file` and every `Payday::Config` accessor keep their signatures, and rendered invoices keep their existing layout.
+* Prawn is no longer loaded for you. If your application relied on Payday requiring Prawn, require it yourself.
+* Layout now lives in `lib/payday/templates/invoice.typ`, and invoice data is turned into a plain Hash by the new `Payday::InvoicePresenter`.
+* The `inline_format` markup Payday accepted in notes and line item descriptions still works. `Payday::Markup` converts `<b>`, `<i>`, `<u>`, `<strikethrough>`, `<sub>`, `<sup>`, `<font size>`, `<color rgb>`, `<link href>` and `<br>` into styled runs.
+* Invoice data reaches the template only as JSON, where Typst treats every string as literal text, so customer-supplied fields can no longer affect the layout.
+* Rendered PDFs are now byte-for-byte reproducible for the same input.
+
 ## 1.7.4 (2026-08-13)
 
 * Pass `enable_web_requests: false` when rendering SVG logos. Logos are read from local files, so nothing needs fetching over the network. This silences prawn-svg's deprecation warning and keeps behaviour stable when prawn-svg 1.0 flips the default to `false`.
