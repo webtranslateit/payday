@@ -48,6 +48,22 @@ module Payday
         )
       end
 
+      it 'marks underlined segments' do
+        expect(described_class.to_runs('<u>x</u>')).to eq([{text: 'x', underline: true}])
+      end
+
+      it 'marks struck-through segments' do
+        expect(described_class.to_runs('<strikethrough>x</strikethrough>')).to eq(
+          [{text: 'x', strike: true}]
+        )
+      end
+
+      it 'marks subscript and superscript segments' do
+        expect(described_class.to_runs('<sub>a</sub><sup>b</sup>')).to eq(
+          [{text: 'a', sub: true}, {text: 'b', sup: true}]
+        )
+      end
+
       it 'converts br tags to newlines' do
         expect(described_class.to_runs('a<br/>b')).to eq([{text: "a\nb"}])
       end

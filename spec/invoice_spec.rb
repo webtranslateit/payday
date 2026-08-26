@@ -191,6 +191,12 @@ module Payday # rubocop:todo Metrics/ModuleLength
         expect(File.exist?('tmp/testing.pdf')).to be true
       end
 
+      # Typst embeds no creation timestamp because the template sets `document(date: none)`.
+      # The golden-file specs below are only meaningful while that stays true.
+      it 'renders byte-identical output across runs' do
+        expect(invoice.render_pdf).to eq(invoice.render_pdf)
+      end
+
       context 'with some invoice details' do
         let(:invoice_params) do
           {

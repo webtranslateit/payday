@@ -10,11 +10,11 @@ module Payday
   # code. Never change this to emit markup.
   class Markup
 
-    TAG = %r{<(?<name>b|i|font|color|link)(?<attrs>[^>]*)>(?<body>.*?)</\k<name>>}m
+    TAG = %r{<(?<name>b|i|u|strikethrough|sub|sup|font|color|link)(?<attrs>[^>]*)>(?<body>.*?)</\k<name>>}m
     LINE_BREAK = %r{<br\s*/?>}
 
-    # Returns an Array of Hashes, each with a :text key and any of :bold, :italic, :size,
-    # :color and :link. Returns nil when there is nothing to render.
+    # Returns an Array of Hashes, each with a :text key and any of :bold, :italic, :underline,
+    # :strike, :sub, :sup, :size, :color and :link. Returns nil when there is nothing to render.
     def self.to_runs(text)
       return nil if text.nil?
 
@@ -40,6 +40,10 @@ module Payday
       case name
       when 'b' then {bold: true}
       when 'i' then {italic: true}
+      when 'u' then {underline: true}
+      when 'strikethrough' then {strike: true}
+      when 'sub' then {sub: true}
+      when 'sup' then {sup: true}
       when 'font' then {size: attrs[/size=['"](\d+)['"]/, 1].to_i}
       when 'color' then {color: attrs[/rgb=['"]#?(\h{6})['"]/, 1]}
       when 'link' then {link: attrs[/href=['"](.*?)['"]/, 1]}

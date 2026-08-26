@@ -14,6 +14,13 @@
   paper: papers.at(d.page_size, default: "a4"),
   margin: 2cm,
   numbering: none,
+  // Page numbers appear only when the invoice runs to more than one page. This has to be a
+  // footer rather than a trailing `set page`, which would only affect the final page.
+  footer: context {
+    if counter(page).final().first() > 1 {
+      align(right, text(size: 9pt, counter(page).display("1 / 1", both: true)))
+    }
+  },
 )
 #set text(font: "Noto Sans", size: 10pt)
 
@@ -28,6 +35,10 @@
       style: if r.at("italic", default: false) { "italic" } else { "normal" },
       r.text,
     )
+    if r.at("underline", default: false) { body = underline(body) }
+    if r.at("strike", default: false) { body = strike(body) }
+    if r.at("sub", default: false) { body = sub(body) }
+    if r.at("sup", default: false) { body = super(body) }
     if "link" in r { link(r.link, body) } else { body }
   }
 }
@@ -44,7 +55,7 @@
       fit: "contain",
     )
   },
-  [
+  align(left)[
     #text(weight: "bold", size: 12pt)[#d.company_name] \
     #d.company_details
   ],
@@ -52,7 +63,7 @@
 
 // --- status stamp -----------------------------------------------------------------
 #if d.stamp != none {
-  place(center, dy: -30pt, rotate(15deg,
+  place(center, dy: -110pt, rotate(15deg,
     text(fill: rgb("cc0000"), size: 25pt, weight: "bold")[#d.stamp]))
 }
 
@@ -63,7 +74,9 @@
   columns: (1fr, auto),
   align: (left + top, right + top),
   [#text(weight: "bold")[#d.labels.bill_to] \ #d.bill_to],
-  if d.ship_to != none [#text(weight: "bold")[#d.labels.ship_to] \ #d.ship_to],
+  if d.ship_to != none {
+    align(left)[#text(weight: "bold")[#d.labels.ship_to] \ #d.ship_to]
+  },
 )
 
 #v(20pt)
@@ -73,7 +86,7 @@
   table(
     columns: 2,
     stroke: none,
-    inset: (x: 0pt, y: 1pt),
+    inset: (x: 0pt, y: 2.5pt),
     column-gutter: 10pt,
     align: (left, right),
     ..d.details.map(row => (
@@ -114,7 +127,7 @@
 #align(right, table(
   columns: 2,
   stroke: none,
-  inset: (x: 4pt, y: 2pt),
+  inset: (x: 4pt, y: 4pt),
   align: (left, right),
   ..d.totals.map(row => {
     let size = if row.at(2) { 12pt } else { 10pt }
@@ -136,9 +149,4 @@
 #if d.qr_code != none {
   v(10pt)
   image("qr.png", width: 100pt)
-}
-
-// --- page numbers, only when the invoice runs to more than one page -------------------------
-#context if counter(page).final().first() > 1 {
-  set page(numbering: "1 / 1")
 }
