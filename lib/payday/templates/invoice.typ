@@ -9,11 +9,13 @@
 // Gaps between the major blocks, calibrated so the rendered invoice keeps the vertical
 // rhythm the prawn renderer produced. Every within-block gap falls out of the table insets.
 #let gap-after-header = 15pt
-#let gap-after-addresses = 15.2pt
+#let gap-after-addresses = 13.2pt
 #let gap-after-details = 8pt
 #let gap-before-totals = -12pt
 #let gap-before-notes = 22.3pt
-#let gap-after-notes-rule = -10.5pt
+#let gap-notes-label-to-rule = -7.1pt
+#let gap-after-notes-rule = -0.4pt
+#let gap-before-qr = -0.6pt
 
 // Prawn page-size names mapped onto Typst paper names.
 #let papers = ("LETTER": "us-letter", "A4": "a4", "LEGAL": "us-legal")
@@ -91,7 +93,11 @@
   },
 )
 
-#v(gap-after-addresses)
+// The ship-to cell renders 2pt taller than the bill-to cell, so invoices that carry a
+// ship-to address need that much less space before the details block.
+// prawn drew the ship-to box 2pt taller than its contents, so invoices carrying a ship-to
+// address pushed the details block down by that much.
+#v(gap-after-addresses + if d.ship_to != none { 2pt } else { 0pt })
 
 // --- invoice details ---------------------------------------------------------------
 #if d.details.len() > 0 {
@@ -114,7 +120,7 @@
 #table(
   columns: (1fr, auto, auto, auto),
   align: (left, right, right, right),
-  inset: (x: 10pt, y: 8.2pt),
+  inset: (x: 10pt, y: 8.25pt),
   stroke: (x, y) => (
     left: none,
     right: none,
@@ -139,7 +145,11 @@
 #align(right, table(
   columns: 2,
   stroke: none,
-  inset: (x: 5pt, y: 8.25pt),
+  // The total is set 12pt, whose taller glyph box would otherwise pull the row up.
+  inset: (x, y) => (
+    left: 5pt, right: 5pt, bottom: 8.25pt,
+    top: if y == d.totals.len() - 1 { 8.95pt } else { 8.25pt },
+  ),
   align: (left, right),
   ..d.totals.map(row => {
     let size = if row.at(2) { 12pt } else { 10pt }
@@ -151,7 +161,7 @@
 #if d.notes != none {
   v(gap-before-notes)
   text(weight: "bold")[#d.labels.notes]
-  v(3pt)
+  v(gap-notes-label-to-rule)
   line(length: 100%, stroke: 0.5pt + rgb("cccccc"))
   v(gap-after-notes-rule)
   render-runs(d.notes)
@@ -159,6 +169,6 @@
 
 // --- QR code ------------------------------------------------------------------------------
 #if d.qr_code != none {
-  v(10pt)
+  v(gap-before-qr)
   image("qr.png", width: 100pt)
 }
