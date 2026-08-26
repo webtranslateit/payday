@@ -6,3 +6,4 @@ doc/
 pkg/*
 bin/
 .rubocop-http*
+.claude/

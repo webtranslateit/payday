@@ -9,6 +9,7 @@ PATH
       prawn-svg (~> 0.32, < 1)
       prawn-table (~> 0.2, < 1)
       rqrcode (>= 2, < 4)
+      typst (~> 0.15)
       zeitwerk (~> 2.6, < 3)
 
 GEM
@@ -43,12 +44,7 @@ GEM
     ffi (1.17.4)
     ffi (1.17.4-aarch64-linux-gnu)
     ffi (1.17.4-aarch64-linux-musl)
-    ffi (1.17.4-aarch64-mingw-ucrt)
-    ffi (1.17.4-arm-linux-gnu)
-    ffi (1.17.4-arm-linux-musl)
     ffi (1.17.4-arm64-darwin)
-    ffi (1.17.4-x86-linux-gnu)
-    ffi (1.17.4-x86-linux-musl)
     ffi (1.17.4-x86_64-darwin)
     ffi (1.17.4-x86_64-linux-gnu)
     ffi (1.17.4-x86_64-linux-musl)
@@ -167,11 +163,24 @@ GEM
       regexp_parser (>= 2.0)
       rubocop (~> 1.86, >= 1.86.2)
     ruby-progressbar (1.13.0)
+    rubyzip (3.5.0)
     securerandom (0.4.1)
     shellany (0.0.1)
     thor (1.5.0)
     ttfunk (1.8.0)
       bigdecimal (~> 3.1)
+    typst (0.15.1.5-aarch64-linux)
+      rubyzip (~> 3.2)
+    typst (0.15.1.5-aarch64-linux-musl)
+      rubyzip (~> 3.2)
+    typst (0.15.1.5-arm64-darwin)
+      rubyzip (~> 3.2)
+    typst (0.15.1.5-x86_64-darwin)
+      rubyzip (~> 3.2)
+    typst (0.15.1.5-x86_64-linux)
+      rubyzip (~> 3.2)
+    typst (0.15.1.5-x86_64-linux-musl)
+      rubyzip (~> 3.2)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     unicode-display_width (3.2.0)
@@ -183,13 +192,7 @@ GEM
 PLATFORMS
   aarch64-linux-gnu
   aarch64-linux-musl
-  aarch64-mingw-ucrt
-  arm-linux-gnu
-  arm-linux-musl
   arm64-darwin
-  ruby
-  x86-linux-gnu
-  x86-linux-musl
   x86_64-darwin
   x86_64-linux
   x86_64-linux-gnu
@@ -207,4 +210,4 @@ DEPENDENCIES
   webtranslateit-payday!
 
 BUNDLED WITH
-   4.0.18
+  4.0.18

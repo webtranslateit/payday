@@ -19,6 +19,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'prawn-svg', '~> 0.32', '< 1'
   s.add_dependency 'prawn-table', '~> 0.2', '< 1'
   s.add_dependency 'rqrcode', '>= 2', '< 4'
+  s.add_dependency 'typst', '~> 0.15'
   s.add_dependency 'zeitwerk', '~> 2.6', '< 3'
 
   s.files = `git ls-files`.split("\n")
