@@ -75,7 +75,7 @@ module Payday
       end
 
       it 'keeps text surrounding a tag in order' do
-        expect(described_class.to_runs("one <b>two</b> three <i>four</i>")).to eq(
+        expect(described_class.to_runs('one <b>two</b> three <i>four</i>')).to eq(
           [{text: 'one '}, {text: 'two', bold: true}, {text: ' three '}, {text: 'four', italic: true}]
         )
       end
@@ -96,7 +96,7 @@ module Payday
         )
       end
 
-      it 'converts the receipt note with its mailto link' do
+      it 'converts the receipt note with its mailto link' do # rubocop:todo RSpec/ExampleLength
         source = 'No payment is due. Contact us at ' \
                  "<link href='mailto:finance@webtranslateit.com'>finance@webtranslateit.com</link>."
 

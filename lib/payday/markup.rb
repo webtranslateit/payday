@@ -10,6 +10,10 @@ module Payday
   # code. Never change this to emit markup.
   class Markup
 
+    # Tags that simply switch a style on, mapped to the key they set on a run.
+    FLAGS = {'b' => :bold, 'i' => :italic, 'u' => :underline, 'strikethrough' => :strike,
+             'sub' => :sub, 'sup' => :sup}.freeze
+
     TAG = %r{<(?<name>b|i|u|strikethrough|sub|sup|font|color|link)(?<attrs>[^>]*)>(?<body>.*?)</\k<name>>}m
     LINE_BREAK = %r{<br\s*/?>}
 
@@ -26,24 +30,25 @@ module Payday
       position = 0
 
       while (match = TAG.match(text, position))
-        result << style.merge(text: text[position...match.begin(0)]) if match.begin(0) > position
+        append(result, style, text[position...match.begin(0)])
         result.concat(runs(match[:body], style.merge(style_for(match[:name], match[:attrs]))))
         position = match.end(0)
       end
 
-      result << style.merge(text: text[position..]) if position < text.length
+      append(result, style, text[position..])
       result
     end
     private_class_method :runs
 
+    def self.append(result, style, text)
+      result << style.merge(text: text) unless text.nil? || text.empty?
+    end
+    private_class_method :append
+
     def self.style_for(name, attrs)
+      return {FLAGS[name] => true} if FLAGS.key?(name)
+
       case name
-      when 'b' then {bold: true}
-      when 'i' then {italic: true}
-      when 'u' then {underline: true}
-      when 'strikethrough' then {strike: true}
-      when 'sub' then {sub: true}
-      when 'sup' then {sup: true}
       when 'font' then {size: attrs[/size=['"](\d+)['"]/, 1].to_i}
       when 'color' then {color: attrs[/rgb=['"]#?(\h{6})['"]/, 1]}
       when 'link' then {link: attrs[/href=['"](.*?)['"]/, 1]}

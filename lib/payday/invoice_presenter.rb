@@ -34,11 +34,11 @@ module Payday
     end
 
     def totals
-      rows = [[t('invoice.subtotal', 'Subtotal:'), money(@invoice.subtotal), false],
-              [tax_label, money(@invoice.tax), false]]
-      rows << [shipping_label, money(@invoice.shipping), false] if @invoice.shipping_rate.positive?
-      rows << [retention_label, money(-@invoice.retention), false] if @invoice.retention_rate.positive?
-      rows << [t('invoice.total', 'Total:'), money(@invoice.total), true]
+      [[t('invoice.subtotal', 'Subtotal:'), money(@invoice.subtotal), false],
+       [tax_label, money(@invoice.tax), false],
+       *shipping_row,
+       *retention_row,
+       [t('invoice.total', 'Total:'), money(@invoice.total), true]]
     end
 
     def stamp
@@ -49,10 +49,7 @@ module Payday
     end
 
     def details
-      rows = []
-      rows << [number_label, @invoice.invoice_number.to_s] if @invoice.invoice_number
-      rows << [t('invoice.due_date', 'Due Date:'), date(@invoice.due_at)] if @invoice.due_at
-      rows << [t('invoice.paid_date', 'Paid Date:'), date(@invoice.paid_at)] if @invoice.paid_at
+      rows = [*number_row, *due_row, *paid_row]
       @invoice.each_detail { |key, value| rows << [key.to_s, value.to_s] }
       rows
     end
@@ -70,6 +67,26 @@ module Payday
     end
 
     private
+
+    def shipping_row
+      [[shipping_label, money(@invoice.shipping), false]] if @invoice.shipping_rate.positive?
+    end
+
+    def retention_row
+      [[retention_label, money(-@invoice.retention), false]] if @invoice.retention_rate.positive?
+    end
+
+    def number_row
+      [[number_label, @invoice.invoice_number.to_s]] if @invoice.invoice_number
+    end
+
+    def due_row
+      [[t('invoice.due_date', 'Due Date:'), date(@invoice.due_at)]] if @invoice.due_at
+    end
+
+    def paid_row
+      [[t('invoice.paid_date', 'Paid Date:'), date(@invoice.paid_at)]] if @invoice.paid_at
+    end
 
     def qr_code
       return nil unless @invoice.respond_to?(:qr_code) && @invoice.qr_code.to_s.strip.present?

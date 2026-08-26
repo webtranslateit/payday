@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-module Payday
+module Payday # rubocop:todo Metrics/ModuleLength
 
   describe InvoicePresenter do
     before { Payday::Config.default.reset }
@@ -10,8 +10,11 @@ module Payday
     let(:invoice) { Invoice.new(invoice_number: 12, bill_to: "Acme\nSpain", currency: 'EUR') }
     let(:presented) { described_class.new(invoice).to_h }
 
-    it 'carries the configured company identity' do
+    it 'carries the configured company name' do
       expect(presented[:company_name]).to eq('Awesome Corp')
+    end
+
+    it 'carries the configured company details' do
       expect(presented[:company_details]).to eq('awesomecorp@commondream.net')
     end
 
