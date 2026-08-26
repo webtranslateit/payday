@@ -170,5 +170,5 @@
 // --- QR code ------------------------------------------------------------------------------
 #if d.qr_code != none {
   v(gap-before-qr)
-  image("qr.png", width: 100pt)
+  image("qr.svg", width: 100pt)
 }

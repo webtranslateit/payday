@@ -87,8 +87,7 @@ module Payday
     def register_qr_code(data)
       return if data.nil?
 
-      require 'rqrcode'
-      @dependencies['qr.png'] = RQRCode::QRCode.new(data).as_png(size: 200).to_s
+      @dependencies['qr.svg'] = QrCode.new(data).to_svg
     end
 
   end
