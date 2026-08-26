@@ -7,7 +7,6 @@ gemspec
 gem 'guard'
 gem 'guard-rspec'
 gem 'guard-rubocop'
-gem 'matrix'
 gem 'rspec', '~> 3.13.2'
 gem 'rubocop'
 gem 'rubocop-performance'

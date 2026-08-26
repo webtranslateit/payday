@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name        = 'webtranslateit-payday'
-  s.version     = '1.7.4'
+  s.version     = '2.0.0'
   s.required_ruby_version = '>= 3.2'
   s.platform    = Gem::Platform::RUBY
   s.authors     = ['Alan Johnson', 'Edouard Briere']
@@ -15,9 +15,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'activesupport', '>= 7', '< 9'
   s.add_dependency 'i18n', '~> 1.12', '< 2'
   s.add_dependency 'money', '>= 6.16', '< 8.0'
-  s.add_dependency 'prawn', '~> 2.4', '< 3'
-  s.add_dependency 'prawn-svg', '~> 0.32', '< 1'
-  s.add_dependency 'prawn-table', '~> 0.2', '< 1'
   s.add_dependency 'rqrcode', '>= 2', '< 4'
   s.add_dependency 'typst', '~> 0.15'
   s.add_dependency 'zeitwerk', '~> 2.6', '< 3'
