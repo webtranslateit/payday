@@ -2,7 +2,9 @@ Payday!
 ===
 Payday is a library for rendering invoices to pdfs.
 
-We use payday intensively at [WebTranslateIt.com](https://webtranslateit.com) to generate customer’s invoices and receipts. When we upgraded our app to ruby 2.7 this gem failed in many ways and the original source code by Alan Johnson was nowhere to be found on GitHub. So we took the source code out of [rubygems.org](https://rubygems.org) and created this repo. We’ve since added a few new features and fixes, which can be seen [in the changelog](https://github.com/webtranslateit/payday/blob/main/CHANGELOG.md).
+We use payday intensively at [WebTranslateIt.com](https://webtranslateit.com) and [Trackberry](https://trackberry.com) to generate customer’s invoices and receipts. When we upgraded our app to ruby 2.7 this gem failed in many ways and the original source code by Alan Johnson was nowhere to be found on GitHub. So we took the source code out of [rubygems.org](https://rubygems.org) and created this repo. We’ve since added a few new features and fixes, which can be seen [in the changelog](https://github.com/webtranslateit/payday/blob/main/CHANGELOG.md).
+
+Invoices can now carry a QR code, which a growing number of countries expect for tax compliance, and as of 2.0 the PDFs are rendered with [Typst](https://typst.app) rather than Prawn.
 
 Here’s an [example PDF Invoice](https://github.com/webtranslateit/payday/raw/main/spec/assets/testing_predefined_amount.pdf) generated with our fork of payday.
 
