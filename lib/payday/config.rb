@@ -8,9 +8,9 @@ module Payday
 
     attr_accessor :invoice_logo, :company_name, :company_details, :date_format, :currency
 
-    # Sets the page size to use. See the
-    # {http://prawn.majesticseacreature.com/docs/0.10.2/Prawn/Document/PageGeometry.html Prawn documentation} for valid
-    # page_size values.
+    # Sets the page size to use. Accepts the names Payday has always taken, 'LETTER', 'A4'
+    # and 'LEGAL', which the template maps onto the equivalent Typst paper. Anything else
+    # falls back to A4.
     attr_accessor :page_size
 
     # Returns the default configuration instance
@@ -23,7 +23,7 @@ module Payday
     # Primarily intended for use in our tests.
     def reset
       # TODO: Move into specs and make minimal configuration required (company name / details)
-      self.invoice_logo = File.join(File.dirname(__FILE__), '..', '..', 'spec', 'assets', 'default_logo.png')
+      self.invoice_logo = File.expand_path('assets/default_logo.png', __dir__)
       self.company_name = 'Awesome Corp'
       self.company_details = 'awesomecorp@commondream.net'
       self.date_format = '%B %e, %Y'

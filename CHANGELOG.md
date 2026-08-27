@@ -1,5 +1,30 @@
 # CHANGELOG
 
+## 2.0.0 (2026-08-26)
+
+**Breaking:** Payday now renders with [Typst](https://typst.app) instead of Prawn. The `prawn`, `prawn-table` and `prawn-svg` dependencies are gone, replaced by the single Apache-2.0 licensed `typst` gem, which ships precompiled native builds for macOS and Linux on both x86_64 and arm64.
+
+The motivation was `prawn-table`, which has had no release since 2015 while the renderer depended on it for every table.
+
+* The public API is unchanged. `Invoiceable#render_pdf`, `#render_pdf_to_file`, `PdfRenderer.render`, `PdfRenderer.render_to_file` and every `Payday::Config` accessor keep their signatures, and rendered invoices keep their existing layout.
+* Prawn is no longer loaded for you. If your application relied on Payday requiring Prawn, require it yourself.
+* Layout now lives in `lib/payday/templates/invoice.typ`, and invoice data is turned into a plain Hash by the new `Payday::InvoicePresenter`.
+* The `inline_format` markup Payday accepted in notes and line item descriptions still works. `Payday::Markup` converts `<b>`, `<i>`, `<u>`, `<strikethrough>`, `<sub>`, `<sup>`, `<font size>`, `<color rgb>`, `<link href>` and `<br>` into styled runs.
+* Invoice data reaches the template only as JSON, where Typst treats every string as literal text, so customer-supplied fields can no longer affect the layout.
+* Rendered PDFs are now byte-for-byte reproducible for the same input.
+* QR codes are drawn as vector SVG rather than a scaled 200px PNG, so they stay sharp in print, and the three finder patterns are drawn as rounded frames. The matrix still comes straight from RQRCode: the payload and its error correction level are untouched, and the rendered code is module-for-module identical to what the encoder produces.
+* `Config#company_details` has any per-line indentation stripped. Prawn rendered each line as its own table cell, which trimmed leading whitespace, so a value written as an indented heredoc used to look fine and would otherwise have started rendering with its indentation.
+* Logos still accept PNG, JPEG and SVG, and a logo given as a bare path keeps its natural size. Only the `{filename:, size:}` form constrains the dimensions.
+
+Two packaging bugs are fixed along the way, both of which predate this release:
+
+* Payday's own translations now load. The load path was resolved against the working directory, so unless a process happened to run from the gem's root the locales never loaded at all, and `I18n.t` raised `InvalidLocale` rather than falling back to the built-in English defaults. The German, Spanish, French, Dutch and Chinese translations that ship with the gem have effectively never been used.
+* The default `invoice_logo` points inside the gem. It used to reference a file under `spec/`, which only resolved because the gemspec shipped the whole test suite.
+
+The packaged gem now carries only `lib`, `config/locales`, `fonts` and the docs, which takes it from 563K to 277K.
+
+Invoices keep the layout the prawn renderer produced. Page margins, table row heights, block spacing and the position of the status stamp were all measured against the previous output, and four of the five reference invoices in the test suite now match it within a single point at every word.
+
 ## 1.7.4 (2026-08-13)
 
 * Pass `enable_web_requests: false` when rendering SVG logos. Logos are read from local files, so nothing needs fetching over the network. This silences prawn-svg's deprecation warning and keeps behaviour stable when prawn-svg 1.0 flips the default to `false`.

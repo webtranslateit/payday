@@ -1,14 +1,13 @@
 # frozen_string_literal: true
 
 require 'bundler'
+require 'rspec/core/rake_task'
+require 'rubocop/rake_task'
 
-require 'rake'
-require 'rake/testtask'
-
-task default: :test
-
+# Gives us build, install and release.
 Bundler::GemHelper.install_tasks
 
-Rake::TestTask.new do |t|
-  t.test_files = FileList['test/**/*_test.rb']
-end
+RSpec::Core::RakeTask.new(:spec)
+RuboCop::RakeTask.new
+
+task default: %i[spec rubocop]

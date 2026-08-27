@@ -191,6 +191,14 @@ module Payday # rubocop:todo Metrics/ModuleLength
         expect(File.exist?('tmp/testing.pdf')).to be true
       end
 
+      # Typst embeds no creation timestamp because the template sets `document(date: none)`.
+      # The golden-file specs below are only meaningful while that stays true.
+      it 'renders byte-identical output across runs' do
+        # The two sides are deliberately identical: this asserts that rendering twice produces
+        # the same bytes, which is what makes the golden files above meaningful.
+        expect(invoice.render_pdf).to eq(invoice.render_pdf) # rubocop:disable RSpec/IdenticalEqualityAssertion
+      end
+
       context 'with some invoice details' do
         let(:invoice_params) do
           {
@@ -202,7 +210,7 @@ module Payday # rubocop:todo Metrics/ModuleLength
         end
 
         it 'renders an invoice correctly' do # rubocop:todo RSpec/ExampleLength
-          Payday::Config.default.company_details = <<-DETAILS
+          Payday::Config.default.company_details = <<~DETAILS
             10 This Way
             Manhattan, NY 10001
             800-111-2222
@@ -245,7 +253,7 @@ module Payday # rubocop:todo Metrics/ModuleLength
         end
 
         it 'renders an invoice correctly' do # rubocop:todo RSpec/ExampleLength
-          Payday::Config.default.company_details = <<-DETAILS
+          Payday::Config.default.company_details = <<~DETAILS
             10 This Way
             Manhattan, NY 10001
             800-111-2222

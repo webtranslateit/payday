@@ -2,7 +2,9 @@ Payday!
 ===
 Payday is a library for rendering invoices to pdfs.
 
-We use payday intensively at [WebTranslateIt.com](https://webtranslateit.com) to generate customer’s invoices and receipts. When we upgraded our app to ruby 2.7 this gem failed in many ways and the original source code by Alan Johnson was nowhere to be found on GitHub. So we took the source code out of [rubygems.org](https://rubygems.org) and created this repo. We’ve since added a few new features and fixes, which can be seen [in the changelog](https://github.com/webtranslateit/payday/blob/main/CHANGELOG.md).
+We use payday intensively at [WebTranslateIt.com](https://webtranslateit.com) and [Trackberry](https://trackberry.com) to generate customer’s invoices and receipts. When we upgraded our app to ruby 2.7 this gem failed in many ways and the original source code by Alan Johnson was nowhere to be found on GitHub. So we took the source code out of [rubygems.org](https://rubygems.org) and created this repo. We’ve since added a few new features and fixes, which can be seen [in the changelog](https://github.com/webtranslateit/payday/blob/main/CHANGELOG.md).
+
+Invoices can now carry a QR code, which a growing number of countries expect for tax compliance, and as of 2.0 the PDFs are rendered with [Typst](https://typst.app) rather than Prawn.
 
 Here’s an [example PDF Invoice](https://github.com/webtranslateit/payday/raw/main/spec/assets/testing_predefined_amount.pdf) generated with our fork of payday.
 
@@ -53,6 +55,15 @@ Payday::Config.default.company_name = "Awesome Corp"
 Payday::Config.default.company_details = "10 This Way\nManhattan, NY 10001\n800-111-2222\nawesome@awesomecorp.com"
 ```
 
+The logo can be a PNG, a JPEG or an SVG, and is drawn at its natural size. Pass a hash to
+constrain it:
+
+``` ruby
+Payday::Config.default.invoice_logo = {filename: "logo.svg", size: "200x50"}
+```
+
+`page_size` accepts `"LETTER"`, `"A4"` and `"LEGAL"`.
+
 QR Code Support
 ===
 Invoices can include QR codes for verification purposes, useful for tax compliance requirements in various countries.
@@ -67,7 +78,9 @@ invoice = Payday::Invoice.new(
 )
 ```
 
-QR codes are automatically rendered below the notes section.
+QR codes are automatically rendered below the notes section, as vector SVG so they stay
+sharp in print. The code itself comes straight from [rqrcode](https://github.com/whomwah/rqrcode),
+so the payload and its error correction level are exactly what that gem produces.
 
 Using Payday with ActiveRecord Objects (or any other objects, for that matter)
 ===
@@ -166,7 +179,9 @@ Here's what we're planning on working on with Payday in the near future:
 
 Acknowledgements
 ===
-This wouldn't be possible without the amazing [Prawn](http://prawn.majesticseacreature.com) gem and the team behind it.
+Payday renders with [Typst](https://typst.app) and its [Ruby binding](https://github.com/actsasflinn/typst-rb).
+
+For its first decade this gem was built on [Prawn](https://prawnpdf.org), and it would not exist without that project and the team behind it.
 
 License
 ===
