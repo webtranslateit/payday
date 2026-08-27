@@ -80,7 +80,6 @@
   ]),
 )
 
-
 #v(gap-after-header)
 
 // --- bill to / ship to -------------------------------------------------------------
@@ -93,8 +92,6 @@
   },
 )
 
-// The ship-to cell renders 2pt taller than the bill-to cell, so invoices that carry a
-// ship-to address need that much less space before the details block.
 // prawn drew the ship-to box 2pt taller than its contents, so invoices carrying a ship-to
 // address pushed the details block down by that much.
 #v(gap-after-addresses + if d.ship_to != none { 2pt } else { 0pt })

@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.email       = ['edouard@webtranslateit.com']
   s.homepage    = 'https://github.com/webtranslateit/payday'
   s.summary     = 'A simple library for rendering invoices.'
-  s.description = 'Payday is a library for rendering invoices to pdf.'
+  s.description = 'Payday is a library for rendering invoices to pdf, using Typst.'
   s.license = 'MIT'
 
   s.add_dependency 'activesupport', '>= 7', '< 9'
@@ -19,7 +19,12 @@ Gem::Specification.new do |s|
   s.add_dependency 'typst', '~> 0.15'
   s.add_dependency 'zeitwerk', '~> 2.6', '< 3'
 
-  s.files = `git ls-files`.split("\n")
+  # Only what the gem needs at run time, plus the docs. The spec suite carries several
+  # hundred kilobytes of reference PDFs that nobody installing this wants.
+  root_files = %w[README.md CHANGELOG.md payday.gemspec].freeze
+  s.files = `git ls-files -z`.split("\x0").select do |path|
+    path.start_with?('lib/', 'config/locales/', 'fonts/') || root_files.include?(path)
+  end
   s.require_paths = ['lib']
   s.metadata['rubygems_mfa_required'] = 'true'
 end

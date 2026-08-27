@@ -53,6 +53,15 @@ Payday::Config.default.company_name = "Awesome Corp"
 Payday::Config.default.company_details = "10 This Way\nManhattan, NY 10001\n800-111-2222\nawesome@awesomecorp.com"
 ```
 
+The logo can be a PNG, a JPEG or an SVG, and is drawn at its natural size. Pass a hash to
+constrain it:
+
+``` ruby
+Payday::Config.default.invoice_logo = {filename: "logo.svg", size: "200x50"}
+```
+
+`page_size` accepts `"LETTER"`, `"A4"` and `"LEGAL"`.
+
 QR Code Support
 ===
 Invoices can include QR codes for verification purposes, useful for tax compliance requirements in various countries.
@@ -67,7 +76,9 @@ invoice = Payday::Invoice.new(
 )
 ```
 
-QR codes are automatically rendered below the notes section.
+QR codes are automatically rendered below the notes section, as vector SVG so they stay
+sharp in print. The code itself comes straight from [rqrcode](https://github.com/whomwah/rqrcode),
+so the payload and its error correction level are exactly what that gem produces.
 
 Using Payday with ActiveRecord Objects (or any other objects, for that matter)
 ===
@@ -166,7 +177,9 @@ Here's what we're planning on working on with Payday in the near future:
 
 Acknowledgements
 ===
-This wouldn't be possible without the amazing [Prawn](http://prawn.majesticseacreature.com) gem and the team behind it.
+Payday renders with [Typst](https://typst.app) and its [Ruby binding](https://github.com/actsasflinn/typst-rb).
+
+For its first decade this gem was built on [Prawn](https://prawnpdf.org), and it would not exist without that project and the team behind it.
 
 License
 ===

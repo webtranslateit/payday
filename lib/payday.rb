@@ -13,8 +13,9 @@ require 'money'
 require 'typst'
 require 'time'
 
-# Load translations from the locale folder
-I18n.load_path.concat(Dir[File.join('config', 'locales', '*.yml')])
+# Load our own translations. This has to resolve against the gem rather than the working
+# directory, or the locales only load when the process happens to be running from the gem root.
+I18n.load_path.concat(Dir[File.expand_path('../config/locales/*.yml', __dir__)])
 
 module Payday
 end
