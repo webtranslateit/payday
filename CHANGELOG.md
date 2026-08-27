@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## Unreleased
+
+* Add `Payday::Appendix`, for compiling pages of your own onto the end of an invoice. `render_pdf`, `render_pdf_to_file`, `PdfRenderer.render` and `PdfRenderer.render_to_file` all take an `appendix:` keyword; every signature stays backward compatible and an invoice rendered without one is byte-for-byte what it was.
+
+  The appendix carries Typst `source`, plus `inputs` that reach it as sys_inputs JSON and `dependencies` it can resolve by name. The source is concatenated onto Payday's template rather than compiled separately, so the appended pages keep the invoice's page setup and the numbering footer counts them: a one-page invoice with an appendix numbers "1 / 2" and "2 / 2". Merging a second PDF in could do neither.
+
+  Data belongs in `inputs`, where Typst treats it as literal text. Interpolating invoice data into `source` would give it the run of the document, which is the same rule the invoice template already follows.
+
+  An appendix that reuses a name the invoice has taken — the `invoice` input, or the logo and QR code files — raises `ArgumentError` instead of replacing it.
+
 ## 2.0.0 (2026-08-26)
 
 **Breaking:** Payday now renders with [Typst](https://typst.app) instead of Prawn. The `prawn`, `prawn-table` and `prawn-svg` dependencies are gone, replaced by the single Apache-2.0 licensed `typst` gem, which ships precompiled native builds for macOS and Linux on both x86_64 and arm64.

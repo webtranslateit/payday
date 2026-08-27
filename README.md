@@ -115,6 +115,35 @@ end
 
 Be sure to restart your server after you edit the mime_types initializer. The updated setting won't take effect until you do.
 
+Appending your own pages
+===
+Pass a `Payday::Appendix` to add pages of your own to the end of an invoice — a per-item breakdown, a delivery note, terms and conditions:
+
+``` ruby
+appendix = Payday::Appendix.new(
+  source: File.read('appendix.typ'),
+  inputs: {'shipments' => shipments.to_json},
+  dependencies: {'chart.svg' => File.binread('chart.svg')}
+)
+
+invoice.render_pdf(appendix: appendix)
+```
+
+`source` is [Typst](https://typst.app) markup appended to Payday's own template, so it is compiled as part of the invoice rather than as a second PDF you would then have to merge in. Two things follow from that: your pages inherit the invoice's page setup and margins, and the page counter runs across the whole document, so the numbering footer counts your pages too. A one-page invoice with one appended page comes out numbered "1 / 2" and "2 / 2".
+
+`inputs` reach the template as [sys_inputs](https://typst.app/docs/reference/foundations/sys/), read with `json(bytes(sys.inputs.shipments))`. `dependencies` are files the source can reach by name, with `image("chart.svg")` and the like. Reusing a name the invoice has already taken — the `invoice` input, or the logo and QR code files — raises an `ArgumentError` rather than quietly replacing it.
+
+**Pass your data through `inputs`, never by interpolating it into `source`.** Typst treats a string arriving through `sys.inputs` as literal text, which is what stops a customer-supplied field from affecting the layout. `source` is code: interpolating invoice data into it hands anyone who can set a field on an invoice a way to write Typst.
+
+An appendix that reads its data and prints a heading:
+
+``` typst
+#let a = json(bytes(sys.inputs.shipments))
+
+#pagebreak()
+#text(size: 16pt, weight: "bold")[#a.title]
+```
+
 I18n
 ===
 Payday uses the i18n gem to provide support for custom labels and internationalized applications. You can change the default labels by adding a YAML file in the `config/locales` directory of your Rails app. Here are the default labels you can customize:
