@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name        = 'webtranslateit-payday'
-  s.version     = '2.0.0'
+  s.version     = '2.1.0'
   s.required_ruby_version = '>= 3.2'
   s.platform    = Gem::Platform::RUBY
   s.authors     = ['Alan Johnson', 'Edouard Briere']

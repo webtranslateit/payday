@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## Unreleased
+## 2.1.0 (2026-08-27)
 
 * Add `Payday::Appendix`, for compiling pages of your own onto the end of an invoice. `render_pdf`, `render_pdf_to_file`, `PdfRenderer.render` and `PdfRenderer.render_to_file` all take an `appendix:` keyword; every signature stays backward compatible and an invoice rendered without one is byte-for-byte what it was.
 
