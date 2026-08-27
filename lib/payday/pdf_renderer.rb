@@ -13,13 +13,14 @@ module Payday
     FONTS = %w[NotoSans-Regular.ttf NotoSans-Bold.ttf].freeze
 
     # Renders the given invoice as a pdf on disk
-    def self.render_to_file(invoice, path)
-      File.binwrite(path, render(invoice))
+    def self.render_to_file(invoice, path, appendix: nil)
+      File.binwrite(path, render(invoice, appendix: appendix))
     end
 
-    # Renders the given invoice as a pdf, returning a string
-    def self.render(invoice)
-      new(invoice).render
+    # Renders the given invoice as a pdf, returning a string. See Payday::Appendix for
+    # appending pages of your own to it.
+    def self.render(invoice, appendix: nil)
+      new(invoice, appendix: appendix).render
     end
 
     # Converts this number to a formatted currency string
@@ -39,8 +40,9 @@ module Payday
     end
     private_class_method :currency_for
 
-    def initialize(invoice)
+    def initialize(invoice, appendix: nil)
       @invoice = invoice
+      @appendix = Appendix.wrap(appendix)
       @dependencies = {}
     end
 
@@ -49,12 +51,43 @@ module Payday
       register_qr_code(data[:qr_code])
       data[:logo] = logo
 
-      Typst(body: File.read(TEMPLATE), dependencies: @dependencies, fonts: fonts,
-            sys_inputs: {'invoice' => data.to_json})
+      Typst(body: body, dependencies: dependencies, fonts: fonts, sys_inputs: sys_inputs(data))
         .compile(:pdf).bytes.flatten.pack('C*')
     end
 
     private
+
+    # An appendix is concatenated rather than +#include+d, which would make it a module of its
+    # own and leave the template's page rules -- the margins, and the numbering footer --
+    # stopping at its edge.
+    def body
+      template = File.read(TEMPLATE)
+      return template if @appendix.nil?
+
+      "#{template}\n#{@appendix.source}"
+    end
+
+    def sys_inputs(data)
+      merge({'invoice' => data.to_json}, @appendix&.inputs, 'sys_input')
+    end
+
+    # Read after the logo and the QR code have registered theirs, so an appendix reusing one
+    # of those names is caught rather than silently replacing the file.
+    def dependencies
+      merge(@dependencies, @appendix&.dependencies, 'dependency')
+    end
+
+    def merge(ours, theirs, what)
+      return ours if theirs.nil?
+
+      taken = ours.keys & theirs.keys
+      if taken.any?
+        raise ArgumentError,
+              "appendix #{what} #{taken.map(&:inspect).join(', ')} is reserved by the invoice"
+      end
+
+      ours.merge(theirs)
+    end
 
     def fonts
       FONTS.to_h { |name| [name, File.binread(File.join(FONT_DIR, name))] }

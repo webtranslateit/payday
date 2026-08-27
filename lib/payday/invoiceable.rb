@@ -78,14 +78,15 @@ module Payday
       defined?(paid_at) && !!paid_at
     end
 
-    # Renders this invoice to pdf as a string
-    def render_pdf
-      Payday::PdfRenderer.render(self)
+    # Renders this invoice to pdf as a string. Pass a Payday::Appendix to compile pages of
+    # your own onto the end of it.
+    def render_pdf(appendix: nil)
+      Payday::PdfRenderer.render(self, appendix: appendix)
     end
 
     # Renders this invoice to pdf
-    def render_pdf_to_file(path)
-      Payday::PdfRenderer.render_to_file(self, path)
+    def render_pdf_to_file(path, appendix: nil)
+      Payday::PdfRenderer.render_to_file(self, path, appendix: appendix)
     end
 
     # Iterates through the details on this invoiceable. The block given should accept
