@@ -65,9 +65,8 @@ module Payday
     end
 
     def overdue?
-      # rubocop:todo Layout/LineLength
+      # rubocop:todo-next Layout/LineLength
       defined?(due_at) && ((due_at.is_a?(Date) && due_at < Date.today) || (due_at.is_a?(Time) && due_at < Time.now)) && !paid_at
-      # rubocop:enable Layout/LineLength
     end
 
     def refunded?

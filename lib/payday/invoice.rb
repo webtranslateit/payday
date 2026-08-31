@@ -15,7 +15,7 @@ module Payday
 
     # rubocop:todo Metrics/PerceivedComplexity
     # rubocop:todo Metrics/MethodLength
-    # rubocop:todo Metrics/AbcSize
+    # rubocop:todo-next Metrics/AbcSize
     def initialize(options = {}) # rubocop:todo Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/MethodLength, Metrics/PerceivedComplexity
       self.invoice_number = options[:invoice_number] || nil
       self.bill_to = options[:bill_to] || nil
@@ -36,7 +36,6 @@ module Payday
       self.invoice_date = options[:invoice_date] || nil
       self.qr_code = options[:qr_code] || nil
     end
-    # rubocop:enable Metrics/AbcSize
     # rubocop:enable Metrics/MethodLength
     # rubocop:enable Metrics/PerceivedComplexity
 
