@@ -12,10 +12,8 @@
 # when generating an invoice. We include a simple tax method that calculates tax, but it's probably wiser
 # to override this in your class (our calculated tax won't be stored to a database by default, for example).
 #
-# rubocop:todo Layout/LineLength
-# If the +due_at+, +paid_at+, and +refunded_at+ methods are available, {Payday::Invoiceable} will use them to show due dates,
-# rubocop:enable Layout/LineLength
-# paid dates, and refunded dates, as well as stamps showing if the invoice is paid or due.
+# If the +due_at+, +paid_at+, and +refunded_at+ methods are available, {Payday::Invoiceable} will use them
+# to show due dates, paid dates, and refunded dates, as well as stamps showing if the invoice is paid or due.
 module Payday
 
   module Invoiceable
@@ -53,8 +51,17 @@ module Payday
     end
 
     def overdue?
-      # rubocop:todo-next Layout/LineLength
-      defined?(due_at) && ((due_at.is_a?(Date) && due_at < Date.today) || (due_at.is_a?(Time) && due_at < Time.now)) && !paid_at
+      defined?(due_at) && Invoiceable.past?(due_at) && !paid_at
+    end
+
+    # Whether a Date is before today or a Time before now. A module function rather than a
+    # private method, so it does not land in the classes that include Invoiceable.
+    def self.past?(moment)
+      case moment
+      when Date then moment < Date.today
+      when Time then moment < Time.now
+      else false
+      end
     end
 
     def refunded?
@@ -79,11 +86,9 @@ module Payday
     # Iterates through the details on this invoiceable. The block given should accept
     # two parameters, the detail name and the actual detail value.
     def each_detail
-      return if defined?(invoice_details).nil?
+      return unless defined?(invoice_details)
 
-      invoice_details.each do |detail|
-        yield(detail[0], detail[1])
-      end
+      invoice_details.each { |detail| yield detail[0], detail[1] }
     end
 
   end
