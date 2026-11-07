@@ -1,19 +1,23 @@
 name: Release
 
-# Publishing a GitHub release publishes the gem. Release Drafter keeps a draft up to date as
-# pull requests merge, so shipping is a matter of checking the notes and pressing publish.
+# Merging a version bump publishes the gem. When payday.gemspec changes on main and its version
+# is not on RubyGems yet, this workflow pushes it and creates the GitHub release and tag from the
+# version's changelog entry. A gemspec change that keeps the version (a dependency bump, say)
+# finds it already published and stops there, without failing.
 #
 # There is no API key anywhere. RubyGems trusted publishing signs for the gem, and it trusts
 # this workflow in this repository and nothing else.
 on:
-  release:
-    types: [published]
-  # A release that failed on something unrelated should not need a second GitHub release to
-  # ride in on.
+  push:
+    branches: [main]
+    paths:
+      - "payday.gemspec"
+  # A release that failed on something unrelated should not need a fake version bump to ride
+  # in on.
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   id-token: write
 
 jobs:
@@ -27,50 +31,57 @@ jobs:
           ruby-version: "3.4"
           bundler-cache: true
 
-      # The suite runs again here rather than trusting the pull request's run, because what
-      # ships is this commit, not the one that was reviewed.
-      - run: bundle exec rspec
-      - run: bundle exec rubocop --format github
-
       - name: Read the version from the gemspec
         id: version
         run: |
           version=$(ruby -e 'print Gem::Specification.load("payday.gemspec").version')
           echo "value=${version}" >> "$GITHUB_OUTPUT"
 
-      # The tag and the gemspec are written by hand at different times, so they can disagree.
-      # Publishing either version would be wrong, and the wrong one is unrecoverable: RubyGems
-      # does not let a version number be reused.
-      - name: Check the release tag matches the gemspec
-        if: github.event_name == 'release'
-        env:
-          TAG: ${{ github.event.release.tag_name }}
-          VERSION: ${{ steps.version.outputs.value }}
-        run: |
-          if [ "${TAG#v}" != "${VERSION}" ]; then
-            echo "Release tag ${TAG} does not match gemspec version ${VERSION}."
-            echo "Fix whichever is wrong, then re-run this workflow."
-            exit 1
-          fi
-
-      - name: Stop if this version is already published
+      # RubyGems does not let a version number be reused, so a version that is already out is
+      # never pushed again.
+      - name: Check whether this version is already published
+        id: published
         env:
           VERSION: ${{ steps.version.outputs.value }}
         run: |
           if gem list --remote --exact webtranslateit-payday --all | grep -q "\b${VERSION}\b"; then
-            echo "webtranslateit-payday ${VERSION} is already on RubyGems."
-            exit 1
+            echo "webtranslateit-payday ${VERSION} is already on RubyGems; nothing to release."
+            echo "value=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "value=false" >> "$GITHUB_OUTPUT"
           fi
 
-      # Exchanges this run's OIDC token for a short-lived RubyGems credential.
-      - uses: rubygems/configure-rubygems-credentials@v2.1.0
+      # The suite runs again here rather than trusting the pull request's run, because what
+      # ships is this commit, not the one that was reviewed.
+      - if: steps.published.outputs.value == 'false'
+        run: bundle exec rspec
+      - if: steps.published.outputs.value == 'false'
+        run: bundle exec rubocop --format github
 
-      # Not `rake release`, which is what rubygems/release-gem runs: that creates and pushes
-      # the version tag, and publishing a GitHub release has already created it.
+      # Exchanges this run's OIDC token for a short-lived RubyGems credential.
+      - if: steps.published.outputs.value == 'false'
+        uses: rubygems/configure-rubygems-credentials@v2.1.0
+
       - name: Build and push the gem
+        if: steps.published.outputs.value == 'false'
         run: |
           gem build payday.gemspec
           gem push "webtranslateit-payday-${{ steps.version.outputs.value }}.gem"
 
       - name: Wait for the release to propagate
+        if: steps.published.outputs.value == 'false'
         run: gem exec rubygems-await "webtranslateit-payday-${{ steps.version.outputs.value }}.gem"
+
+      # The notes are the version's changelog entry, so the release page and the changelog
+      # cannot drift apart. Tags carry no "v", like the earlier ones.
+      - name: Create the GitHub release
+        if: steps.published.outputs.value == 'false'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERSION: ${{ steps.version.outputs.value }}
+        run: |
+          notes=$(ruby -e '
+            changelog = File.read("CHANGELOG.md")
+            print changelog[/^## #{Regexp.escape(ENV.fetch("VERSION"))}\b.*?(?=\n## |\z)/m].to_s.strip
+          ')
+          gh release create "${VERSION}" --target "${GITHUB_SHA}" --title "${VERSION}" --notes "${notes}"
