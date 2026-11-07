@@ -31,20 +31,24 @@ module Payday
 
     # Sets the quantity of this {LineItem}
     def quantity=(value)
-      value = 0 if value.to_s.blank?
-      @quantity = BigDecimal(value.to_s)
+      @quantity = to_decimal(value)
     end
 
     # Sets the price for this {LineItem}
     def price=(value)
-      value = 0 if value.to_s.blank?
-      @price = BigDecimal(value.to_s)
+      @price = to_decimal(value)
     end
 
     # Sets the predefined_amount for this {LineItem}
     def predefined_amount=(value)
-      value = 0 if value.to_s.blank?
-      @predefined_amount = BigDecimal(value.to_s)
+      @predefined_amount = to_decimal(value)
+    end
+
+    private
+
+    # A blank value (nil, "", "  ") is 0.
+    def to_decimal(value)
+      BigDecimal(value.to_s.presence || 0)
     end
 
   end
