@@ -20,6 +20,20 @@ module Payday
     it 'defaults to a page size the template understands' do
       expect(described_class.default.page_size).to eq('LETTER')
     end
+
+    describe '#value_for' do
+      it "prefers the invoice's own value" do
+        expect(described_class.default.value_for(Invoice.new(currency: 'EUR'), :currency)).to eq('EUR')
+      end
+
+      it 'falls back to the config when the invoice leaves it unset' do
+        expect(described_class.default.value_for(Invoice.new, :currency)).to eq('USD')
+      end
+
+      it "falls back to the config when the invoice doesn't define it" do
+        expect(described_class.default.value_for(Invoice.new, :page_size)).to eq('LETTER')
+      end
+    end
   end
 
 end

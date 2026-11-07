@@ -144,7 +144,7 @@ module Payday
     def date(value)
       return value.to_s unless value.is_a?(Date) || value.is_a?(Time)
 
-      value.strftime(Payday::Config.default.date_format)
+      value.strftime(setting(:date_format))
     end
 
     def t(key, default)
@@ -152,8 +152,7 @@ module Payday
     end
 
     def setting(property)
-      value = @invoice.public_send(property) if @invoice.respond_to?(property)
-      value || Payday::Config.default.public_send(property)
+      Payday::Config.default.value_for(@invoice, property)
     end
 
   end

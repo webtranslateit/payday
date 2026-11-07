@@ -63,6 +63,12 @@ module Payday # rubocop:todo Metrics/ModuleLength
       expect(presented[:details]).to include(['Due Date:', 'March  2, 2026'])
     end
 
+    it "formats dates with the invoice's own date format when it has one" do
+      invoice.due_at = Date.new(2026, 3, 2)
+      invoice.define_singleton_method(:date_format) { '%d/%m/%Y' }
+      expect(presented[:details]).to include(['Due Date:', '02/03/2026'])
+    end
+
     it 'appends custom invoice details' do
       invoice.invoice_details = [['E-mail:', 'finance@example.com']]
       expect(presented[:details]).to include(['E-mail:', 'finance@example.com'])

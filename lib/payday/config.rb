@@ -18,6 +18,13 @@ module Payday
       @default ||= new
     end
 
+    # The invoice's own value for +property+ when it defines one and it is set, otherwise this
+    # config's. Every setting an invoice can override is read through here.
+    def value_for(invoice, property)
+      value = invoice.public_send(property) if invoice.respond_to?(property)
+      value || public_send(property)
+    end
+
     # Internal: Resets a config object back to its default settings.
     #
     # Primarily intended for use in our tests.
