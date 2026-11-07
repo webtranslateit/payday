@@ -79,11 +79,9 @@ module Payday
     # Iterates through the details on this invoiceable. The block given should accept
     # two parameters, the detail name and the actual detail value.
     def each_detail
-      return if defined?(invoice_details).nil?
+      return unless defined?(invoice_details)
 
-      invoice_details.each do |detail|
-        yield(detail[0], detail[1])
-      end
+      invoice_details.each { |detail| yield detail[0], detail[1] }
     end
 
   end
