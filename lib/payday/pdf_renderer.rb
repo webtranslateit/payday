@@ -34,9 +34,8 @@ module Payday
     end
 
     def self.currency_for(invoice)
-      return invoice.currency if invoice.respond_to?(:currency) && invoice.currency
-
-      Payday::Config.default.currency
+      currency = invoice.currency if invoice.respond_to?(:currency)
+      currency || Payday::Config.default.currency
     end
     private_class_method :currency_for
 
@@ -105,9 +104,8 @@ module Payday
     end
 
     def invoice_logo
-      return @invoice.invoice_logo if @invoice.respond_to?(:invoice_logo) && @invoice.invoice_logo
-
-      Payday::Config.default.invoice_logo
+      logo = @invoice.invoice_logo if @invoice.respond_to?(:invoice_logo)
+      logo || Payday::Config.default.invoice_logo
     end
 
     def logo_parts(setting)
