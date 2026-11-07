@@ -2,7 +2,8 @@
 
 ## 2.1.1 (2026-11-08)
 
-* No change in behaviour. `Invoice#initialize` assigns its options from one list instead of a line each (#314), the rate setters share one conversion and `Invoiceable#tax`, `#shipping` and `#retention` are one-liners (#315).
+* An invoice that defines `date_format` now has its dates formatted with it, the way it could already override `currency`, `invoice_logo`, `page_size`, `company_name` and `company_details`. Every one of those is read through the new `Config#value_for(invoice, property)` (#319, #321). `Payday::Invoice` has no `date_format`, so its output is unchanged.
+* Internal refactoring, no behaviour change: `Invoice#initialize` assigns its options from one list (#314); the invoice rate setters and the `LineItem` setters each share one decimal conversion (#315, #316); `Invoiceable#tax`, `#shipping` and `#retention` are one-liners (#315); `overdue?` reads through `Invoiceable.past?` (#317); `each_detail` is tidied (#318); and two doc comments no longer need RuboCop line-length directives (#320).
 * The code satisfies RuboCop 1.90's `Style/DirectiveScope` cop, the linter runs on Ruby 4.0, and guard and pry are gone from the development setup.
 
 ## 2.1.0 (2026-08-27)
