@@ -53,8 +53,17 @@ module Payday
     end
 
     def overdue?
-      # rubocop:todo-next Layout/LineLength
-      defined?(due_at) && ((due_at.is_a?(Date) && due_at < Date.today) || (due_at.is_a?(Time) && due_at < Time.now)) && !paid_at
+      defined?(due_at) && Invoiceable.past?(due_at) && !paid_at
+    end
+
+    # Whether a Date is before today or a Time before now. A module function rather than a
+    # private method, so it does not land in the classes that include Invoiceable.
+    def self.past?(moment)
+      case moment
+      when Date then moment < Date.today
+      when Time then moment < Time.now
+      else false
+      end
     end
 
     def refunded?
