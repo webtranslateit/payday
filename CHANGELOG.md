@@ -2,7 +2,8 @@
 
 ## 2.1.1 (2026-11-08)
 
-* No change in behaviour. The code satisfies RuboCop 1.90's `Style/DirectiveScope` cop, the linter runs on Ruby 4.0, and guard and pry are gone from the development setup.
+* No change in behaviour. `Invoice#initialize` assigns its options from one list instead of a line each (#314), the rate setters share one conversion and `Invoiceable#tax`, `#shipping` and `#retention` are one-liners (#315).
+* The code satisfies RuboCop 1.90's `Style/DirectiveScope` cop, the linter runs on Ruby 4.0, and guard and pry are gone from the development setup.
 
 ## 2.1.0 (2026-08-27)
 
