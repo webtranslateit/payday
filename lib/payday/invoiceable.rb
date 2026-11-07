@@ -32,31 +32,19 @@ module Payday
 
     # The tax for this invoice, as a BigDecimal
     def tax
-      if defined?(tax_rate)
-        subtotal * tax_rate / 100
-      else
-        0
-      end
+      defined?(tax_rate) ? subtotal * tax_rate / 100 : 0
     end
 
     # TODO: Add a per weight unit shipping cost
     # Calculates the shipping
     def shipping
-      if defined?(shipping_rate)
-        shipping_rate
-      else
-        0
-      end
+      defined?(shipping_rate) ? shipping_rate : 0
     end
 
     # Calculates the retention (e.g. IRPF) as a percentage of the subtotal.
     # This is a post-tax deduction subtracted from the total.
     def retention
-      if defined?(retention_rate)
-        subtotal * retention_rate / 100
-      else
-        0
-      end
+      defined?(retention_rate) ? subtotal * retention_rate / 100 : 0
     end
 
     # Calculates the total for this invoice.

@@ -26,25 +26,29 @@ module Payday
 
     # The tax rate that we're applying, as a BigDecimal
     def tax_rate=(value)
-      value = 0 if value.to_s.blank?
-      @tax_rate = BigDecimal(value.to_s)
+      @tax_rate = to_rate(value)
     end
 
     # Shipping rate
     def shipping_rate=(value)
-      value = 0 if value.to_s.blank?
-      @shipping_rate = BigDecimal(value.to_s)
+      @shipping_rate = to_rate(value)
     end
 
     # Retention rate (e.g. IRPF). Applied as a percentage of the subtotal and deducted from the total.
     def retention_rate=(value)
-      value = 0 if value.to_s.blank?
-      @retention_rate = BigDecimal(value.to_s)
+      @retention_rate = to_rate(value)
     end
 
     # Adds a line item
     def add_line_item(options = {})
       line_items << Payday::LineItem.new(options)
+    end
+
+    private
+
+    # A blank rate (nil, "", "  ") is 0.
+    def to_rate(value)
+      BigDecimal(value.to_s.presence || 0)
     end
 
   end
