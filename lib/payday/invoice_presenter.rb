@@ -152,9 +152,8 @@ module Payday
     end
 
     def setting(property)
-      return @invoice.send(property) if @invoice.respond_to?(property) && @invoice.send(property)
-
-      Payday::Config.default.send(property)
+      value = @invoice.public_send(property) if @invoice.respond_to?(property)
+      value || Payday::Config.default.public_send(property)
     end
 
   end
