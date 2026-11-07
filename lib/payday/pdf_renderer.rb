@@ -27,17 +27,11 @@ module Payday
     def self.number_to_currency(number, invoice)
       Money.locale_backend = :currency
       Money.rounding_mode = BigDecimal::ROUND_HALF_UP
-      currency = Money::Currency.wrap(currency_for(invoice))
+      currency = Money::Currency.wrap(Payday::Config.default.value_for(invoice, :currency))
       number *= currency.subunit_to_unit
       number = number.round unless Money.default_infinite_precision
       Money.new(number, currency).format
     end
-
-    def self.currency_for(invoice)
-      currency = invoice.currency if invoice.respond_to?(:currency)
-      currency || Payday::Config.default.currency
-    end
-    private_class_method :currency_for
 
     def initialize(invoice, appendix: nil)
       @invoice = invoice
@@ -94,18 +88,13 @@ module Payday
 
     # Config#invoice_logo is either a path or a {filename:, size: "WxH"} Hash.
     def logo
-      setting = invoice_logo
+      setting = Payday::Config.default.value_for(@invoice, :invoice_logo)
       return nil if setting.nil?
 
       path, width, height = logo_parts(setting)
       name = "logo#{File.extname(path.to_s)}"
       @dependencies[name] = File.binread(path.to_s)
       {name: name, width: width, height: height}
-    end
-
-    def invoice_logo
-      logo = @invoice.invoice_logo if @invoice.respond_to?(:invoice_logo)
-      logo || Payday::Config.default.invoice_logo
     end
 
     def logo_parts(setting)
