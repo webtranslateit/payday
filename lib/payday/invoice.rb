@@ -13,31 +13,16 @@ module Payday
 
     attr_reader :tax_rate, :shipping_rate, :retention_rate
 
-    # rubocop:todo Metrics/PerceivedComplexity
-    # rubocop:todo Metrics/MethodLength
-    # rubocop:todo-next Metrics/AbcSize
-    def initialize(options = {}) # rubocop:todo Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/MethodLength, Metrics/PerceivedComplexity
-      self.invoice_number = options[:invoice_number] || nil
-      self.bill_to = options[:bill_to] || nil
-      self.ship_to = options[:ship_to] || nil
-      self.notes = options[:notes] || nil
+    # Options assigned as given; a missing one is nil, which the rate setters turn into 0.
+    OPTIONS = %i[invoice_number bill_to ship_to notes shipping_rate shipping_description tax_rate
+                 tax_description retention_rate retention_description due_at paid_at refunded_at
+                 currency invoice_date qr_code].freeze
+
+    def initialize(options = {})
+      OPTIONS.each { |name| public_send(:"#{name}=", options[name]) }
       self.line_items = options[:line_items] || []
-      self.shipping_rate = options[:shipping_rate] || nil
-      self.shipping_description = options[:shipping_description] || nil
-      self.tax_rate = options[:tax_rate] || nil
-      self.tax_description = options[:tax_description] || nil
-      self.retention_rate = options[:retention_rate] || nil
-      self.retention_description = options[:retention_description] || nil
-      self.due_at = options[:due_at] || nil
-      self.paid_at = options[:paid_at] || nil
-      self.refunded_at = options[:refunded_at] || nil
-      self.currency = options[:currency] || nil
       self.invoice_details = options[:invoice_details] || []
-      self.invoice_date = options[:invoice_date] || nil
-      self.qr_code = options[:qr_code] || nil
     end
-    # rubocop:enable Metrics/MethodLength
-    # rubocop:enable Metrics/PerceivedComplexity
 
     # The tax rate that we're applying, as a BigDecimal
     def tax_rate=(value)
