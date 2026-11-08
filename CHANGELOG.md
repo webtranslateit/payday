@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 2.1.2 (2026-11-08)
+
+* Internal refactoring, no behaviour change: rates and line item values are parsed through one `Payday.to_decimal` (#323).
+
 ## 2.1.1 (2026-11-08)
 
 * An invoice that defines `date_format` now has its dates formatted with it, the way it could already override `currency`, `invoice_logo`, `page_size`, `company_name` and `company_details`. Every one of those is read through the new `Config#value_for(invoice, property)` (#319, #321). `Payday::Invoice` has no `date_format`, so its output is unchanged.
