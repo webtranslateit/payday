@@ -18,4 +18,10 @@ require 'time'
 I18n.load_path.concat(Dir[File.expand_path('../config/locales/*.yml', __dir__)])
 
 module Payday
+
+  # A blank value (nil, "", "  ") is 0.
+  def self.to_decimal(value)
+    BigDecimal(value.to_s.presence || 0)
+  end
+
 end
