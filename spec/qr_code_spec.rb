@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-module Payday
+module Tallyman
 
   describe QrCode do
     let(:payload) { 'https://example.com/verify/INV-2024-001' }

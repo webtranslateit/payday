@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-module Payday
+module Tallyman
 
   # Basically just an invoice. Stick a ton of line items in it, add some details, and then render it out!
   class Invoice
 
-    include Payday::Invoiceable
+    include Tallyman::Invoiceable
 
     attr_accessor :invoice_number, :bill_to, :ship_to, :notes, :line_items, :shipping_description,
                   :tax_description, :retention_description, :due_at, :paid_at, :refunded_at, :currency,
@@ -26,22 +26,22 @@ module Payday
 
     # The tax rate that we're applying, as a BigDecimal
     def tax_rate=(value)
-      @tax_rate = Payday.to_decimal(value)
+      @tax_rate = Tallyman.to_decimal(value)
     end
 
     # Shipping rate
     def shipping_rate=(value)
-      @shipping_rate = Payday.to_decimal(value)
+      @shipping_rate = Tallyman.to_decimal(value)
     end
 
     # Retention rate (e.g. IRPF). Applied as a percentage of the subtotal and deducted from the total.
     def retention_rate=(value)
-      @retention_rate = Payday.to_decimal(value)
+      @retention_rate = Tallyman.to_decimal(value)
     end
 
     # Adds a line item
     def add_line_item(options = {})
-      line_items << Payday::LineItem.new(options)
+      line_items << Tallyman::LineItem.new(options)
     end
 
   end

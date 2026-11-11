@@ -1,4 +1,4 @@
-// Payday's invoice layout.
+// Tallyman's invoice layout.
 //
 // All data arrives as JSON through sys.inputs, where Typst inserts string values as literal
 // text rather than markup. Never interpolate invoice data into this file's source, and never
@@ -35,7 +35,7 @@
 )
 #set text(font: "Noto Sans", size: 10pt)
 
-// Renders the styled runs produced by Payday::Markup.
+// Renders the styled runs produced by Tallyman::Markup.
 #let render-runs(runs) = {
   if runs == none { return }
   for r in runs {

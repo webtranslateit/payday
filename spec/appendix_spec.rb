@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-module Payday
+module Tallyman
 
   describe Appendix do
     before { Config.default.reset }

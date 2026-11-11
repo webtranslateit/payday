@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Payday
+module Tallyman
 
   # Renders an invoice to PDF by feeding a presented Hash to the Typst template.
   #
@@ -17,7 +17,7 @@ module Payday
       File.binwrite(path, render(invoice, appendix: appendix))
     end
 
-    # Renders the given invoice as a pdf, returning a string. See Payday::Appendix for
+    # Renders the given invoice as a pdf, returning a string. See Tallyman::Appendix for
     # appending pages of your own to it.
     def self.render(invoice, appendix: nil)
       new(invoice, appendix: appendix).render
@@ -27,7 +27,7 @@ module Payday
     def self.number_to_currency(number, invoice)
       Money.locale_backend = :currency
       Money.rounding_mode = BigDecimal::ROUND_HALF_UP
-      currency = Money::Currency.wrap(Payday::Config.default.value_for(invoice, :currency))
+      currency = Money::Currency.wrap(Tallyman::Config.default.value_for(invoice, :currency))
       number *= currency.subunit_to_unit
       number = number.round unless Money.default_infinite_precision
       Money.new(number, currency).format
@@ -88,7 +88,7 @@ module Payday
 
     # Config#invoice_logo is either a path or a {filename:, size: "WxH"} Hash.
     def logo
-      setting = Payday::Config.default.value_for(@invoice, :invoice_logo)
+      setting = Tallyman::Config.default.value_for(@invoice, :invoice_logo)
       return nil if setting.nil?
 
       path, width, height = logo_parts(setting)

@@ -2,10 +2,10 @@
 
 require 'spec_helper'
 
-module Payday # rubocop:todo Metrics/ModuleLength
+module Tallyman # rubocop:todo Metrics/ModuleLength
 
   describe InvoicePresenter do
-    before { Payday::Config.default.reset }
+    before { Tallyman::Config.default.reset }
 
     let(:invoice) { Invoice.new(invoice_number: 12, bill_to: "Acme\nSpain", currency: 'EUR') }
     let(:presented) { described_class.new(invoice).to_h }

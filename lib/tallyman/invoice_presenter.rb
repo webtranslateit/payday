@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Payday
+module Tallyman
 
   # Turns an Invoiceable into the plain Hash the Typst template consumes.
   #
@@ -148,11 +148,11 @@ module Payday
     end
 
     def t(key, default)
-      I18n.t("payday.#{key}", default: default)
+      I18n.t("tallyman.#{key}", default: default)
     end
 
     def setting(property)
-      Payday::Config.default.value_for(@invoice, property)
+      Tallyman::Config.default.value_for(@invoice, property)
     end
 
   end

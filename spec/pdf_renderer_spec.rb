@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-module Payday
+module Tallyman
 
   describe PdfRenderer do
     describe '.number_to_currency' do

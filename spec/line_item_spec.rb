@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-module Payday
+module Tallyman
 
   describe LineItem do
     it 'is able to be initialized with a price' do

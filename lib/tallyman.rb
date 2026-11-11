@@ -17,7 +17,7 @@ require 'time'
 # directory, or the locales only load when the process happens to be running from the gem root.
 I18n.load_path.concat(Dir[File.expand_path('../config/locales/*.yml', __dir__)])
 
-module Payday
+module Tallyman
 
   # A blank value (nil, "", "  ") is 0.
   def self.to_decimal(value)

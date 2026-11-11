@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## 1.0.0 (2026-11-11)
+
+**Breaking:** the gem is renamed from `webtranslateit-payday` to `tallyman`, and its repository moves to [Rebase-Capital/tallyman](https://github.com/Rebase-Capital/tallyman). Version numbers start over with the new name: 1.0.0 follows `webtranslateit-payday` 2.1.2 and nothing about how invoices are computed or rendered changes. To upgrade:
+
+* In your Gemfile, replace `gem 'webtranslateit-payday', require: 'payday'` with `gem 'tallyman'`.
+* Rename the `Payday` module to `Tallyman` wherever you use it: `Tallyman::Invoice`, `Tallyman::Config`, `Tallyman::Invoiceable`, `Tallyman::LineItemable`, `Tallyman::Appendix` and so on.
+* If you override the invoice labels, move your translations from the `payday:` I18n key to `tallyman:`.
+* The Rails generator is now `rails generate tallyman:setup`.
+
 ## 2.1.2 (2026-11-08)
 
 * Internal refactoring, no behaviour change: rates and line item values are parsed through one `Payday.to_decimal` (#323).

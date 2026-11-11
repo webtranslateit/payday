@@ -1,4 +1,4 @@
-class CreatePaydayTables < ActiveRecord::Migration
+class CreateTallymanTables < ActiveRecord::Migration
   def self.up
     create_table :<%= options.invoice_name.pluralize.underscore.split("/").last %> do |t|
       # invoices will work without anything but bill_to, but there are quite a few options for the fields you can save, like ship_to

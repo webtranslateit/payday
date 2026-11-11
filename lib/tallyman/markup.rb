@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-module Payday
+module Tallyman
 
-  # Converts the Prawn +inline_format+ markup Payday used to accept in notes and line item
+  # Converts the Prawn +inline_format+ markup Tallyman used to accept in notes and line item
   # descriptions into structured runs that the Typst template can style.
   #
   # We deliberately produce data rather than Typst source. The template renders each run's

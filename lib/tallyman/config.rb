@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
-module Payday
+module Tallyman
 
-  # Configuration for Payday. This is a singleton, so to set the company_name you would call
-  # Payday::Config.default.company_name = "Awesome Corp".
+  # Configuration for Tallyman. This is a singleton, so to set the company_name you would call
+  # Tallyman::Config.default.company_name = "Awesome Corp".
   class Config
 
     attr_accessor :invoice_logo, :company_name, :company_details, :date_format, :currency
 
-    # Sets the page size to use. Accepts the names Payday has always taken, 'LETTER', 'A4'
+    # Sets the page size to use. Accepts the names Tallyman has always taken, 'LETTER', 'A4'
     # and 'LEGAL', which the template maps onto the equivalent Typst paper. Anything else
     # falls back to A4.
     attr_accessor :page_size

@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-# Include this module into your line item implementation to make sure that Payday stays happy
+# Include this module into your line item implementation to make sure that Tallyman stays happy
 # with it, or just make sure that your line item implements the amount method.
-module Payday
+module Tallyman
 
   module LineItemable
 

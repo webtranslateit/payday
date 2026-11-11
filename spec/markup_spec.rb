@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-module Payday
+module Tallyman
 
   describe Markup do
     describe '.to_runs' do

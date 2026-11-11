@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Payday
+module Tallyman
 
   # Represents a line item in an invoice.
   #
@@ -29,17 +29,17 @@ module Payday
 
     # Sets the quantity of this {LineItem}
     def quantity=(value)
-      @quantity = Payday.to_decimal(value)
+      @quantity = Tallyman.to_decimal(value)
     end
 
     # Sets the price for this {LineItem}
     def price=(value)
-      @price = Payday.to_decimal(value)
+      @price = Tallyman.to_decimal(value)
     end
 
     # Sets the predefined_amount for this {LineItem}
     def predefined_amount=(value)
-      @predefined_amount = Payday.to_decimal(value)
+      @predefined_amount = Tallyman.to_decimal(value)
     end
 
   end

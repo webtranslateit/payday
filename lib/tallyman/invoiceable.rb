@@ -1,20 +1,20 @@
 # frozen_string_literal: true
 
-# Include {Payday::Invoiceable} in your Invoice class to make it Payday compatible. Payday
-# expects that a +line_items+ method containing an Enumerable of {Payday::LineItem} compatible
+# Include {Tallyman::Invoiceable} in your Invoice class to make it Tallyman compatible. Tallyman
+# expects that a +line_items+ method containing an Enumerable of {Tallyman::LineItem} compatible
 # elements exists. Those LineItem objects primarily need to include quantity, price, and description methods.
 #
 # The +bill_to+ method should always be overwritten by your class. Otherwise, it'll say that your invoice should
 # be billed to Goofy McGoofison. +ship_to+ is also available, but will not be used in rendered invoices if it
 # doesn't exist.
 #
-# Although not required, if a +tax_rate+ method exists, {Payday::Invoiceable} will use it to calculate tax
+# Although not required, if a +tax_rate+ method exists, {Tallyman::Invoiceable} will use it to calculate tax
 # when generating an invoice. We include a simple tax method that calculates tax, but it's probably wiser
 # to override this in your class (our calculated tax won't be stored to a database by default, for example).
 #
-# If the +due_at+, +paid_at+, and +refunded_at+ methods are available, {Payday::Invoiceable} will use them
+# If the +due_at+, +paid_at+, and +refunded_at+ methods are available, {Tallyman::Invoiceable} will use them
 # to show due dates, paid dates, and refunded dates, as well as stamps showing if the invoice is paid or due.
-module Payday
+module Tallyman
 
   module Invoiceable
 
@@ -72,15 +72,15 @@ module Payday
       defined?(paid_at) && !!paid_at
     end
 
-    # Renders this invoice to pdf as a string. Pass a Payday::Appendix to compile pages of
+    # Renders this invoice to pdf as a string. Pass a Tallyman::Appendix to compile pages of
     # your own onto the end of it.
     def render_pdf(appendix: nil)
-      Payday::PdfRenderer.render(self, appendix: appendix)
+      Tallyman::PdfRenderer.render(self, appendix: appendix)
     end
 
     # Renders this invoice to pdf
     def render_pdf_to_file(path, appendix: nil)
-      Payday::PdfRenderer.render_to_file(self, path, appendix: appendix)
+      Tallyman::PdfRenderer.render_to_file(self, path, appendix: appendix)
     end
 
     # Iterates through the details on this invoiceable. The block given should accept

@@ -1,13 +1,13 @@
 require "rails/generators"
 require "rails/generators/migration"
 
-# rails g payday:setup <invoice_name> <line_item_name>
-# Generates models for invoicing with Payday includes prepped
+# rails g tallyman:setup <invoice_name> <line_item_name>
+# Generates models for invoicing with Tallyman includes prepped
 # Params:
 
 # OPTIONS:
 # --skip-migration - Does not create the migration file for invoicing
-module Payday
+module Tallyman
   class SetupGenerator < Rails::Generators::Base
     include Rails::Generators::Migration
 
@@ -27,7 +27,7 @@ module Payday
 
     def generate_migration
       unless options.skip_migration?
-        migration_template "migration.rb", "db/migrate/create_payday_tables.rb"
+        migration_template "migration.rb", "db/migrate/create_tallyman_tables.rb"
       end
     end
 

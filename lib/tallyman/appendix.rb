@@ -1,17 +1,17 @@
 # frozen_string_literal: true
 
-module Payday
+module Tallyman
 
   # Extra pages compiled onto the end of an invoice.
   #
-  #   appendix = Payday::Appendix.new(
+  #   appendix = Tallyman::Appendix.new(
   #     source: File.read('appendix.typ'),
   #     inputs: {'shipments' => shipments.to_json},
   #     dependencies: {'chart.svg' => File.binread('chart.svg')}
   #   )
   #   invoice.render_pdf(appendix: appendix)
   #
-  # +source+ is Typst markup appended to Payday's own template, so it is compiled as part of
+  # +source+ is Typst markup appended to Tallyman's own template, so it is compiled as part of
   # the invoice rather than as a second document that would then have to be merged in. Two
   # things follow from that. The template's +#set page+ rules stay in force, so the appended
   # pages keep the invoice's margins; and the page counter runs across the whole document, so

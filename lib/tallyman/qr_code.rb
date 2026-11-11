@@ -2,7 +2,7 @@
 
 require 'rqrcode'
 
-module Payday
+module Tallyman
 
   # Draws a QR code as an SVG.
   #

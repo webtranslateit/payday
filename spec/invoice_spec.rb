@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-module Payday # rubocop:todo Metrics/ModuleLength
+module Tallyman # rubocop:todo Metrics/ModuleLength
 
   describe Invoice do
     # rubocop:todo RSpec/MultipleExpectations
@@ -210,7 +210,7 @@ module Payday # rubocop:todo Metrics/ModuleLength
         end
 
         it 'renders an invoice correctly' do # rubocop:todo RSpec/ExampleLength
-          Payday::Config.default.company_details = <<~DETAILS
+          Tallyman::Config.default.company_details = <<~DETAILS
             10 This Way
             Manhattan, NY 10001
             800-111-2222
@@ -230,7 +230,7 @@ module Payday # rubocop:todo Metrics/ModuleLength
       context 'with the locale set to Spanish' do
         it 'renders and invoice in Spanish' do # rubocop:todo RSpec/ExampleLength
           I18n.with_locale :es do
-            Payday::Config.default.company_details = 'Dirección'
+            Tallyman::Config.default.company_details = 'Dirección'
 
             invoice.line_items += [
               LineItem.new(price: 20, quantity: 5, description: 'Pantalones'),
@@ -253,7 +253,7 @@ module Payday # rubocop:todo Metrics/ModuleLength
         end
 
         it 'renders an invoice correctly' do # rubocop:todo RSpec/ExampleLength
-          Payday::Config.default.company_details = <<~DETAILS
+          Tallyman::Config.default.company_details = <<~DETAILS
             10 This Way
             Manhattan, NY 10001
             800-111-2222
@@ -271,7 +271,7 @@ module Payday # rubocop:todo Metrics/ModuleLength
       context 'paid, with an svg logo' do # rubocop:todo RSpec/ContextWording
         before do
           logo = {filename: 'spec/assets/tiger.svg', size: '100x100'}
-          Payday::Config.default.invoice_logo = logo
+          Tallyman::Config.default.invoice_logo = logo
         end
 
         let(:invoice_params) { {paid_at: Date.civil(2012, 2, 22)} }
@@ -289,8 +289,8 @@ module Payday # rubocop:todo Metrics/ModuleLength
 
       context 'with QR code' do
         it 'renders a complete invoice with QR code correctly' do # rubocop:todo RSpec/ExampleLength
-          Payday::Config.default.company_name = 'Example Company'
-          Payday::Config.default.company_details = "123 Business St\nCity, ST 12345\ninfo@example.com"
+          Tallyman::Config.default.company_name = 'Example Company'
+          Tallyman::Config.default.company_details = "123 Business St\nCity, ST 12345\ninfo@example.com"
 
           notes = "<b>Payment Terms:</b> Net 30 days\n\n" \
                   "<b>Verification:</b> Scan the QR code below to verify this invoice online.\n\n" \

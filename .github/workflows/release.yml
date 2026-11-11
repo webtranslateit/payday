@@ -1,6 +1,6 @@
 name: Release
 
-# Merging a version bump publishes the gem. When payday.gemspec changes on main and its version
+# Merging a version bump publishes the gem. When tallyman.gemspec changes on main and its version
 # is not on RubyGems yet, this workflow pushes it and creates the GitHub release and tag from the
 # version's changelog entry. A gemspec change that keeps the version (a dependency bump, say)
 # finds it already published and stops there, without failing.
@@ -11,7 +11,7 @@ on:
   push:
     branches: [main]
     paths:
-      - "payday.gemspec"
+      - "tallyman.gemspec"
   # A release that failed on something unrelated should not need a fake version bump to ride
   # in on.
   workflow_dispatch:
@@ -34,7 +34,7 @@ jobs:
       - name: Read the version from the gemspec
         id: version
         run: |
-          version=$(ruby -e 'print Gem::Specification.load("payday.gemspec").version')
+          version=$(ruby -e 'print Gem::Specification.load("tallyman.gemspec").version')
           echo "value=${version}" >> "$GITHUB_OUTPUT"
 
       # RubyGems does not let a version number be reused, so a version that is already out is
@@ -44,8 +44,8 @@ jobs:
         env:
           VERSION: ${{ steps.version.outputs.value }}
         run: |
-          if gem list --remote --exact webtranslateit-payday --all | grep -q "\b${VERSION}\b"; then
-            echo "webtranslateit-payday ${VERSION} is already on RubyGems; nothing to release."
+          if gem list --remote --exact tallyman --all | grep -q "\b${VERSION}\b"; then
+            echo "tallyman ${VERSION} is already on RubyGems; nothing to release."
             echo "value=true" >> "$GITHUB_OUTPUT"
           else
             echo "value=false" >> "$GITHUB_OUTPUT"
@@ -65,12 +65,12 @@ jobs:
       - name: Build and push the gem
         if: steps.published.outputs.value == 'false'
         run: |
-          gem build payday.gemspec
-          gem push "webtranslateit-payday-${{ steps.version.outputs.value }}.gem"
+          gem build tallyman.gemspec
+          gem push "tallyman-${{ steps.version.outputs.value }}.gem"
 
       - name: Wait for the release to propagate
         if: steps.published.outputs.value == 'false'
-        run: gem exec rubygems-await "webtranslateit-payday-${{ steps.version.outputs.value }}.gem"
+        run: gem exec rubygems-await "tallyman-${{ steps.version.outputs.value }}.gem"
 
       # The notes are the version's changelog entry, so the release page and the changelog
       # cannot drift apart. Tags carry no "v", like the earlier ones.

@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-module Payday
+module Tallyman
 
   describe Config do
     before { described_class.default.reset }
@@ -14,7 +14,7 @@ module Payday
     end
 
     it 'keeps the default logo under lib, where the packaged gem can reach it' do
-      expect(described_class.default.invoice_logo).to include('/lib/payday/assets/')
+      expect(described_class.default.invoice_logo).to include('/lib/tallyman/assets/')
     end
 
     it 'defaults to a page size the template understands' do

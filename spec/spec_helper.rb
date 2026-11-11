@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../lib/payday'
+require_relative '../lib/tallyman'
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories.
