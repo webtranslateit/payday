@@ -8,7 +8,7 @@ module Tallyman
 
     attr_accessor :invoice_logo, :company_name, :company_details, :date_format, :currency
 
-    # Sets the page size to use. Accepts the names Tallyman has always taken, 'LETTER', 'A4'
+    # Sets the page size to use. Accepts the names 'LETTER', 'A4'
     # and 'LEGAL', which the template maps onto the equivalent Typst paper. Anything else
     # falls back to A4.
     attr_accessor :page_size
