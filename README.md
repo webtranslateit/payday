@@ -3,14 +3,14 @@ Payday!
 
 > **Payday is now [Tallyman](https://github.com/Rebase-Capital/tallyman).** This gem is no longer maintained, and 2.1.3 is its final release. Development continues under the new name, in the [`tallyman`](https://rubygems.org/gems/tallyman) gem.
 >
-> Tallyman 1.0.0 is `webtranslateit-payday` 2.1.2 under its new name. To move over:
+> Tallyman 1.0.0 carries on from `webtranslateit-payday` 2.1.2. To move over:
 >
 > * In your Gemfile, replace `gem 'webtranslateit-payday', require: 'payday'` with `gem 'tallyman'`.
 > * Rename the `Payday` module to `Tallyman` wherever you use it.
 > * If you override the invoice labels, move your translations from the `payday:` I18n key to `tallyman:`.
 > * The Rails generator is `rails generate tallyman:setup`.
 >
-> Some translated labels were reworded in Tallyman; its [changelog](https://github.com/Rebase-Capital/tallyman/blob/main/CHANGELOG.md) lists them.
+> Tallyman 1.0.0 also changes a few things: some translated labels are reworded, an ActiveRecord invoice with a `bill_to` column is billed to whoever that column names instead of a placeholder, and the Rails generator is rewritten. Its [changelog](https://github.com/Rebase-Capital/tallyman/blob/main/CHANGELOG.md) has the details.
 
 Payday is a library for rendering invoices to pdfs.
 

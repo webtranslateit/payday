@@ -19,7 +19,8 @@ Gem::Specification.new do |s|
 
         gem 'tallyman'
 
-    and rename the Payday module to Tallyman. More at https://github.com/Rebase-Capital/tallyman
+    then rename the Payday module to Tallyman, and move any label overrides from the
+    payday: I18n key to tallyman:. More at https://github.com/Rebase-Capital/tallyman
   MESSAGE
 
   s.add_dependency 'activesupport', '>= 7', '< 9'
