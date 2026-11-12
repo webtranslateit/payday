@@ -19,9 +19,16 @@ I18n.load_path.concat(Dir[File.expand_path('../config/locales/*.yml', __dir__)])
 
 module Payday
 
+  DEPRECATION = '[DEPRECATION] webtranslateit-payday is no longer maintained and has moved to the ' \
+                "tallyman gem. Replace it with `gem 'tallyman'` and rename the Payday module to " \
+                'Tallyman: https://github.com/Rebase-Capital/tallyman'
+
   # A blank value (nil, "", "  ") is 0.
   def self.to_decimal(value)
     BigDecimal(value.to_s.presence || 0)
   end
 
 end
+
+# Printed once, when the gem is required, so that it shows up wherever an application boots.
+warn Payday::DEPRECATION

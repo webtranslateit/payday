@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## 2.1.3 (2026-11-12)
+
+The final release. Payday has been renamed [Tallyman](https://github.com/Rebase-Capital/tallyman) and this gem is no longer maintained.
+
+* Nothing about how invoices are computed or rendered changes from 2.1.2.
+* Requiring the gem prints a deprecation warning that points to `tallyman`, and installing it shows the same notice as a post-install message.
+* To move over, replace `gem 'webtranslateit-payday', require: 'payday'` with `gem 'tallyman'`, rename the `Payday` module to `Tallyman`, and move any label overrides from the `payday:` I18n key to `tallyman:`. The README has the details.
+
 ## 2.1.2 (2026-11-08)
 
 * Internal refactoring, no behaviour change: rates and line item values are parsed through one `Payday.to_decimal` (#323).
